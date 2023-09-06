@@ -24,6 +24,11 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@wix/data": "^1.0.37",
+    "@wix/ecom": "^1.0.316",
+    "@wix/redirects": "^1.0.23",
+    "@wix/sdk": "^1.2.8",
+    "@wix/stores": "^1.0.89",
     "clsx": "^2.0.0",
     "geist": "^1.0.0",
     "next": "14.0.0",

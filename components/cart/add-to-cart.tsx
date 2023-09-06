@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { ProductVariant } from 'lib/wix/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 
@@ -64,9 +64,11 @@ function SubmitButton({
 }
 
 export function AddToCart({
+  productId,
   variants,
   availableForSale
 }: {
+  productId: string;
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
@@ -78,12 +80,11 @@ export function AddToCart({
       (option) => option.value === searchParams.get(option.name.toLowerCase())
     )
   );
-  const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const actionWithVariant = formAction.bind(null, { variant, productId });
 
   return (
     <form action={actionWithVariant}>
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
+      <SubmitButton availableForSale={availableForSale} selectedVariantId={variant?.id ?? defaultVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

@@ -1,7 +1,5 @@
 import OpengraphImage from 'components/opengraph-image';
-import { getCollection } from 'lib/shopify';
-
-export const runtime = 'edge';
+import { getCollection } from 'lib/wix';
 
 export default async function Image({ params }: { params: { collection: string } }) {
   const collection = await getCollection(params.collection);

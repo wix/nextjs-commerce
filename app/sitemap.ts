@@ -1,5 +1,5 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
 import { validateEnvironmentVariables } from 'lib/utils';
+import { getCollections, getPages, getProducts } from 'lib/wix';
 import { MetadataRoute } from 'next';
 
 type Route = {
