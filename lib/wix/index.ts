@@ -50,7 +50,7 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
         },
         merchandise: {
           id: item._id!,
-          title: item.productName?.original!,
+          title: item.descriptionLines?.map(x => x.colorInfo?.original ?? x.plainText?.original).join(' / ') ?? '',
           selectedOptions: [],
           product: {
             handle: item.url?.split('/').pop() ?? '',
@@ -59,7 +59,8 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
               url: media.getImageUrl(item.image!).url,
               width: media.getImageUrl(item.image!).width,
               height: media.getImageUrl(item.image!).height
-            }
+            },
+            title: item.productName?.original!,
           } as any as Product,
           url: `/product/${item.url?.split('/').pop() ?? ''}`
         }
