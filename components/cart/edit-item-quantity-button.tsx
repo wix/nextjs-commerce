@@ -5,7 +5,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { removeItem, updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import type { CartItem } from 'lib/shopify/types';
+import type { CartItem } from 'lib/wix/types';
 
 export default function EditItemQuantityButton({
   item,
@@ -26,10 +26,10 @@ export default function EditItemQuantityButton({
             type === 'minus' && item.quantity - 1 === 0
               ? await removeItem(item.id)
               : await updateItemQuantity({
-                  lineId: item.id,
-                  variantId: item.merchandise.id,
-                  quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-                });
+                lineId: item.id,
+                variantId: item.merchandise.id,
+                quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+              });
 
           if (error) {
             // Trigger the error boundary in the root error.js
