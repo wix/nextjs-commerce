@@ -28,7 +28,7 @@ Together with a Wix Store for headless commerce featuring:
 
 For this template to fully function, you need to set up a Wix Store before developing.
 
-Here you can find the [full documentation on getting started with Wix Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless). Explore to the documentation to learn more about building headless experiences with Wix.
+Here you can find the [full documentation on getting started with Wix Headless](https://dev.wix.com/docs/go-headless/getting-started/about-headless/about-wix-headless). Explore the documentation to learn more about building headless experiences with Wix.
 
 ### Create a new Wix Store TL;DR
 
