@@ -41,7 +41,7 @@ export default async function Footer() {
           <a
             className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
             aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
+            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwix%2Fnextjs-commerce&env=COMPANY_NAME,WIX_CLIENT_ID,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE&envDescription=Supply%20the%20Wix%20Client%20ID%20for%20your%20Wix%20Store.&envLink=https%3A%2F%2Fdev.wix.com%2Fdocs%2Fgo-headless%2Fgetting-started%2Fsetup%2Fauthorization%2Fcreate-an-o-auth-app-for-visitors-and-members&demo-title=Wix%20Store%20Demo&demo-description=A%20NextJS%20Commerce%20site%20working%20with%20Wix%20Stores&demo-url=https%3A%2F%2Fwix-nextjs-commerce.vercel.app%2F&demo-image=https%3A%2F%2Fstatic.wixstatic.com%2Fmedia%2F8dfd06_e9c49cd22b95454daac5e46a92bbad79~mv2.png"
           >
             <span className="px-3">▲</span>
             <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
