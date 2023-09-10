@@ -139,7 +139,7 @@ const reshapeProduct = (item: products.Product) => {
             amount: String(variant.variant?.priceData?.price),
             currencyCode: variant.variant?.priceData?.currency
           },
-          availableForSale: variant.stock?.trackQuantity ? variant.stock.inStock : true,
+          availableForSale: variant.stock?.trackQuantity ? (variant.stock?.quantity ?? 0 > 0) : true,
           selectedOptions: Object.entries(variant.choices ?? {}).map(([name, value]) => ({
             name,
             value
