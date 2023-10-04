@@ -345,7 +345,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   return (
     menu?.data!.pages.map((page: { title: string; slug: string }) => ({
       title: page.title,
-      path: page.slug
+      path: '/' + page.slug
     })) || []
   );
 }
@@ -378,7 +378,7 @@ export async function getPage(handle: string): Promise<Page | undefined> {
   return {
     id: page._id!,
     title: page.data!.title,
-    handle: page.data!.slug,
+    handle: '/' + page.data!.slug,
     body: page.data!.body,
     bodySummary: '',
     createdAt: page.data!._createdDate.$date,
