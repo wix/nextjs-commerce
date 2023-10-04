@@ -8,8 +8,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@wix/sdk':
-    specifier: ^1.5.1
-    version: 1.5.1
+    specifier: ^1.5.3
+    version: 1.5.3
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
@@ -659,12 +659,21 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+    dev: true
 
   /@babel/runtime@7.22.6:
     resolution: {integrity: sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.11
+    dev: true
+
+  /@babel/runtime@7.23.1:
+    resolution: {integrity: sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/template@7.22.15:
     resolution: {integrity: sha512-QPErUVm4uyJa60rkI73qneDacvdvzxshT3kksGqlGWYdOTIUOwJ7RDUL8sGqslY1uXWSL6xMFKEXDS3ox2uF0w==}
@@ -1429,6 +1438,87 @@ packages:
       glob: 7.1.7
     dev: true
 
+  /@next/swc-darwin-arm64@13.4.13-canary.15:
+    resolution: {integrity: sha512-ymE/tPjf5DXIqWxEefkqGX094ZDpKw/0sKb7xmzF0m8Kolac1eqA6ZnCsb1TKXYVQyrGUx/Z0xmxCK4cm2dEdw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-darwin-x64@13.4.13-canary.15:
+    resolution: {integrity: sha512-B9fCPRjE1t5r1bmivq5fqHvU8mLNX7hkS2zj9arVrZEC7HdOugbSOpmQb5+yr5ZmNKMItQbPDJIATY+ZAiUtww==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-arm64-gnu@13.4.13-canary.15:
+    resolution: {integrity: sha512-K30IPFxZPtZLs1gqir95oNdCNgmu0awbC7MMLqOu9+wmW+LYjA6M3ltRe2Duy9nZ7JQob1oRl/s7MMbtCuzVAA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-arm64-musl@13.4.13-canary.15:
+    resolution: {integrity: sha512-ClJvWIhvCLXM3iSMet9bqKxyxifN7DGo8+wiV8gwIU+OMWHGNgGtmZ3xXae3R91w8DOLrsREyBN4uGLlgpwRXg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-x64-gnu@13.4.13-canary.15:
+    resolution: {integrity: sha512-/B0xaPcdx2HWDC9Bxks3dLIUyu9Falmd7ENRanYizfdihgM+kV2zIQe/5h5zaESKMEltLt2ELPOPCaFU5gOnYA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-x64-musl@13.4.13-canary.15:
+    resolution: {integrity: sha512-YZZlKne+5iwsPe9yN8QP5sfyDN7ybpWTuYukfv6sKL68STuAVqqp4QX2g7a3Fw+LMJiDwyCFJaUDgO9KSLEqDw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-arm64-msvc@13.4.13-canary.15:
+    resolution: {integrity: sha512-nOi9w+E+ajqJuQhcB260AMJERJPYS1K5pL+5Rymyt9VWCZEJZiHTRuaf8y/H7sObZcQKwRVa7C/EWyZjj658XA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-ia32-msvc@13.4.13-canary.15:
+    resolution: {integrity: sha512-EqV5Bt7TmdFWa00KkoEeb5K4uRFrV1BAiwqylsk+d+2U1N2UIad/dTOyTzobjDcZ9uii1EaCVMiTuMfcsGIahw==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-x64-msvc@13.4.13-canary.15:
+    resolution: {integrity: sha512-hZcZ0vS1eevRTr1JUyDfTYXF36DBEowNZWyzNW8ZrlGMZyQloE9yf/jHoLtutxr2jV6GoHWGGqVSw4exOyjjKw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -1450,6 +1540,114 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@parcel/watcher-android-arm64@2.3.0:
+    resolution: {integrity: sha512-f4o9eA3dgk0XRT3XhB0UWpWpLnKgrh1IwNJKJ7UJek7eTYccQ8LR7XUWFKqw6aEq5KUNlCcGvSzKqSX/vtWVVA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-darwin-arm64@2.3.0:
+    resolution: {integrity: sha512-mKY+oijI4ahBMc/GygVGvEdOq0L4DxhYgwQqYAz/7yPzuGi79oXrZG52WdpGA1wLBPrYb0T8uBaGFo7I6rvSKw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-darwin-x64@2.3.0:
+    resolution: {integrity: sha512-20oBj8LcEOnLE3mgpy6zuOq8AplPu9NcSSSfyVKgfOhNAc4eF4ob3ldj0xWjGGbOF7Dcy1Tvm6ytvgdjlfUeow==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-freebsd-x64@2.3.0:
+    resolution: {integrity: sha512-7LftKlaHunueAEiojhCn+Ef2CTXWsLgTl4hq0pkhkTBFI3ssj2bJXmH2L67mKpiAD5dz66JYk4zS66qzdnIOgw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-linux-arm-glibc@2.3.0:
+    resolution: {integrity: sha512-1apPw5cD2xBv1XIHPUlq0cO6iAaEUQ3BcY0ysSyD9Kuyw4MoWm1DV+W9mneWI+1g6OeP6dhikiFE6BlU+AToTQ==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-linux-arm64-glibc@2.3.0:
+    resolution: {integrity: sha512-mQ0gBSQEiq1k/MMkgcSB0Ic47UORZBmWoAWlMrTW6nbAGoLZP+h7AtUM7H3oDu34TBFFvjy4JCGP43JlylkTQA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-linux-arm64-musl@2.3.0:
+    resolution: {integrity: sha512-LXZAExpepJew0Gp8ZkJ+xDZaTQjLHv48h0p0Vw2VMFQ8A+RKrAvpFuPVCVwKJCr5SE+zvaG+Etg56qXvTDIedw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-linux-x64-glibc@2.3.0:
+    resolution: {integrity: sha512-P7Wo91lKSeSgMTtG7CnBS6WrA5otr1K7shhSjKHNePVmfBHDoAOHYRXgUmhiNfbcGk0uMCHVcdbfxtuiZCHVow==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-linux-x64-musl@2.3.0:
+    resolution: {integrity: sha512-+kiRE1JIq8QdxzwoYY+wzBs9YbJ34guBweTK8nlzLKimn5EQ2b2FSC+tAOpq302BuIMjyuUGvBiUhEcLIGMQ5g==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-win32-arm64@2.3.0:
+    resolution: {integrity: sha512-35gXCnaz1AqIXpG42evcoP2+sNL62gZTMZne3IackM+6QlfMcJLy3DrjuL6Iks7Czpd3j4xRBzez3ADCj1l7Aw==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-win32-ia32@2.3.0:
+    resolution: {integrity: sha512-FJS/IBQHhRpZ6PiCjFt1UAcPr0YmCLHRbTc00IBTrelEjlmmgIVLeOx4MSXzx2HFEy5Jo5YdhGpxCuqCyDJ5ow==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@parcel/watcher-win32-x64@2.3.0:
+    resolution: {integrity: sha512-dLx+0XRdMnVI62kU3wbXvbIRhLck4aE28bIGKbRGS7BJNt54IIj9+c/Dkqb+7DJEbHUZAX1bwaoM8PqVlHJmCA==}
+    engines: {node: '>= 10.0.0'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   /@parcel/watcher@2.3.0:
     resolution: {integrity: sha512-pW7QaFiL11O0BphO+bq3MgqeX/INAk9jgBldVDYjlQPO4VddoZnF22TcF9onMhnLVHuNqBJeRf+Fj7eezi/+rQ==}
     engines: {node: '>= 10.0.0'}
@@ -1459,18 +1657,18 @@ packages:
       micromatch: 4.0.5
       node-addon-api: 7.0.0
     optionalDependencies:
-      '@parcel/watcher-android-arm64': repo.dev.wixpress.com/@parcel/watcher-android-arm64@2.3.0
-      '@parcel/watcher-darwin-arm64': repo.dev.wixpress.com/@parcel/watcher-darwin-arm64@2.3.0
-      '@parcel/watcher-darwin-x64': repo.dev.wixpress.com/@parcel/watcher-darwin-x64@2.3.0
-      '@parcel/watcher-freebsd-x64': repo.dev.wixpress.com/@parcel/watcher-freebsd-x64@2.3.0
-      '@parcel/watcher-linux-arm-glibc': repo.dev.wixpress.com/@parcel/watcher-linux-arm-glibc@2.3.0
-      '@parcel/watcher-linux-arm64-glibc': repo.dev.wixpress.com/@parcel/watcher-linux-arm64-glibc@2.3.0
-      '@parcel/watcher-linux-arm64-musl': repo.dev.wixpress.com/@parcel/watcher-linux-arm64-musl@2.3.0
-      '@parcel/watcher-linux-x64-glibc': repo.dev.wixpress.com/@parcel/watcher-linux-x64-glibc@2.3.0
-      '@parcel/watcher-linux-x64-musl': repo.dev.wixpress.com/@parcel/watcher-linux-x64-musl@2.3.0
-      '@parcel/watcher-win32-arm64': repo.dev.wixpress.com/@parcel/watcher-win32-arm64@2.3.0
-      '@parcel/watcher-win32-ia32': repo.dev.wixpress.com/@parcel/watcher-win32-ia32@2.3.0
-      '@parcel/watcher-win32-x64': repo.dev.wixpress.com/@parcel/watcher-win32-x64@2.3.0
+      '@parcel/watcher-android-arm64': 2.3.0
+      '@parcel/watcher-darwin-arm64': 2.3.0
+      '@parcel/watcher-darwin-x64': 2.3.0
+      '@parcel/watcher-freebsd-x64': 2.3.0
+      '@parcel/watcher-linux-arm-glibc': 2.3.0
+      '@parcel/watcher-linux-arm64-glibc': 2.3.0
+      '@parcel/watcher-linux-arm64-musl': 2.3.0
+      '@parcel/watcher-linux-x64-glibc': 2.3.0
+      '@parcel/watcher-linux-x64-musl': 2.3.0
+      '@parcel/watcher-win32-arm64': 2.3.0
+      '@parcel/watcher-win32-ia32': 2.3.0
+      '@parcel/watcher-win32-x64': 2.3.0
     dev: true
 
   /@peculiar/asn1-schema@2.3.6:
@@ -1710,7 +1908,7 @@ packages:
   /@wix/filter-builder@1.0.33:
     resolution: {integrity: sha512-9JRPKP5swGH6zkWqT7xN5ty7NU35znHVIaxyu11NbJKfbW6u+QhlPniYzfun3i9e+JEgnSWfYcmGgxxtmeRHJg==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       kind-of: 5.1.0
       tslib: 2.6.2
     dev: false
@@ -1726,14 +1924,14 @@ packages:
   /@wix/image-kit@1.37.0:
     resolution: {integrity: sha512-NtoS9lq8y5o9AYPbUzTICjHBKgK/3oKrKQpBpXH4FzKc7ko43Bhf8bWvUdBAcWnAFIkHdnH5ohoTTj/TsfMVHQ==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       tslib: 2.6.2
     dev: false
 
   /@wix/metro-public-utils@1.0.8:
     resolution: {integrity: sha512-FaqT8LB+tzTtyQOqRJQEBiezumSnbgJeZJ5K2BR7IKwxmOLIsNO1v1OQSX+3vmOKgLDFngiyDlKV0U/QJl1aIw==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
     dev: false
 
   /@wix/metro-runtime@1.1532.0:
@@ -1750,16 +1948,16 @@ packages:
   /@wix/motion-edm-autogen-common@1.21.0:
     resolution: {integrity: sha512-hQk3oDLW8ZozqDLjIoEmMvSmhwxSwJlm8kZJte55ZXVb0MnipMuzTTRU0iyOUDyLj7M0lYi6iQpG+W3My+Dglw==}
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.23.1
       '@wix/motion-edm-autogen-types': 1.0.11
       lodash: 4.17.21
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /@wix/motion-edm-autogen-p13n@1.0.25:
     resolution: {integrity: sha512-ueEUsVFZl3P6ckho7iNnotOxsABBr2y20/rWEDhk1cXX/mDU7RJCPeOEpTsMML2n26t7XNhqzgUotHulhBhI7g==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       '@wix/motion-edm-autogen-types': 1.0.11
       lodash: 4.17.21
     dev: false
@@ -1767,19 +1965,19 @@ packages:
   /@wix/motion-edm-autogen-query-wrapper@1.0.37:
     resolution: {integrity: sha512-bnWHMHiFB7MUsoltnMS5mxDwMI4lCufEUQCG0uFlmOh47MEmcr9dHmeoikistXRzfrhxD3XUM978Zxw3qWRkcQ==}
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.23.1
       '@wix/filter-builder': 1.0.33
       '@wix/motion-edm-autogen-common': 1.21.0
       '@wix/motion-edm-autogen-transformations-core': 1.24.0
       lodash: 4.17.21
       long: 4.0.0
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /@wix/motion-edm-autogen-transformations-core@1.24.0:
     resolution: {integrity: sha512-LDTHNsHJZ4L2Bl72hasdioenp5Jfv06g7+K0e61UsYM5rLCQCtO2AbkCUb6LNkrd3PYaUf8UxEap0J8rYyWxTA==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       '@rushstack/eslint-patch': 1.3.2
       '@wix/motion-edm-autogen-common': 1.21.0
       constant-case: 3.0.4
@@ -1792,7 +1990,7 @@ packages:
   /@wix/motion-edm-autogen-transformations@1.26.0:
     resolution: {integrity: sha512-j75D/S14oMRgRQw8jlUkh8q3WB++nT0nKYhpwWD0cQmaTzWqfMZ6UKbLl6/rJt7rddIVyI+XSFGhNcc0ohvRLw==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       '@rushstack/eslint-patch': 1.3.2
       '@wix/motion-edm-autogen-common': 1.21.0
       '@wix/motion-edm-autogen-transformations-core': 1.24.0
@@ -1821,20 +2019,19 @@ packages:
     resolution: {integrity: sha512-lCn9xs4Px7e1b019rcuLkbO21TT9gD/eQeX/EhR/jXB8/H5a1Kt1JAWcqEH28GYDTLaBuSEhhyYHO0MuIt38+g==}
     dev: false
 
-  /@wix/sdk@1.5.1:
-    resolution: {integrity: sha512-8Wy6z4qgyux8ledVr+HSVvLMmkJfz0cczdtkvdAk8QGZoEgKuABoOuY+HkRAKShPZlFGH/WDm4SLwSqkF6jq9w==}
+  /@wix/sdk@1.5.3:
+    resolution: {integrity: sha512-7iASSHkyqwUoZW1GtXNZtUAmEY0WVCPPMSbukyS5aohhXNkNr+fknymOhZzxHxrSqYy812wX/Ukn+1M4IniWUg==}
     dependencies:
-      '@babel/runtime': 7.22.15
+      '@babel/runtime': 7.23.1
       '@wix/identity': 1.0.59
       '@wix/image-kit': 1.37.0
-      '@wix/metro-runtime': 1.1532.0
       '@wix/redirects': 1.0.25
       '@wix/sdk-types': 1.5.0
       pkce-challenge: 3.1.0
       querystring: 0.2.1
       type-fest: 3.13.1
     optionalDependencies:
-      graphql: repo.dev.wixpress.com/graphql@16.8.1
+      graphql: 16.8.1
     dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
@@ -2301,7 +2498,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: repo.dev.wixpress.com/fsevents@2.3.2
+      fsevents: 2.3.2
     dev: true
 
   /ci-info@3.8.0:
@@ -3239,6 +3436,14 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
+
+  /fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
@@ -4284,15 +4489,15 @@ packages:
       watchpack: 2.4.0
       zod: 3.21.4
     optionalDependencies:
-      '@next/swc-darwin-arm64': repo.dev.wixpress.com/@next/swc-darwin-arm64@13.4.13-canary.15
-      '@next/swc-darwin-x64': repo.dev.wixpress.com/@next/swc-darwin-x64@13.4.13-canary.15
-      '@next/swc-linux-arm64-gnu': repo.dev.wixpress.com/@next/swc-linux-arm64-gnu@13.4.13-canary.15
-      '@next/swc-linux-arm64-musl': repo.dev.wixpress.com/@next/swc-linux-arm64-musl@13.4.13-canary.15
-      '@next/swc-linux-x64-gnu': repo.dev.wixpress.com/@next/swc-linux-x64-gnu@13.4.13-canary.15
-      '@next/swc-linux-x64-musl': repo.dev.wixpress.com/@next/swc-linux-x64-musl@13.4.13-canary.15
-      '@next/swc-win32-arm64-msvc': repo.dev.wixpress.com/@next/swc-win32-arm64-msvc@13.4.13-canary.15
-      '@next/swc-win32-ia32-msvc': repo.dev.wixpress.com/@next/swc-win32-ia32-msvc@13.4.13-canary.15
-      '@next/swc-win32-x64-msvc': repo.dev.wixpress.com/@next/swc-win32-x64-msvc@13.4.13-canary.15
+      '@next/swc-darwin-arm64': 13.4.13-canary.15
+      '@next/swc-darwin-x64': 13.4.13-canary.15
+      '@next/swc-linux-arm64-gnu': 13.4.13-canary.15
+      '@next/swc-linux-arm64-musl': 13.4.13-canary.15
+      '@next/swc-linux-x64-gnu': 13.4.13-canary.15
+      '@next/swc-linux-x64-musl': 13.4.13-canary.15
+      '@next/swc-win32-arm64-msvc': 13.4.13-canary.15
+      '@next/swc-win32-ia32-msvc': 13.4.13-canary.15
+      '@next/swc-win32-x64-msvc': 13.4.13-canary.15
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -4920,6 +5125,7 @@ packages:
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+    dev: true
 
   /regenerator-runtime@0.14.0:
     resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
@@ -5901,262 +6107,3 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
-
-  repo.dev.wixpress.com/@next/swc-darwin-arm64@13.4.13-canary.15:
-    resolution: {integrity: sha1-Xbhjl/WdoybIAlqW571fsSEiJKk=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-darwin-arm64/-/swc-darwin-arm64-13.4.13-canary.15.tgz}
-    name: '@next/swc-darwin-arm64'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-darwin-x64@13.4.13-canary.15:
-    resolution: {integrity: sha1-rs+EQiFWka1D+7SlVX3LVZQPh28=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-darwin-x64/-/swc-darwin-x64-13.4.13-canary.15.tgz}
-    name: '@next/swc-darwin-x64'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-linux-arm64-gnu@13.4.13-canary.15:
-    resolution: {integrity: sha1-8Fclb7TdLOX6IxSd8dtowTceg3Y=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-13.4.13-canary.15.tgz}
-    name: '@next/swc-linux-arm64-gnu'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [glibc]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-linux-arm64-musl@13.4.13-canary.15:
-    resolution: {integrity: sha1-k5Lq6ECH0iMcxawo+n3Cjk9AERA=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-13.4.13-canary.15.tgz}
-    name: '@next/swc-linux-arm64-musl'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [musl]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-linux-x64-gnu@13.4.13-canary.15:
-    resolution: {integrity: sha1-iN6q3DetuRWf5zMyZ5Ayo0bDz0c=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-13.4.13-canary.15.tgz}
-    name: '@next/swc-linux-x64-gnu'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-linux-x64-musl@13.4.13-canary.15:
-    resolution: {integrity: sha1-2sOjlwl1SRIx7UkYvFuw62J95ro=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-13.4.13-canary.15.tgz}
-    name: '@next/swc-linux-x64-musl'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    libc: [musl]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-win32-arm64-msvc@13.4.13-canary.15:
-    resolution: {integrity: sha1-ArmEcefJYPDz/GMwyWhz6h7mEZU=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-13.4.13-canary.15.tgz}
-    name: '@next/swc-win32-arm64-msvc'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-win32-ia32-msvc@13.4.13-canary.15:
-    resolution: {integrity: sha1-RLV77v9e84Ce3VQeGBe6c4DV4mg=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-13.4.13-canary.15.tgz}
-    name: '@next/swc-win32-ia32-msvc'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@next/swc-win32-x64-msvc@13.4.13-canary.15:
-    resolution: {integrity: sha1-VPFBN2lgr4lPxVp021iUuKYpGmg=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.4.13-canary.15.tgz}
-    name: '@next/swc-win32-x64-msvc'
-    version: 13.4.13-canary.15
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-android-arm64@2.3.0:
-    resolution: {integrity: sha1-2C50u1ZOvU2KiHkdJzo9K9YeJ6s=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.3.0.tgz}
-    name: '@parcel/watcher-android-arm64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-darwin-arm64@2.3.0:
-    resolution: {integrity: sha1-yc0D+PIz1RL8/Ic9W04j8Vaagq0=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-darwin-arm64/-/watcher-darwin-arm64-2.3.0.tgz}
-    name: '@parcel/watcher-darwin-arm64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-darwin-x64@2.3.0:
-    resolution: {integrity: sha1-g8kCmUoqSbnhq1BQ26JIdv3Cwhk=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-darwin-x64/-/watcher-darwin-x64-2.3.0.tgz}
-    name: '@parcel/watcher-darwin-x64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-freebsd-x64@2.3.0:
-    resolution: {integrity: sha1-eg9Fk6iH4nUrcGr/La5Qmu9DDPY=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-freebsd-x64/-/watcher-freebsd-x64-2.3.0.tgz}
-    name: '@parcel/watcher-freebsd-x64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-linux-arm-glibc@2.3.0:
-    resolution: {integrity: sha1-P8kMPr5n3jZI7S8TgGhyL5sdR9o=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-linux-arm-glibc/-/watcher-linux-arm-glibc-2.3.0.tgz}
-    name: '@parcel/watcher-linux-arm-glibc'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm]
-    os: [linux]
-    libc: [glibc]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-linux-arm64-glibc@2.3.0:
-    resolution: {integrity: sha1-97u/JJfYX9EeTJ6cJqzo8Q6pvLw=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-linux-arm64-glibc/-/watcher-linux-arm64-glibc-2.3.0.tgz}
-    name: '@parcel/watcher-linux-arm64-glibc'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [glibc]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-linux-arm64-musl@2.3.0:
-    resolution: {integrity: sha1-3hMan8vh+ghU6cv0xVvtOzW8/0M=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-linux-arm64-musl/-/watcher-linux-arm64-musl-2.3.0.tgz}
-    name: '@parcel/watcher-linux-arm64-musl'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm64]
-    os: [linux]
-    libc: [musl]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-linux-x64-glibc@2.3.0:
-    resolution: {integrity: sha1-GT3Rx5gAPNtaHllHD/JjAPQYqUM=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-linux-x64-glibc/-/watcher-linux-x64-glibc-2.3.0.tgz}
-    name: '@parcel/watcher-linux-x64-glibc'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [x64]
-    os: [linux]
-    libc: [glibc]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-linux-x64-musl@2.3.0:
-    resolution: {integrity: sha1-bb24bZbpVasP5KS2BzTsACWmid0=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-linux-x64-musl/-/watcher-linux-x64-musl-2.3.0.tgz}
-    name: '@parcel/watcher-linux-x64-musl'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [x64]
-    os: [linux]
-    libc: [musl]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-win32-arm64@2.3.0:
-    resolution: {integrity: sha1-WdompDHalG5sdPprDzCxIOpmULY=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-win32-arm64/-/watcher-win32-arm64-2.3.0.tgz}
-    name: '@parcel/watcher-win32-arm64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-win32-ia32@2.3.0:
-    resolution: {integrity: sha1-PuahiwiSnNO3iOjMlUf9mlQMATo=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-win32-ia32/-/watcher-win32-ia32-2.3.0.tgz}
-    name: '@parcel/watcher-win32-ia32'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/@parcel/watcher-win32-x64@2.3.0:
-    resolution: {integrity: sha1-FOckYomGGsxYn9YI3jn+XYtLsKc=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/@parcel/watcher-win32-x64/-/watcher-win32-x64-2.3.0.tgz}
-    name: '@parcel/watcher-win32-x64'
-    version: 2.3.0
-    engines: {node: '>= 10.0.0'}
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/fsevents@2.3.2:
-    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/fsevents/-/fsevents-2.3.2.tgz}
-    name: fsevents
-    version: 2.3.2
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  repo.dev.wixpress.com/graphql@16.8.1:
-    resolution: {integrity: sha1-GTCpZb7xFwYDcCrNtort0/PPbwc=, registry: https://npm.dev.wixpress.com/, tarball: https://repo.dev.wixpress.com/artifactory/api/npm/npm-repos/graphql/-/graphql-16.8.1.tgz}
-    name: graphql
-    version: 16.8.1
-    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
-    requiresBuild: true
-    dev: false
-    optional: true

@@ -10,7 +10,6 @@ const config: CodegenConfig = {
       config: {
         documentMode: 'string'
       },
-      plugins: ["typescript"]
     }
   },
   documents: ["lib/wix/**/*.ts"]
