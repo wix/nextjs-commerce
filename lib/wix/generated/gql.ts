@@ -22,7 +22,7 @@ const documents = {
     "\n    mutation UpdateCurrentCartLineItemQuantity($lineItems: [EcomCartV1LineItemQuantityUpdateInput!]!) {\n      ecomCurrentCartV1UpdateCurrentCartLineItemQuantity(input: { lineItems: $lineItems }) {\n        cart {\n          ...Cart\n        }\n      }\n    }\n  ": types.UpdateCurrentCartLineItemQuantityDocument,
     "\n    mutation GetCurrentCart {\n      ecomCartV1CurrentCartGetCurrentCart {\n        cart {\n          ...Cart\n        }\n      }\n    }\n  ": types.GetCurrentCartDocument,
     "\n      mutation CollectionBySlug($slug: String!) {\n        storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {\n          collection {\n            ...Collection\n          }\n        }\n      }\n      ": types.CollectionBySlugDocument,
-    "\n    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  ": types.ProductsDocument,
+    "\n      mutation GetcollectionProducts($slug: String!, $sort: [CommonSortingInput]!) {\n        storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {\n          collection {\n            ...Collection\n            productsVirtualReference(query: { query: {sort: $sort} }) {\n              items {\n                ...Product\n              }\n            }\n          }\n        }\n      }\n    ": types.GetcollectionProductsDocument,
     "\n    query Collections {\n      storesCollectionsV1Collections {\n        items {\n          ...Collection\n        }\n      }\n    }\n  ": types.CollectionsDocument,
     "\n    query MenuBySlug($slug: String!) {\n      dataItemsV2DataItems(queryInput: { \n        dataCollectionId: \"Menus\", \n        includeReferencedItems: [\"pages\"],\n        query: { filter: { slug: $slug } } \n      }) {\n        items {\n          id\n          data\n        }\n      }\n    }\n  ": types.MenuBySlugDocument,
     "\n    query PageBySlug($slug: String!) {\n      dataItemsV2DataItems(queryInput: { \n        dataCollectionId: \"Pages\", \n        query: { filter: { slug: $slug } } \n      }) {\n        items {\n          id\n          data\n        }\n      }\n    }\n  ": types.PageBySlugDocument,
@@ -30,6 +30,7 @@ const documents = {
     "\n    query ProductByHandle($handle: String!) {\n      storesProductsV1Products(queryInput: { query: { filter: { slug: $handle }, paging: { limit: 1 }}}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  ": types.ProductByHandleDocument,
     "\n    mutation GetRecommendation($algorithms: [EcomRecommendationsV1AlgorithmInput!]!, $items: [EcommerceCatalogSpiV1CatalogReferenceInput!]!) {\n      ecomRecommendationsV1GetRecommendation(input: { algorithms: $algorithms, items: $items, minimumRecommendedItems: 3 }) {\n        recommendation {\n          items {\n            catalogItemId\n          }\n        }\n      }\n    }\n  ": types.GetRecommendationDocument,
     "\n    query RecommendedProducts($filter: JSON) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  ": types.RecommendedProductsDocument,
+    "\n    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  ": types.ProductsDocument,
     "\n    mutation CreateCheckoutFromCurrentCart {\n      ecomCurrentCartV1CreateCheckoutFromCurrentCart(input: { channelType: OTHER_PLATFORM }) {\n        checkoutId\n      }\n    }\n  ": types.CreateCheckoutFromCurrentCartDocument,
     "\n    mutation CreateRedirectSession($checkoutId: String!, $postFlowUrl: String!) {\n      redirectsRedirectsV1CreateRedirectSession(input: { ecomCheckout: { checkoutId: $checkoutId }, callbacks: { postFlowUrl: $postFlowUrl } }) {\n        redirectSession {\n          fullUrl\n        }\n      }\n    }\n  ": types.CreateRedirectSessionDocument,
 };
@@ -69,7 +70,7 @@ export function graphql(source: "\n      mutation CollectionBySlug($slug: String
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  "): typeof import('./graphql').ProductsDocument;
+export function graphql(source: "\n      mutation GetcollectionProducts($slug: String!, $sort: [CommonSortingInput]!) {\n        storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {\n          collection {\n            ...Collection\n            productsVirtualReference(query: { query: {sort: $sort} }) {\n              items {\n                ...Product\n              }\n            }\n          }\n        }\n      }\n    "): typeof import('./graphql').GetcollectionProductsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -98,6 +99,10 @@ export function graphql(source: "\n    mutation GetRecommendation($algorithms: [
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n    query RecommendedProducts($filter: JSON) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  "): typeof import('./graphql').RecommendedProductsDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {\n      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {\n        items {\n          ...Product\n        }\n      }\n    }\n  "): typeof import('./graphql').ProductsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -8,8 +8,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@wix/sdk':
-    specifier: ^1.5.3
-    version: 1.5.3
+    specifier: ^1.5.5
+    version: 1.5.5
   clsx:
     specifier: ^2.0.0
     version: 2.0.0
@@ -668,8 +668,8 @@ packages:
       regenerator-runtime: 0.13.11
     dev: true
 
-  /@babel/runtime@7.23.1:
-    resolution: {integrity: sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g==}
+  /@babel/runtime@7.23.2:
+    resolution: {integrity: sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==}
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
@@ -1908,30 +1908,30 @@ packages:
   /@wix/filter-builder@1.0.33:
     resolution: {integrity: sha512-9JRPKP5swGH6zkWqT7xN5ty7NU35znHVIaxyu11NbJKfbW6u+QhlPniYzfun3i9e+JEgnSWfYcmGgxxtmeRHJg==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       kind-of: 5.1.0
       tslib: 2.6.2
     dev: false
 
-  /@wix/identity@1.0.59:
-    resolution: {integrity: sha512-LTlstbuD1Zi9Lg+RS0OlrmS4MNpzPXNid3d7C4O41Ye6aXzQ0S+Y78e74lU6yhUJdWJyGdoWhnPBGXKcybRyrw==}
+  /@wix/identity@1.0.60:
+    resolution: {integrity: sha512-sLQIifW57hQ7sDuZQnwQfrR1BiwB5rMnzFBTo5gm66+FkXWMrRHt1fJZSttlR3FcRFfFWDoa/Y6T/qzlNfyXUQ==}
     dependencies:
       '@wix/metro-runtime': 1.1532.0
       '@wix/motion-edm-autogen-query-wrapper': 1.0.37
-      '@wix/sdk-types': 1.5.0
+      '@wix/sdk-types': 1.5.1
     dev: false
 
   /@wix/image-kit@1.37.0:
     resolution: {integrity: sha512-NtoS9lq8y5o9AYPbUzTICjHBKgK/3oKrKQpBpXH4FzKc7ko43Bhf8bWvUdBAcWnAFIkHdnH5ohoTTj/TsfMVHQ==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       tslib: 2.6.2
     dev: false
 
   /@wix/metro-public-utils@1.0.8:
     resolution: {integrity: sha512-FaqT8LB+tzTtyQOqRJQEBiezumSnbgJeZJ5K2BR7IKwxmOLIsNO1v1OQSX+3vmOKgLDFngiyDlKV0U/QJl1aIw==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
     dev: false
 
   /@wix/metro-runtime@1.1532.0:
@@ -1948,7 +1948,7 @@ packages:
   /@wix/motion-edm-autogen-common@1.21.0:
     resolution: {integrity: sha512-hQk3oDLW8ZozqDLjIoEmMvSmhwxSwJlm8kZJte55ZXVb0MnipMuzTTRU0iyOUDyLj7M0lYi6iQpG+W3My+Dglw==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@wix/motion-edm-autogen-types': 1.0.11
       lodash: 4.17.21
       tslib: 2.6.2
@@ -1957,7 +1957,7 @@ packages:
   /@wix/motion-edm-autogen-p13n@1.0.25:
     resolution: {integrity: sha512-ueEUsVFZl3P6ckho7iNnotOxsABBr2y20/rWEDhk1cXX/mDU7RJCPeOEpTsMML2n26t7XNhqzgUotHulhBhI7g==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@wix/motion-edm-autogen-types': 1.0.11
       lodash: 4.17.21
     dev: false
@@ -1965,7 +1965,7 @@ packages:
   /@wix/motion-edm-autogen-query-wrapper@1.0.37:
     resolution: {integrity: sha512-bnWHMHiFB7MUsoltnMS5mxDwMI4lCufEUQCG0uFlmOh47MEmcr9dHmeoikistXRzfrhxD3XUM978Zxw3qWRkcQ==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@wix/filter-builder': 1.0.33
       '@wix/motion-edm-autogen-common': 1.21.0
       '@wix/motion-edm-autogen-transformations-core': 1.24.0
@@ -1977,7 +1977,7 @@ packages:
   /@wix/motion-edm-autogen-transformations-core@1.24.0:
     resolution: {integrity: sha512-LDTHNsHJZ4L2Bl72hasdioenp5Jfv06g7+K0e61UsYM5rLCQCtO2AbkCUb6LNkrd3PYaUf8UxEap0J8rYyWxTA==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@rushstack/eslint-patch': 1.3.2
       '@wix/motion-edm-autogen-common': 1.21.0
       constant-case: 3.0.4
@@ -1990,7 +1990,7 @@ packages:
   /@wix/motion-edm-autogen-transformations@1.26.0:
     resolution: {integrity: sha512-j75D/S14oMRgRQw8jlUkh8q3WB++nT0nKYhpwWD0cQmaTzWqfMZ6UKbLl6/rJt7rddIVyI+XSFGhNcc0ohvRLw==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@rushstack/eslint-patch': 1.3.2
       '@wix/motion-edm-autogen-common': 1.21.0
       '@wix/motion-edm-autogen-transformations-core': 1.24.0
@@ -2007,26 +2007,26 @@ packages:
     resolution: {integrity: sha512-NBsTA+w79B947dtz0r+5m8TX99gkhfK+Q3ZyBHBF3RLghf+RwcKKMowqw+FX2MpaVT6lvKyiutN81/hlL6U3ew==}
     dev: false
 
-  /@wix/redirects@1.0.25:
-    resolution: {integrity: sha512-W7Gl28BW6IHm7vsfa/+ZW4eLygJDvhroOcAcBFf43y1Dm/w7Gg3PQDx+8kEajKyMzyJ1zMVBdavwFz0fChtqLA==}
+  /@wix/redirects@1.0.26:
+    resolution: {integrity: sha512-sxxAzqI6OcmV41r7wKi5zRdCKCqp6xrNuLmq0sEphU9hgcW+7QCvXjUY8aieM0HUqNmsz0bXe90Fw+n1p174OQ==}
     dependencies:
       '@wix/metro-runtime': 1.1532.0
       '@wix/motion-edm-autogen-query-wrapper': 1.0.37
-      '@wix/sdk-types': 1.5.0
+      '@wix/sdk-types': 1.5.1
     dev: false
 
-  /@wix/sdk-types@1.5.0:
-    resolution: {integrity: sha512-lCn9xs4Px7e1b019rcuLkbO21TT9gD/eQeX/EhR/jXB8/H5a1Kt1JAWcqEH28GYDTLaBuSEhhyYHO0MuIt38+g==}
+  /@wix/sdk-types@1.5.1:
+    resolution: {integrity: sha512-Q4nxSMa2xtutD7EYFtl09g7lJYxSoX93wJ0q6VKt4M/wbCibPxtyybFuJSFBAdVF8pSac/ufmtaBSmzzasuLzg==}
     dev: false
 
-  /@wix/sdk@1.5.3:
-    resolution: {integrity: sha512-7iASSHkyqwUoZW1GtXNZtUAmEY0WVCPPMSbukyS5aohhXNkNr+fknymOhZzxHxrSqYy812wX/Ukn+1M4IniWUg==}
+  /@wix/sdk@1.5.5:
+    resolution: {integrity: sha512-M5HK1z1jU5moyT4gLF30+y/Rk5W/Tqjfs6q5WyzSylowA4ZjGGC/09aqoxnpljrsvoeNKkfOmLKQtbvNtZQ+6A==}
     dependencies:
-      '@babel/runtime': 7.23.1
-      '@wix/identity': 1.0.59
+      '@babel/runtime': 7.23.2
+      '@wix/identity': 1.0.60
       '@wix/image-kit': 1.37.0
-      '@wix/redirects': 1.0.25
-      '@wix/sdk-types': 1.5.0
+      '@wix/redirects': 1.0.26
+      '@wix/sdk-types': 1.5.1
       pkce-challenge: 3.1.0
       querystring: 0.2.1
       type-fest: 3.13.1

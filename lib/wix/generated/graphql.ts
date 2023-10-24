@@ -450,6 +450,113 @@ export type BookingsCalendarV2ListSessionsResponse = {
   sessions?: Maybe<Array<Maybe<BookingsSchedulesV1Session>>>;
 };
 
+export type BookingsCalendarV2QuerySessionsRequestInput = {
+  /**
+   * Start of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).
+   *
+   * Sessions that begin before the `fromDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `fromDate` and the `UNTIL` value in the `recurrence` property is after the `fromDate`.
+   *
+   * Required, unless `query.cursorPaging` is provided.
+   */
+  fromDate?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Whether to include sessions imported from connected external calendars in the results.
+   *
+   * Default: `false`.
+   */
+  includeExternal?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Whether to return only single session instances and instances of recurring sessions.
+   *
+   * If `true`, only single session instances and instances of recurring sessions are returned.
+   *
+   * If `false`, only recurring session definitions are returned. **Note:** Cursor pagination is not supported for recurring session definition queries.
+   *
+   * Default: `true`.
+   */
+  instances?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Query options. */
+  query?: InputMaybe<BookingsCalendarV2UpstreamCommonQueryV2Input>;
+  /**
+   * End of the time range for which sessions are returned, in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)).
+   *
+   * Sessions that begin before the `toDate` but end after it are included in the results. For recurring session definitions, this means the `start` value is before the `toDate` and the `UNTIL` value in the `recurrence` property is after the `toDate`.
+   *
+   * Required, unless `query.cursorPaging` is provided.
+   *
+   * Max: 1 year after `fromDate` for session instance queries. This limit doesn't apply to recurring session definition queries.
+   */
+  toDate?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Type of sessions to return.
+   * + `EVENT`: Returns only sessions of type `EVENT`.
+   * + `WORKING_HOURS`: Returns only sessions of type `WORKING_HOURS`.
+   * + `ALL`: Returns sessions of all types.
+   *
+   * Default: `EVENT`.
+   */
+  type?: InputMaybe<BookingsCalendarV2QuerySessionsRequestSessionTypeFilter>;
+};
+
+export enum BookingsCalendarV2QuerySessionsRequestSessionTypeFilter {
+  /** Return sessions of any type. */
+  All = 'ALL',
+  /** Filter sessions of type `EVENT`. This is the default. */
+  Event = 'EVENT',
+  UnknownSessionType = 'UNKNOWN_SESSION_TYPE',
+  /** Filter sessions of type `WORKING_HOURS`. */
+  WorkingHours = 'WORKING_HOURS'
+}
+
+export type BookingsCalendarV2QuerySessionsResponse = {
+  __typename?: 'BookingsCalendarV2QuerySessionsResponse';
+  /** Query results */
+  items?: Maybe<Array<Maybe<BookingsSchedulesV1Session>>>;
+  /** Pagination data */
+  pageInfo?: Maybe<PageInfo>;
+};
+
+export type BookingsCalendarV2UpstreamCommonCursorPagingInput = {
+  /**
+   * Pointer to the next or previous page in the list of results.
+   *
+   * You can get the relevant cursor token
+   * from the `pagingMetadata` object in the previous call's response.
+   * Not relevant for the first request.
+   */
+  cursor?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Number of sessions to return.
+   *
+   * Default: `100`
+   * Max: `1000`
+   */
+  limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type BookingsCalendarV2UpstreamCommonQueryV2Input = {
+  /**
+   * Cursor token pointing to a page of results.
+   * Not used in the first request.
+   * Following requests use the cursor token and not `filter`.
+   */
+  cursorPaging?: InputMaybe<BookingsCalendarV2UpstreamCommonCursorPagingInput>;
+  /**
+   * Predefined sets of fields to return.
+   * - `NO_PI`: Returns session objects without personal information.
+   * - `ALL_PI`: Returns complete session objects, including personal information. Requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).
+   *
+   * Default: `NO_PI`
+   */
+  fieldsets?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /**
+   * Filter object. For field support for filters, see
+   * [Sessions: Supported Filters](./filtering).
+   * See [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) for more information about querying with filters.
+   */
+  filter?: InputMaybe<Scalars['JSON']['input']>;
+};
+
 export type BookingsCatalogV1CloneServiceOptionsAndVariantsRequestInput = {
   /** ID of the `serviceOptionsAndVariants` object to clone. */
   cloneFromId?: InputMaybe<Scalars['String']['input']>;
@@ -727,6 +834,21 @@ export type BookingsCommonV1Location = {
   locationType?: Maybe<BookingsCommonV1LocationLocationType>;
 };
 
+export type BookingsCommonV1LocationInput = {
+  /** Free text address used when locationType is `OWNER_CUSTOM`. */
+  address?: InputMaybe<Scalars['String']['input']>;
+  /** Custom address, used when locationType is `"OWNER_CUSTOM"`. Might be used when locationType is `"CUSTOM"` in case the owner sets a custom address for the session which is different from the default. */
+  customAddress?: InputMaybe<BookingsUpstreamCommonAddressInput>;
+  /**
+   * Location type.
+   * One of:
+   * - `"OWNER_BUSINESS"` The business address as set in the site’s general settings.
+   * - `"OWNER_CUSTOM"` The address as set when creating the service.
+   * - `"CUSTOM"` The address set for the individual session.
+   */
+  locationType?: InputMaybe<BookingsCommonV1LocationLocationType>;
+};
+
 export enum BookingsCommonV1LocationLocationType {
   Custom = 'CUSTOM',
   OwnerBusiness = 'OWNER_BUSINESS',
@@ -744,6 +866,15 @@ export type BookingsCommonV1Price = {
   downPayAmount?: Maybe<Scalars['String']['output']>;
 };
 
+export type BookingsCommonV1PriceInput = {
+  /** Required payment amount. */
+  amount?: InputMaybe<Scalars['String']['input']>;
+  /** Currency in which the amount is quoted. */
+  currency?: InputMaybe<Scalars['String']['input']>;
+  /** Amount of a down payment or deposit as part of the transaction. */
+  downPayAmount?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type BookingsCommonV1Rate = {
   __typename?: 'BookingsCommonV1Rate';
   /**
@@ -756,6 +887,19 @@ export type BookingsCommonV1Rate = {
    * When present in an update request, the `default_varied_price` is ignored to support backward compatibility.
    */
   priceText?: Maybe<Scalars['String']['output']>;
+};
+
+export type BookingsCommonV1RateInput = {
+  /**
+   * Mapping between a named price option, for example, adult or child prices, and the price, currency, and down payment amount.
+   * When present in an update request, the `default_varied_price` is ignored to support backward compatibility.
+   */
+  labeledPriceOptions?: InputMaybe<BookingsCommonV1PriceInput>;
+  /**
+   * Textual price information used when **Price Per Session** is set to **Custom Price** in the app's service details page.
+   * When present in an update request, the `default_varied_price` is ignored to support backward compatibility.
+   */
+  priceText?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type BookingsSchedulesV1CalendarConference = {
@@ -795,6 +939,34 @@ export enum BookingsSchedulesV1CalendarConferenceConferenceType {
   Undefined = 'UNDEFINED'
 }
 
+export type BookingsSchedulesV1CalendarConferenceInput = {
+  /** ID of the account owner in the video conferencing service. */
+  accountOwnerId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Conference type.
+   * <!--ONLY:VELO
+   * One of:
+   * - `"ONLINE_MEETING_PROVIDER"` API-generated online meeting.
+   * - `"CUSTOM"` User-defined meeting.
+   * <!--END:ONLY:VELO-->
+   */
+  conferenceType?: InputMaybe<BookingsSchedulesV1CalendarConferenceConferenceType>;
+  /** Conference description. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Conference meeting ID in the provider's conferencing system. */
+  externalId?: InputMaybe<Scalars['String']['input']>;
+  /** URL used by a guest to join the conference. */
+  guestUrl?: InputMaybe<Scalars['String']['input']>;
+  /** URL used by the host to start the conference. */
+  hostUrl?: InputMaybe<Scalars['String']['input']>;
+  /** Wix Calendar conference ID. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Password to join the conference. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Conference provider ID. */
+  providerId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type BookingsSchedulesV1CalendarDateTime = {
   __typename?: 'BookingsSchedulesV1CalendarDateTime';
   /** An object containing the local date and time for the business's time zone. */
@@ -812,12 +984,35 @@ export type BookingsSchedulesV1CalendarDateTime = {
   timestamp?: Maybe<Scalars['String']['output']>;
 };
 
+export type BookingsSchedulesV1CalendarDateTimeInput = {
+  /** An object containing the local date and time for the business's time zone. */
+  localDateTime?: InputMaybe<BookingsSchedulesV1LocalDateTimeInput>;
+  /**
+   * The time zone. Optional. Derived from the schedule's time zone.
+   * In case this field is associated with recurring session, this field is empty.
+   */
+  timeZone?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * UTC date-time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. If a time zone offset is specified, the time is converted to UTC. For example, if you specify  `new Date('2021-01-06T16:00:00.000-07:00')`, the stored value will be `"2021-01-06T23:00:00.000Z"`.
+   * Required if `localDateTime` is not specified.
+   * If `localDateTime` is specified, `timestamp` is calculated as `localDateTime`, using the business's time zone.
+   */
+  timestamp?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type BookingsSchedulesV1ExternalCalendarOverrides = {
   __typename?: 'BookingsSchedulesV1ExternalCalendarOverrides';
   /** Synced description of the external calendar event. */
   description?: Maybe<Scalars['String']['output']>;
   /** Synced title of the external calendar event. */
   title?: Maybe<Scalars['String']['output']>;
+};
+
+export type BookingsSchedulesV1ExternalCalendarOverridesInput = {
+  /** Synced description of the external calendar event. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Synced title of the external calendar event. */
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type BookingsSchedulesV1LinkedSchedule = {
@@ -842,6 +1037,27 @@ export type BookingsSchedulesV1LinkedSchedule = {
   transparency?: Maybe<BookingsSchedulesV1LinkedScheduleTransparency>;
 };
 
+export type BookingsSchedulesV1LinkedScheduleInput = {
+  /** Schedule ID. */
+  scheduleId?: InputMaybe<Scalars['String']['input']>;
+  /** Owner ID, of the linked schedule. */
+  scheduleOwnerId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Sets this schedule's availability for the duration of the linked schedule's sessions.  Default is `"BUSY"`.
+   * <!--ONLY:REST-->
+   * If set to `"BUSY"`, this schedule cannot have any available slots during the linked schedule's sessions.
+   * If set to `"FREE"`, this schedule can have available slots during the linked schedule's sessions.
+   * <!--END:ONLY:REST-->
+   *
+   * <!--ONLY:VELO
+   * One of:
+   * - `"FREE"` This schedule can have available slots during the linked schedule's sessions.
+   * - `"BUSY"` This schedule cannot have any available slots during the linked schedule's sessions.
+   * <!--END:ONLY:VELO-->
+   */
+  transparency?: InputMaybe<BookingsSchedulesV1LinkedScheduleTransparency>;
+};
+
 export enum BookingsSchedulesV1LinkedScheduleTransparency {
   /** The schedule cannot have available slots during the session. Default value. */
   Busy = 'BUSY',
@@ -862,6 +1078,19 @@ export type BookingsSchedulesV1LocalDateTime = {
   monthOfYear?: Maybe<Scalars['Int']['output']>;
   /** Year. 4-digit format. */
   year?: Maybe<Scalars['Int']['output']>;
+};
+
+export type BookingsSchedulesV1LocalDateTimeInput = {
+  /** Day of the month, from 1-31. */
+  dayOfMonth?: InputMaybe<Scalars['Int']['input']>;
+  /** Hour of the day in 24-hour format, from 0-23. */
+  hourOfDay?: InputMaybe<Scalars['Int']['input']>;
+  /** Minute, from 0-59. */
+  minutesOfHour?: InputMaybe<Scalars['Int']['input']>;
+  /** Month number, from 1-12. */
+  monthOfYear?: InputMaybe<Scalars['Int']['input']>;
+  /** Year. 4-digit format. */
+  year?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type BookingsSchedulesV1Participant = {
@@ -903,6 +1132,45 @@ export enum BookingsSchedulesV1ParticipantApprovalStatus {
   /** Default. */
   Undefined = 'UNDEFINED'
 }
+
+export type BookingsSchedulesV1ParticipantInput = {
+  /**
+   * Approval status for the participant.
+   * <!-- Commented out untill updateParticipant is exposed Generally the same status as the booking, unless updated using the `updateParticipant()` API. Defaults to `"UNDEFINED"`.-->
+   * <!--ONLY:VELO
+   * One of:
+   * - `"PENDING"` Pending business approval.
+   * - `"APPROVED"` Approved by the business.
+   * - `"DECLINED"` Declined by the business.
+   * <!--END:ONLY:VELO-->
+   */
+  approvalStatus?: InputMaybe<BookingsSchedulesV1ParticipantApprovalStatus>;
+  /** Contact ID. */
+  contactId?: InputMaybe<Scalars['String']['input']>;
+  /** Participant's email address. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** Participant ID. Currently represents the booking.id. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the participant was inherited from the schedule, as opposed to being booked directly to the session. */
+  inherited?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Participant's name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Group or party size. The number of people attending. Defaults to 0. Maximum is 250. */
+  partySize?: InputMaybe<Scalars['Int']['input']>;
+  /** Participant's phone number. */
+  phone?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type BookingsSchedulesV1ParticipantNotificationInput = {
+  /** Custom message to send to the participants about the changes to the booking. */
+  message?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Whether to send the message about the changes to the customer.
+   *
+   * Default: `false`
+   */
+  notifyParticipants?: InputMaybe<Scalars['Boolean']['input']>;
+};
 
 export type BookingsSchedulesV1Session = {
   __typename?: 'BookingsSchedulesV1Session';
@@ -1056,6 +1324,157 @@ export type BookingsSchedulesV1Session = {
   version?: Maybe<BookingsSchedulesV1SessionVersion>;
 };
 
+export type BookingsSchedulesV1SessionInput = {
+  /**
+   * An object specifying a list of schedules and the way each schedule's availability is affected by the session. For example, the schedule of an instructor is affected by sessions of the class that they instruct.
+   * The array is inherited from the schedule and can be overridden even if the session is a recurring session.
+   */
+  affectedSchedules?: InputMaybe<Array<InputMaybe<BookingsSchedulesV1LinkedScheduleInput>>>;
+  /**
+   * A conference created for the session according to the details set in the schedule's conference provider information.
+   * If the session is a recurring session, this field is inherited from the schedule.
+   * **Partially deprecated.** Only `hostUrl` and `guestUrl` are to be supported.
+   */
+  calendarConference?: InputMaybe<BookingsSchedulesV1CalendarConferenceInput>;
+  /**
+   * Maximum number of participants that can be added to the session. Defaults to the schedule capacity.
+   * The value is inherited from the schedule and can be overridden unless the session is a recurring session.
+   */
+  capacity?: InputMaybe<Scalars['Int']['input']>;
+  /**
+   * An object specifying the end date and time of the session. The `end` time must be after the `start` time and be same type as `start`.
+   * If the session is a recurring session, `end` must contain a `localDateTime`.
+   */
+  end?: InputMaybe<BookingsSchedulesV1CalendarDateTimeInput>;
+  /** __Deprecated.__ */
+  externalCalendarOverrides?: InputMaybe<BookingsSchedulesV1ExternalCalendarOverridesInput>;
+  /** Session ID. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A list of properties for which values were inherited from the schedule.
+   * This does not include participants that were inherited from the schedule.
+   */
+  inheritedFields?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /**
+   * A string representing a recurrence rule (RRULE) if the session is an instance of a recurrence pattern.
+   * Empty when the session is not an instance of a recurrence rule, or if the session defines a recurrence pattern, and `recurrence` is not empty.
+   */
+  instanceOfRecurrence?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * An object describing the location where the session takes place.
+   * Defaults to the schedule location.
+   * For single sessions, `session.location.businessLocation` can only be provided for locations that are defined in the schedule using `schedule.location` or `schedule.availability.locations`.
+   */
+  location?: InputMaybe<BookingsCommonV1LocationInput>;
+  /**
+   * Additional information about the session.
+   * Notes are not supported for recurring sessions.
+   */
+  notes?: InputMaybe<Scalars['String']['input']>;
+  /** Original start date and time of the session in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Coordinated_Universal_Time_(UTC)) format. */
+  originalStart?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * *Partial list** list of participants booked for the session.
+   * The list includes participants who have registered for this specific session, and participants who have registered for a schedule that includes this session.
+   * If the session is a recurring session, this field must be empty.
+   * To retrieve the full list of session participants please use the [Query Extended Bookings API](https://dev.wix.com/api/rest/wix-bookings/bookings-reader-v2/query-extended-bookings).
+   */
+  participants?: InputMaybe<Array<InputMaybe<BookingsSchedulesV1ParticipantInput>>>;
+  /** Deprecated. Please use the [Booking Services V2](https://dev.wix.com/api/rest/wix-bookings/services-v2) payment instead. */
+  rate?: InputMaybe<BookingsCommonV1RateInput>;
+  /**
+   * A string representing a recurrence rule (RRULE) for a recurring session, as defined in [iCalendar RFC 5545](https://icalendar.org/iCalendar-RFC-5545/3-3-10-recurrence-rule.html).
+   * If the session is an instance of a recurrence pattern, the `instanceOfRecurrence` property will be contain the recurrence rule and this property will be empty.
+   * The RRULE defines a rule for repeating a session.
+   * Supported parameters are:
+   *
+   * |Keyword|Description|Supported values|
+   * |--|--|---|
+   * |`FREQ`|The frequency at which the session is recurs. Required.|`WEEKLY`|
+   * |`INTERVAL`|How often, in terms of `FREQ`, the session recurs. Default is 1. Optional.|
+   * |`UNTIL`|The UTC end date and time of the recurrence. Optional.|
+   * |`BYDAY`|Day of the week when the event should recur. Required.|One of: `MO`, `TU`, `WE`, `TH`, `FR`, `SA`, `SU`|
+   *
+   *
+   * For example, a session that repeats every second week on a Monday until January 7, 2022 at 8 AM:
+   * `"FREQ=WEEKLY;INTERVAL=2;BYDAY=MO;UNTIL=20220107T080000Z"`
+   *
+   * <!--ORIGINAL COMMENTS:
+   * `FREQ` — The frequency with which the session should be repeated (such as DAILY or WEEKLY).
+   * Supported `WEEKLY` value is supported.
+   * INTERVAL — Works together with FREQ to specify how often the session should be repeated. For example, FREQ=WEEKLY;INTERVAL=2 means once every two weeks. Optional. Default value is 1.
+   * COUNT — The number of times this event should be repeated. Not yet supported.
+   * UNTIL — The UTC date & time until which the session should be repeated. This parameter is optional. When it is not specified, the event repeats forever.
+   * The format is a short ISO date, followed by 'T' and a short time with seconds and without milliseconds, terminated by the UTC designator 'Z'. For example, until Jan. 19th 2018 at 7:00 AM: 'UNTIL=20180119T070000Z'.
+   * BYDAY - The days of the week when the event should be repeated. Currently, only a single day is supported. This parameter is mandatory.
+   * Possible values are: MO, TU, WE, TH, FR, SA, SU
+   * Note that DTSTART and DTEND lines are not allowed in this field; session start and end times are specified in the start and end fields.
+   * **Example**: FREQ=WEEKLY;INTERVAL=2;BYDAY=MO;UNTIL=20200427T070000Z
+   * ORIGINAL COMMENTS-->
+   */
+  recurrence?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Recurring interval ID. Defined when a session will be a recurring session. read-only. Optional.
+   * For exmaple, when creating a class service  with recurring sessions, you add a recurrence rule to create recurring sessions.
+   * This field is omitted for single sessions or instances of recurring sessions.
+   * Specified when the session was originally generated from a schedule recurring interval.
+   * Deprecated. Use `recurringSessionId`.
+   */
+  recurringIntervalId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the recurring session if this session is an instance of a recurrence. Use this ID to update the recurrence and all of the instances. */
+  recurringSessionId?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the schedule that the session belongs to. */
+  scheduleId?: InputMaybe<Scalars['String']['input']>;
+  /** ID of the resource or service that the session's schedule belongs to. */
+  scheduleOwnerId?: InputMaybe<Scalars['String']['input']>;
+  /** An object specifying the start date and time of the session. If the session is a recurring session, `start` must contain a `localDateTime`. */
+  start?: InputMaybe<BookingsSchedulesV1CalendarDateTimeInput>;
+  /**
+   * Session status.
+   * <!--ONLY:VELO
+   * One of:
+   * - `"CONFIRMED"` Default value.
+   * - `"CANCELLED"` The session was deleted.
+   * <!--END:ONLY:VELO-->
+   */
+  status?: InputMaybe<BookingsSchedulesV1SessionStatus>;
+  /**
+   * __Deprecated.__
+   * Tags for the session.
+   * The value is inherited from the schedule and can be overridden unless the session is a recurring session.
+   */
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /**
+   * Time reserved after the session end time, derived from the schedule availability constraints and the time between slots. Read-only.
+   * If the session is a recurring session, this field must be empty.
+   */
+  timeReservedAfter?: InputMaybe<Scalars['Int']['input']>;
+  /**
+   * Session title.
+   * The value is inherited from the schedule and can be overridden unless the session is a recurring session.
+   */
+  title?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The number of participants booked for the session. Read-only.
+   * Calculated as the sum of the party sizes.
+   */
+  totalNumberOfParticipants?: InputMaybe<Scalars['Int']['input']>;
+  /**
+   * Session type.
+   * <!--ONLY:VELO
+   * One of:
+   * - `"EVENT"` Reserved period of time on the schedule. For example, an appointment, class, course, or blocked time. Events are visible in the Dashboard in the Bookings app's [Booking Calendar](https://support.wix.com/en/article/wix-bookings-about-the-wix-bookings-calendar) page.
+   * - `"WORKING_HOURS"` Placeholder for available time on a resource’s schedule.
+   * <!--END:ONLY:VELO-->
+   */
+  type?: InputMaybe<BookingsSchedulesV1SessionType>;
+  /**
+   * The session version.
+   * Composed by the schedule, session and participants versions.
+   */
+  version?: InputMaybe<BookingsSchedulesV1SessionVersionInput>;
+};
+
 export enum BookingsSchedulesV1SessionStatus {
   /**
    * The session is cancelled.
@@ -1087,6 +1506,44 @@ export type BookingsSchedulesV1SessionVersion = {
   __typename?: 'BookingsSchedulesV1SessionVersion';
   /** Incremental version number, which is updated on each change to the session or on changes affecting the session. */
   number?: Maybe<Scalars['Int']['output']>;
+};
+
+export type BookingsSchedulesV1SessionVersionInput = {
+  /** Incremental version number, which is updated on each change to the session or on changes affecting the session. */
+  number?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type BookingsSchedulesVeloV2CreateSessionRequestInput = {
+  /** The session to create. */
+  session?: InputMaybe<BookingsSchedulesV1SessionInput>;
+};
+
+export type BookingsSchedulesVeloV2CreateSessionResponse = {
+  __typename?: 'BookingsSchedulesVeloV2CreateSessionResponse';
+  /** The created session. */
+  session?: Maybe<BookingsSchedulesV1Session>;
+};
+
+export type BookingsSchedulesVeloV2DeleteSessionRequestInput = {
+  /** Whether to notify participants about the change, and an optional custom message. */
+  participantNotification?: InputMaybe<BookingsSchedulesV1ParticipantNotificationInput>;
+  /** The ID of the session to delete. */
+  sessionId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type BookingsSchedulesVeloV2UpdateSessionRequestInput = {
+  /** Field mask of fields to update. */
+  fieldmask?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Whether to notify participants about the change, and an optional custom message. */
+  participantNotification?: InputMaybe<BookingsSchedulesV1ParticipantNotificationInput>;
+  /** The session to update. */
+  session?: InputMaybe<BookingsSchedulesV1SessionInput>;
+};
+
+export type BookingsSchedulesVeloV2UpdateSessionResponse = {
+  __typename?: 'BookingsSchedulesVeloV2UpdateSessionResponse';
+  /** The updated session. */
+  session?: Maybe<BookingsSchedulesV1Session>;
 };
 
 export type BookingsServicesV2AvailabilityConstraints = {
@@ -2347,12 +2804,46 @@ export type BookingsUpstreamCommonAddress = {
   subdivisions?: Maybe<Array<Maybe<BookingsUpstreamCommonSubdivision>>>;
 };
 
+export type BookingsUpstreamCommonAddressInput = {
+  /** Main address line, usually street and number, as free text. */
+  addressLine?: InputMaybe<Scalars['String']['input']>;
+  /** Free text providing more detailed address info. Usually contains Apt, Suite, and Floor. */
+  addressLine2?: InputMaybe<Scalars['String']['input']>;
+  /** City name. */
+  city?: InputMaybe<Scalars['String']['input']>;
+  /** Country code. */
+  country?: InputMaybe<Scalars['String']['input']>;
+  /** Country full name. */
+  countryFullname?: InputMaybe<Scalars['String']['input']>;
+  /** A string containing the full address of this location. */
+  formattedAddress?: InputMaybe<Scalars['String']['input']>;
+  /** Coordinates of the physical address. */
+  geocode?: InputMaybe<BookingsUpstreamCommonAddressLocationInput>;
+  /** Free text to help find the address. */
+  hint?: InputMaybe<Scalars['String']['input']>;
+  /** Zip/postal code. */
+  postalCode?: InputMaybe<Scalars['String']['input']>;
+  /** Street name, number and apartment number. */
+  streetAddress?: InputMaybe<BookingsUpstreamCommonStreetAddressInput>;
+  /** Subdivision. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2). */
+  subdivision?: InputMaybe<Scalars['String']['input']>;
+  /** Multi-level subdivisions from top to bottom. */
+  subdivisions?: InputMaybe<Array<InputMaybe<BookingsUpstreamCommonSubdivisionInput>>>;
+};
+
 export type BookingsUpstreamCommonAddressLocation = {
   __typename?: 'BookingsUpstreamCommonAddressLocation';
   /** Address latitude. */
   latitude?: Maybe<Scalars['Float']['output']>;
   /** Address longitude. */
   longitude?: Maybe<Scalars['Float']['output']>;
+};
+
+export type BookingsUpstreamCommonAddressLocationInput = {
+  /** Address latitude. */
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  /** Address longitude. */
+  longitude?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type BookingsUpstreamCommonStreetAddress = {
@@ -2365,12 +2856,28 @@ export type BookingsUpstreamCommonStreetAddress = {
   number?: Maybe<Scalars['String']['output']>;
 };
 
+export type BookingsUpstreamCommonStreetAddressInput = {
+  /** Apartment number. */
+  apt?: InputMaybe<Scalars['String']['input']>;
+  /** Street name. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Street number. */
+  number?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type BookingsUpstreamCommonSubdivision = {
   __typename?: 'BookingsUpstreamCommonSubdivision';
   /** Subdivision code. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2). */
   code?: Maybe<Scalars['String']['output']>;
   /** Subdivision full name. */
   name?: Maybe<Scalars['String']['output']>;
+};
+
+export type BookingsUpstreamCommonSubdivisionInput = {
+  /** Subdivision code. Usually state, region, prefecture or province code, according to [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2). */
+  code?: InputMaybe<Scalars['String']['input']>;
+  /** Subdivision full name. */
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type CatalogV1AddProductMediaRequestInput = {
@@ -2506,10 +3013,16 @@ export type CatalogV1Collection = {
   name?: Maybe<Scalars['String']['output']>;
   /** Number of products in the collection. Read only. */
   numberOfProducts?: Maybe<Scalars['Int']['output']>;
+  productsVirtualReference?: Maybe<CatalogV1QueryProductsPlatformizedResponse>;
   /** Collection slug. */
   slug?: Maybe<Scalars['String']['output']>;
   /** Collection visibility. Only impacts dynamic pages, no impact on static pages. Default: `true`. */
   visible?: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+export type CatalogV1CollectionProductsVirtualReferenceArgs = {
+  query?: InputMaybe<CatalogV1QueryProductsPlatformizedRequestInput>;
 };
 
 export type CatalogV1CollectionInput = {
@@ -3538,6 +4051,30 @@ export type CatalogV2QueryCollectionsResponse = {
   items?: Maybe<Array<Maybe<CatalogV1Collection>>>;
   /** Pagination data */
   pageInfo?: Maybe<PageInfo>;
+};
+
+export type CatalogWriteProxyV1CreateProductPlatformizedRequestInput = {
+  /** Product information. */
+  product?: InputMaybe<CatalogV1ProductInput>;
+};
+
+export type CatalogWriteProxyV1CreateProductPlatformizedResponse = {
+  __typename?: 'CatalogWriteProxyV1CreateProductPlatformizedResponse';
+  product?: Maybe<CatalogV1Product>;
+};
+
+export type CatalogWriteProxyV1DeleteProductPlatformizedRequestInput = {
+  /** ID of the product to delete. */
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CatalogWriteProxyV1UpdateProductPlatformizedRequestInput = {
+  product?: InputMaybe<CatalogV1ProductInput>;
+};
+
+export type CatalogWriteProxyV1UpdateProductPlatformizedResponse = {
+  __typename?: 'CatalogWriteProxyV1UpdateProductPlatformizedResponse';
+  product?: Maybe<CatalogV1Product>;
 };
 
 export type CloudDataDataAggregateDataItemsRequestAggregationInput = {
@@ -12268,6 +12805,11 @@ export type HeadlessV1RedirectSessionPaidPlansCheckoutParamsInput = {
 
 export type HeadlessV1RedirectSessionPreferencesInput = {
   /**
+   * A map of additional query parameters to pass to the created Wix URL.
+   * Global query parameters to be passed to Wix, for example campaign parameters (UTM params).
+   */
+  additionalQueryParameters?: InputMaybe<Scalars['JSON']['input']>;
+  /**
    * Whether to maintain the identity used in the redirect to wix (not relevant for "logout" and "auth" intents), or to use a new visitor identity.
    *
    * Default: `true`
@@ -13871,6 +14413,42 @@ export type Mutation = {
    */
   bookingsServicesV2UpdateService?: Maybe<BookingsServicesV2UpdateServiceResponse>;
   /**
+   * Creates a session.
+   *
+   * A session is one of the following:
+   * + `"EVENT"`: Reserved period of time on any [schedule](wix-bookings-backend.sessions/introduction#schedules). For example, an appointment, class, or course. Events are visible in the Dashboard in the Bookings app's [**Booking Calendar**](https://support.wix.com/en/article/wix-bookings-about-the-wix-bookings-calendar) page. Set `type` to `"EVENT"` when creating sessions that reserve time on a service's schedule, or when creating a blocked time for a resource.
+   * + `"WORKING_HOURS"`: Placeholder for available time on a resource’s schedule. Set `type` to `"WORKING_HOURS"` when creating sessions for resource availability.
+   *
+   * Sessions belong to a schedule. Schedules are owned by a resource or a service.
+   *
+   * A session may be an individual session or a recurring session.
+   * An individual session has a discrete start and end date, while a recurring session defines a series of repeating sessions. An instance of a recurring session is a specific session in a series of repeating sessions, generated according to the recurrence rule.
+   * The `start` and `end` properties set the time and duration of the session. For non-recurring sessions, you can use either the `timestamp` or `localDateTime` properties.
+   * For recurring sessions, use the `localDateTime` property only. For recurring sessions, the `start` property sets the date and time of the first recurring session, subject to the recurrence rule. For example, if you set the `start` to Saturday, May 1 and your recurrence rule says every second Monday, then the first session will only be on Monday, May 10.
+   *
+   * The `year`, `monthOfYear` and `dayOfMonth` properties in the `end` property are used with the `hourOfDay` and `minutesOfHour` properties to set the duration of each session relative to the `start`.
+   * The `UNTIL` keyword in the `recurrence` property sets the date for the last recurring session.
+   *
+   * You can create a session that blocks hours on the resource's calendar, making the resource unavailable.
+   * Create a non-recurring session of type `"EVENT"`, and add `"Blocked"` to the `tags` array.
+   *
+   * >**Notes:**
+   * > + For properties where there is no explicit time zone information, the time zone used is the business’s time zone.
+   * > + Only users with **[Bookings Admin](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin)** permissions can create a session. You can override the permissions by setting the `suppressAuth` option to `true`.
+   */
+  bookingsSessionsV1CreateSession?: Maybe<BookingsSchedulesVeloV2CreateSessionResponse>;
+  /**
+   * Deletes a session.
+   *
+   * Use the `participantNotification` property to send an email to the participants when the session is deleted.
+   * When deleting a session of type `"EVENT"` where a booking exists, the booking's status is updated to `"CANCELED"`.
+   * To delete a set of recurring sessions, specify the session's `recurringSessionId` in the `sessionId` property in the parameters.
+   * When deleting a recurrence, only future instances of the recurrence are deleted.
+   *
+   * >**Note:** Only users with **[Bookings Admin](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin)** permissions can delete a session. You can override the permissions by setting the `suppressAuth` option to `true`.
+   */
+  bookingsSessionsV1DeleteSession?: Maybe<Scalars['Void']['output']>;
+  /**
    * Retrieves a list of sessions by their IDs.
    *
    *
@@ -13878,6 +14456,25 @@ export type Mutation = {
    * To retrieve full session objects including all personal information, use the `ALL_PI` fieldset. This requires the CALENDAR.SESSION_READ_PI permission scope.
    */
   bookingsSessionsV1ListSessions?: Maybe<BookingsCalendarV2ListSessionsResponse>;
+  /**
+   * Updates a session.
+   *
+   * When you update a recurring session, only the future instances of the recurrence will be updated. Changing an individual instance's `start` or `end` time will change the way updates to `start` and `end` on the recurring session affect the session instance:
+   * |Change made to the instance | Effect of changes made to the recurrence
+   * |--|--|
+   * |Instance `start` time changed.|Changes to the recurring session's `start` or `end` time will not update the instance.|
+   * |Instance `end` time changed, changing the session's duration| Changes made to the recurring session's start time will be updated on the instance while keeping the new duration, but changes to the recurring session's `end` time not be updated on the instance.
+   * |Updating a changed `start` time for an instance back to the recurring session's value.|Future changes to the recurring session `start` and `end` times will update the instance's `starts` and `end` time.
+   *
+   * Changes to properties on the recurring session, other than `start` and `end`, are always updated on the recurrence instance.
+   *
+   * Use the `options.participantNotification` object to notify participants if the session has been booked.
+   *
+   * >**Notes:**
+   * > + Where there is no explicit timezone information, the timezone used is the business’s timezone.
+   * > + Only users with **[Bookings Admin](https://support.wix.com/en/article/roles-permissions-overview#bookings-admin)** permissions can update a session. You can override the permissions by setting the `suppressAuth` option to `true`.
+   */
+  bookingsSessionsV1UpdateSession?: Maybe<BookingsSchedulesVeloV2UpdateSessionResponse>;
   /**
    * Archives a location.
    *
@@ -14922,6 +15519,12 @@ export type Mutation = {
   storesProductsV1UpdateProductPlatformized?: Maybe<CatalogV1UpdateProductPlatformizedResponse>;
   /** Updates variants of a specified product. */
   storesProductsV1UpdateVariants?: Maybe<CatalogV1UpdateVariantsResponse>;
+  /** Creates a new product. */
+  storesProductsV1WriteProxyCreateProductPlatformized?: Maybe<CatalogWriteProxyV1CreateProductPlatformizedResponse>;
+  /** Deletes a product. */
+  storesProductsV1WriteProxyDeleteProductPlatformized?: Maybe<Scalars['Void']['output']>;
+  /** Updates specified fields in a product. */
+  storesProductsV1WriteProxyUpdateProductPlatformized?: Maybe<CatalogWriteProxyV1UpdateProductPlatformizedResponse>;
 };
 
 
@@ -15070,8 +15673,23 @@ export type MutationBookingsServicesV2UpdateServiceArgs = {
 };
 
 
+export type MutationBookingsSessionsV1CreateSessionArgs = {
+  input?: InputMaybe<BookingsSchedulesVeloV2CreateSessionRequestInput>;
+};
+
+
+export type MutationBookingsSessionsV1DeleteSessionArgs = {
+  input?: InputMaybe<BookingsSchedulesVeloV2DeleteSessionRequestInput>;
+};
+
+
 export type MutationBookingsSessionsV1ListSessionsArgs = {
   input?: InputMaybe<BookingsCalendarV2ListSessionsRequestInput>;
+};
+
+
+export type MutationBookingsSessionsV1UpdateSessionArgs = {
+  input?: InputMaybe<BookingsSchedulesVeloV2UpdateSessionRequestInput>;
 };
 
 
@@ -16239,6 +16857,21 @@ export type MutationStoresProductsV1UpdateVariantsArgs = {
   input?: InputMaybe<CatalogV1UpdateVariantsRequestInput>;
 };
 
+
+export type MutationStoresProductsV1WriteProxyCreateProductPlatformizedArgs = {
+  input?: InputMaybe<CatalogWriteProxyV1CreateProductPlatformizedRequestInput>;
+};
+
+
+export type MutationStoresProductsV1WriteProxyDeleteProductPlatformizedArgs = {
+  input?: InputMaybe<CatalogWriteProxyV1DeleteProductPlatformizedRequestInput>;
+};
+
+
+export type MutationStoresProductsV1WriteProxyUpdateProductPlatformizedArgs = {
+  input?: InputMaybe<CatalogWriteProxyV1UpdateProductPlatformizedRequestInput>;
+};
+
 export type NpmCommunitiesPlatformizedBlogBlogPagingInput = {
   /** Pointer to the next or previous page in the list of results. */
   cursor?: InputMaybe<Scalars['String']['input']>;
@@ -16938,6 +17571,8 @@ export type NpmCommunitiesPlatformizedBlogV3Post = {
   mostRecentContributorId?: Maybe<Scalars['String']['output']>;
   /** Whether the post is pinned. If `true`, the post is placed at the top of the post list. */
   pinned?: Maybe<Scalars['Boolean']['output']>;
+  /** Indicates if the returned content is a paid content preview for non-paying users. */
+  preview?: Maybe<Scalars['Boolean']['output']>;
   /** [Pricing plan IDs](https://dev.wix.com/api/rest/wix-pricing-plans). Only relevant if a post is assigned to a specific pricing plan. */
   pricingPlanIds?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** IDs of posts related to the post. */
@@ -17341,6 +17976,40 @@ export type Query = {
    * To retrieve a full session object including all personal information, use the `ALL_PI` fieldset. This requires the CALENDAR.SESSION_READ_PI permission scope.
    */
   bookingsSessionsV1Session?: Maybe<BookingsSchedulesV1Session>;
+  /**
+   * Retrieves a list of sessions, given the provided time range, filtering, and paging.
+   *
+   * To query for event instances within a specified time range of up to 1 year, provide a `startDate` and `endDate`.
+   *
+   * Query Sessions runs with these defaults, which you can override:
+   * - Only sessions of type `EVENT` are returned. An event is a single or recurring session that appears in a calendar, for example an appointment or a class.
+   * - `instances` is true. This means only single session instances and instances of recurring sessions are returned.
+   * - `includeExternal` is false. This means that sessions imported from connected external calendars are not returned.
+   * - Session objects are returned with the fields specified in the `NO_PI` fieldset. This means they don't contain personal information.
+   * - `query.cursorPaging.limit` is `100`.
+   *
+   * Note the following limitations, which you can't override:
+   * - Sessions are always sorted by `start.timestamp` in `ASC` order.
+   * - The maximum time range you can query for session instances is 1 year. If you are querying for recurring session definitions, rather than session instances, this limit doesn't apply.
+   * - Pagination is not supported for recurring session definition queries.
+   *
+   * To query only for working hours sessions, set `type` to `WORKING_HOURS`. A working hours session is a single or recurring session that defines availability in a schedule.
+   *
+   * To query for all session types, including events and working hours sessions, set `type` to `ALL`.
+   *
+   * To query for recurring session pattern definitions, set `instances` to `false`. In this case, `fromDate` and `toDate` may be more than 1 year apart.
+   *
+   * To return session objects including personal information, use the `ALL_PI` fieldset. This requires the Read Bookings Calendar - Including Participants or the Manage Bookings Services and Settings or the Manage Business Calendar [permission scope](https://devforum.wix.com/kb/en/article/available-permissions).
+   *
+   * For details on fieldsets, see [Sessions: Supported Fieldsets](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-fieldsets).
+   *
+   * For field support for filters, see [Sessions: Supported Filters](https://dev.wix.com/api/rest/wix-bookings/calendar/supported-filters).
+   *
+   * To learn about working with _Query_ endpoints in general, see
+   * [API Query Language](https://dev.wix.com/api/rest/getting-started/api-query-language) and
+   * [Field Projection](https://dev.wix.com/api/rest/getting-started/field-projection).
+   */
+  bookingsSessionsV1Sessions?: Maybe<BookingsCalendarV2QuerySessionsResponse>;
   /** Retrieves a location. */
   businessToolsLocationsV1Location?: Maybe<LocationsLocation>;
   /** Retrieves locations, given the provided filters, sorting, and paging. */
@@ -17594,6 +18263,11 @@ export type QueryBookingsServicesV2ServicesArgs = {
 
 export type QueryBookingsSessionsV1SessionArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryBookingsSessionsV1SessionsArgs = {
+  queryInput?: InputMaybe<BookingsCalendarV2QuerySessionsRequestInput>;
 };
 
 
@@ -20674,16 +21348,19 @@ export type CollectionBySlugMutation = { __typename?: 'Mutation', storesProducts
       & { ' $fragmentRefs'?: { 'CollectionFragment': CollectionFragment } }
     ) | null } | null };
 
-export type ProductsQueryVariables = Exact<{
-  filter: Scalars['JSON']['input'];
+export type GetcollectionProductsMutationVariables = Exact<{
+  slug: Scalars['String']['input'];
   sort: Array<InputMaybe<CommonSortingInput>> | InputMaybe<CommonSortingInput>;
 }>;
 
 
-export type ProductsQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
-      { __typename?: 'CatalogV1Product' }
-      & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
-    ) | null> | null } | null };
+export type GetcollectionProductsMutation = { __typename?: 'Mutation', storesProductsV1GetCollectionBySlug?: { __typename?: 'CatalogV1GetCollectionBySlugResponse', collection?: (
+      { __typename?: 'CatalogV1Collection', productsVirtualReference?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
+          { __typename?: 'CatalogV1Product' }
+          & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
+        ) | null> | null } | null }
+      & { ' $fragmentRefs'?: { 'CollectionFragment': CollectionFragment } }
+    ) | null } | null };
 
 export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -20736,6 +21413,17 @@ export type RecommendedProductsQueryVariables = Exact<{
 
 
 export type RecommendedProductsQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
+      { __typename?: 'CatalogV1Product' }
+      & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
+    ) | null> | null } | null };
+
+export type ProductsQueryVariables = Exact<{
+  filter: Scalars['JSON']['input'];
+  sort: Array<InputMaybe<CommonSortingInput>> | InputMaybe<CommonSortingInput>;
+}>;
+
+
+export type ProductsQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
       { __typename?: 'CatalogV1Product' }
       & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
     ) | null> | null } | null };
@@ -21037,15 +21725,26 @@ export const CollectionBySlugDocument = new TypedDocumentString(`
   slug
   description
 }`) as unknown as TypedDocumentString<CollectionBySlugMutation, CollectionBySlugMutationVariables>;
-export const ProductsDocument = new TypedDocumentString(`
-    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {
-  storesProductsV1Products(queryInput: {query: {filter: $filter, sort: $sort}}) {
-    items {
-      ...Product
+export const GetcollectionProductsDocument = new TypedDocumentString(`
+    mutation GetcollectionProducts($slug: String!, $sort: [CommonSortingInput]!) {
+  storesProductsV1GetCollectionBySlug(input: {slug: $slug}) {
+    collection {
+      ...Collection
+      productsVirtualReference(query: {query: {sort: $sort}}) {
+        items {
+          ...Product
+        }
+      }
     }
   }
 }
-    fragment Product on CatalogV1Product {
+    fragment Collection on CatalogV1Collection {
+  id
+  name
+  slug
+  description
+}
+fragment Product on CatalogV1Product {
   id
   name
   description
@@ -21099,7 +21798,7 @@ export const ProductsDocument = new TypedDocumentString(`
     }
   }
   lastUpdated
-}`) as unknown as TypedDocumentString<ProductsQuery, ProductsQueryVariables>;
+}`) as unknown as TypedDocumentString<GetcollectionProductsMutation, GetcollectionProductsMutationVariables>;
 export const CollectionsDocument = new TypedDocumentString(`
     query Collections {
   storesCollectionsV1Collections {
@@ -21289,6 +21988,69 @@ export const RecommendedProductsDocument = new TypedDocumentString(`
   }
   lastUpdated
 }`) as unknown as TypedDocumentString<RecommendedProductsQuery, RecommendedProductsQueryVariables>;
+export const ProductsDocument = new TypedDocumentString(`
+    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {
+  storesProductsV1Products(queryInput: {query: {filter: $filter, sort: $sort}}) {
+    items {
+      ...Product
+    }
+  }
+}
+    fragment Product on CatalogV1Product {
+  id
+  name
+  description
+  stock {
+    inventoryStatus
+  }
+  slug
+  media {
+    mainMedia {
+      image {
+        url
+        altText
+        width
+        height
+      }
+    }
+    items {
+      image {
+        url
+        altText
+        width
+        height
+      }
+    }
+  }
+  price {
+    price
+    currency
+  }
+  manageVariants
+  variants {
+    id
+    choices
+    variant {
+      priceData {
+        price
+        currency
+      }
+    }
+    stock {
+      trackQuantity
+      quantity
+    }
+  }
+  productOptions {
+    name
+    optionType
+    choices {
+      value
+      description
+    }
+  }
+  lastUpdated
+}`) as unknown as TypedDocumentString<ProductsQuery, ProductsQueryVariables>;
 export const CreateCheckoutFromCurrentCartDocument = new TypedDocumentString(`
     mutation CreateCheckoutFromCurrentCart {
   ecomCurrentCartV1CreateCheckoutFromCurrentCart(

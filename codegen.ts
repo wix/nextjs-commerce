@@ -3,7 +3,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "https://www.wixapis.com/graphql",
+  schema: "https://www.wixapis.com/graphql/alpha",
   generates: {
     "lib/wix/generated/": {
       preset: 'client',

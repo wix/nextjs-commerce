@@ -394,55 +394,36 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  let resolvedCollection: CollectionFragment | undefined = undefined;
-  try {
     const { data } = await getWixClient().graphql(graphql(`
-      mutation CollectionBySlug($slug: String!) {
+      mutation GetcollectionProducts($slug: String!, $sort: [CommonSortingInput]!) {
         storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {
           collection {
             ...Collection
+            productsVirtualReference(query: { query: {sort: $sort} }) {
+              items {
+                ...Product
+              }
+            }
           }
         }
       }
-      `), {
-      slug: collection
-      });
+    `), {
+      slug: collection,
+      sort: [{
+        fieldName: sortKey || 'name',
+        order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
+      }]
+    });
+    
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    resolvedCollection = useFragment(collectionFragment, data.storesProductsV1GetCollectionBySlug?.collection!);
-  } catch (e) {
-    if ((e as any)?.details?.applicationError?.code !== 404) {
-      throw e;
+    const resolvedCollection = data.storesProductsV1GetCollectionBySlug?.collection!;
+
+    if (!resolvedCollection) {
+      console.log(`No collection found for \`${collection}\``);
+      return [];
     }
-  }
 
-  if (!resolvedCollection) {
-    console.log(`No collection found for \`${collection}\``);
-    return [];
-  }
-
-  const productsQuery = graphql(`
-    query Products($filter: JSON!, $sort: [CommonSortingInput]!) {
-      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {
-        items {
-          ...Product
-        }
-      }
-    }
-  `);
-
-  const { data } = await getWixClient().graphql(productsQuery, {
-    filter: {
-      collectionIds: {
-        $hasSome: resolvedCollection.id
-      }
-    },
-    sort: [{
-      fieldName: sortKey || 'name',
-      order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
-    }]
-  });
-
-  return data.storesProductsV1Products?.items?.map(x => reshapeProduct(x!)) ?? [];
+    return resolvedCollection.productsVirtualReference?.items?.map(x => reshapeProduct(x!)) ?? [];
 }
 
 export async function getCollections(): Promise<Collection[]> {
@@ -713,6 +694,10 @@ export const getWixClient = () => {
         accessToken: { value: '', expiresAt: 0 }
       }
     }),
+    // @ts-expect-error
+    headers: {
+      'x-wix-route-graphql-public-server': 'dp-0fdcbe4f1b133d4680e260e8bea7b98b647a31108a9cff072147a047'
+    }
   });
   return wixClient;
 };
