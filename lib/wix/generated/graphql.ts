@@ -5,19 +5,23 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never;
+};
+export type Incremental<T> =
+  | T
+  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any; }
+  JSON: { input: any; output: any };
   /** Represents NULL values */
-  Void: { input: any; output: any; }
+  Void: { input: any; output: any };
 };
 
 export type AdvancedSeoSeoSchema = {
@@ -3020,7 +3024,6 @@ export type CatalogV1Collection = {
   visible?: Maybe<Scalars['Boolean']['output']>;
 };
 
-
 export type CatalogV1CollectionProductsVirtualReferenceArgs = {
   query?: InputMaybe<CatalogV1QueryProductsPlatformizedRequestInput>;
 };
@@ -3541,7 +3544,6 @@ export type CatalogV1Product = {
   weightRange?: Maybe<EcommerceCatalogSpiV1NumericPropertyRange>;
 };
 
-
 export type CatalogV1ProductCollectionsArgs = {
   query?: InputMaybe<CatalogV2QueryCollectionsRequestInput>;
 };
@@ -3874,7 +3876,6 @@ export type CatalogV1StoreVariant = {
   variantName?: Maybe<Scalars['String']['output']>;
 };
 
-
 export type CatalogV1StoreVariantCollectionsArgs = {
   query?: InputMaybe<CatalogV2QueryCollectionsRequestInput>;
 };
@@ -4081,7 +4082,9 @@ export type CloudDataDataAggregateDataItemsRequestAggregationInput = {
   /** Fields by which to group items for the aggregation. If empty, the aggregation is carried out on all items in the collection. */
   groupingFields?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Operations to carry out on the data in each grouping. */
-  operations?: InputMaybe<Array<InputMaybe<CloudDataDataAggregateDataItemsRequestAggregationOperationInput>>>;
+  operations?: InputMaybe<
+    Array<InputMaybe<CloudDataDataAggregateDataItemsRequestAggregationOperationInput>>
+  >;
 };
 
 export type CloudDataDataAggregateDataItemsRequestAggregationOperationAverageInput = {
@@ -5879,7 +5882,9 @@ export type EcomCartV1CreateCartRequestInput = {
   /** Catalog line items. */
   lineItems?: InputMaybe<Array<InputMaybe<EcomCartV1LineItemInput>>>;
   /** Merchant discounts to apply to specific line items. If no `lineItemIds` are passed, the discount will be applied to the whole cart. */
-  merchantDiscounts?: InputMaybe<Array<InputMaybe<EcomTotalsCalculatorV1MerchantDiscountInputInput>>>;
+  merchantDiscounts?: InputMaybe<
+    Array<InputMaybe<EcomTotalsCalculatorV1MerchantDiscountInputInput>>
+  >;
 };
 
 export type EcomCartV1CreateCartResponse = {
@@ -6046,6 +6051,8 @@ export type EcomCartV1LineItem = {
   selectedMembership?: Maybe<EcomCartV1SelectedMembership>;
   /** Service properties. When relevant, this contains information such as date and number of participants. */
   serviceProperties?: Maybe<EcommerceCatalogSpiV1ServiceProperties>;
+  /** Tax group ID for this line item. */
+  taxGroupId?: Maybe<Scalars['String']['output']>;
   /** URL to the item's page on the site. */
   url?: Maybe<CommonPageUrlV2>;
 };
@@ -6104,6 +6111,8 @@ export type EcomCartV1LineItemInput = {
   selectedMembership?: InputMaybe<EcomCartV1SelectedMembershipInput>;
   /** Service properties. When relevant, this contains information such as date and number of participants. */
   serviceProperties?: InputMaybe<EcommerceCatalogSpiV1ServicePropertiesInput>;
+  /** Tax group ID for this line item. */
+  taxGroupId?: InputMaybe<Scalars['String']['input']>;
   /** URL to the item's page on the site. */
   url?: InputMaybe<CommonPageUrlV2Input>;
 };
@@ -6178,7 +6187,9 @@ export type EcomCartV1UpdateCartRequestInput = {
   /** Catalog line items. */
   lineItems?: InputMaybe<Array<InputMaybe<EcomCartV1LineItemInput>>>;
   /** Merchant discounts to apply to specific line items. If no `lineItemIds` are passed, the discount will be applied to the whole cart. */
-  merchantDiscounts?: InputMaybe<Array<InputMaybe<EcomTotalsCalculatorV1MerchantDiscountInputInput>>>;
+  merchantDiscounts?: InputMaybe<
+    Array<InputMaybe<EcomTotalsCalculatorV1MerchantDiscountInputInput>>
+  >;
 };
 
 export type EcomCartV1UpdateCartResponse = {
@@ -6448,6 +6459,12 @@ export type EcomCheckoutV1CheckoutInput = {
   violations?: InputMaybe<Array<InputMaybe<EcommerceValidationsSpiV1ViolationInput>>>;
   /** Weight measurement unit - defaults to site's weight unit. */
   weightUnit?: InputMaybe<EcommercePlatformCommonWeightUnit>;
+};
+
+export type EcomCheckoutV1CheckoutRequestInput = {
+  id: Scalars['ID']['input'];
+  /** Whether to refresh the checkout from external sources. Defaults to true. */
+  refresh?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type EcomCheckoutV1CreateCheckoutRequestInput = {
@@ -6774,7 +6791,9 @@ export type EcomCheckoutV1MembershipOptionsInput = {
   /** Reserved for internal use. */
   eligibleMemberships?: InputMaybe<Array<InputMaybe<EcomMembershipsSpiV1HostMembershipInput>>>;
   /** Reserved for internal use. */
-  invalidMemberships?: InputMaybe<Array<InputMaybe<EcomMembershipsSpiV1HostInvalidMembershipInput>>>;
+  invalidMemberships?: InputMaybe<
+    Array<InputMaybe<EcomMembershipsSpiV1HostInvalidMembershipInput>>
+  >;
   /** Selected membership to apply to this checkout. */
   selectedMemberships?: InputMaybe<EcomMembershipsSpiV1HostSelectedMembershipsInput>;
 };
@@ -6839,7 +6858,9 @@ export type EcomCheckoutV1ShippingInfo = {
 
 export type EcomCheckoutV1ShippingInfoInput = {
   /** All carrier options for this shipping rule. */
-  carrierServiceOptions?: InputMaybe<Array<InputMaybe<EcomTotalsCalculatorV1CarrierServiceOptionInput>>>;
+  carrierServiceOptions?: InputMaybe<
+    Array<InputMaybe<EcomTotalsCalculatorV1CarrierServiceOptionInput>>
+  >;
   /** Shipping region. Based on the address provided. */
   region?: InputMaybe<EcomTotalsCalculatorV1ShippingRegionInput>;
   /** Selected option out of the options allowed for the `region`. */
@@ -6886,6 +6907,10 @@ export type EcomCheckoutV1UpdateLineItemsQuantityResponse = {
   __typename?: 'EcomCheckoutV1UpdateLineItemsQuantityResponse';
   /** Updated checkout. */
   checkout?: Maybe<EcomCheckoutV1Checkout>;
+};
+
+export type EcomDiscountRulesV1DiscountRuleRequestInput = {
+  id: Scalars['ID']['input'];
 };
 
 export type EcomDiscountsActiveTimeInfo = {
@@ -7632,7 +7657,9 @@ export type EcomOrdersPaymentsCollectorV1ChargeMembershipsRequestInput = {
    */
   memberId?: InputMaybe<Scalars['String']['input']>;
   /** List of items to be paid by memberships */
-  membershipCharges?: InputMaybe<Array<InputMaybe<EcomOrdersPaymentsCollectorV1MembershipChargeItemInput>>>;
+  membershipCharges?: InputMaybe<
+    Array<InputMaybe<EcomOrdersPaymentsCollectorV1MembershipChargeItemInput>>
+  >;
 };
 
 export type EcomOrdersPaymentsCollectorV1ChargedByInput = {
@@ -8670,7 +8697,9 @@ export type EcomOrdersV1DraftOrderChangesApplied = {
 
 export type EcomOrdersV1DraftOrderChangesAppliedInput = {
   /** Changes applied to order. */
-  changes?: InputMaybe<Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesOrderChangeInput>>>;
+  changes?: InputMaybe<
+    Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesOrderChangeInput>>
+  >;
   /** Draft order id. */
   draftOrderId?: InputMaybe<Scalars['String']['input']>;
   /** Reason for edit, given by user (optional). */
@@ -8776,7 +8805,9 @@ export type EcomOrdersV1DraftOrderChangesAppliedTypesManagedAdditionalFee = {
 
 export type EcomOrdersV1DraftOrderChangesAppliedTypesManagedAdditionalFeeInput = {
   /** Line items additional fee applies to. */
-  affectedLineItems?: InputMaybe<Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesLineItemAmountInput>>>;
+  affectedLineItems?: InputMaybe<
+    Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesLineItemAmountInput>>
+  >;
   /** Additional fee id. */
   id?: InputMaybe<Scalars['String']['input']>;
   /** Additional fee name. */
@@ -8799,7 +8830,9 @@ export type EcomOrdersV1DraftOrderChangesAppliedTypesManagedDiscount = {
 
 export type EcomOrdersV1DraftOrderChangesAppliedTypesManagedDiscountInput = {
   /** Line items discount applies to. */
-  affectedLineItems?: InputMaybe<Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesLineItemAmountInput>>>;
+  affectedLineItems?: InputMaybe<
+    Array<InputMaybe<EcomOrdersV1DraftOrderChangesAppliedTypesLineItemAmountInput>>
+  >;
   /** Discount id. */
   id?: InputMaybe<Scalars['String']['input']>;
   /** Discount name: coupon name / discount rule name / merchant discount description. */
@@ -10275,7 +10308,9 @@ export type EcomTotalsCalculatorV1SelectedCarrierServiceOptionInput = {
   /** Delivery logistics. */
   logistics?: InputMaybe<EcomTotalsCalculatorV1DeliveryLogisticsInput>;
   /** Other charges */
-  otherCharges?: InputMaybe<Array<InputMaybe<EcomTotalsCalculatorV1SelectedCarrierServiceOptionOtherChargeInput>>>;
+  otherCharges?: InputMaybe<
+    Array<InputMaybe<EcomTotalsCalculatorV1SelectedCarrierServiceOptionOtherChargeInput>>
+  >;
   /** Were we able to find the requested shipping option, or otherwise we fallback to the default one (the first) */
   requestedShippingOption?: InputMaybe<Scalars['Boolean']['input']>;
   /**
@@ -12341,7 +12376,9 @@ export type FormsV4FormFieldV2InputFieldWixFileFileUpload = {
    */
   showLabel?: Maybe<Scalars['Boolean']['output']>;
   /** Supported file formats for upload */
-  uploadFileFormats?: Maybe<Array<Maybe<FormsV4FormFieldV2InputFieldWixFileFileUploadUploadFileFormatEnumUploadFileFormat>>>;
+  uploadFileFormats?: Maybe<
+    Array<Maybe<FormsV4FormFieldV2InputFieldWixFileFileUploadUploadFileFormatEnumUploadFileFormat>>
+  >;
 };
 
 export enum FormsV4FormFieldV2InputFieldWixFileFileUploadUploadFileFormatEnumUploadFileFormat {
@@ -13695,6 +13732,25 @@ export type MembersMemberInput = {
   updatedDate?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MembersMembersV1MemberRequestInput = {
+  /**
+   * Predefined set of fields to return.
+   *
+   * Defaults to `PUBLIC`.
+   *
+   * __Deprecated.__ Use `fieldsets` instead.
+   * This property will be removed on March 31, 2023.
+   */
+  fieldSet?: InputMaybe<MembersFieldSetSet>;
+  /**
+   * Predefined set of fields to return.
+   *
+   * Defaults to `PUBLIC`.
+   */
+  fieldsets?: InputMaybe<Array<InputMaybe<MembersFieldSetSet>>>;
+  id: Scalars['ID']['input'];
+};
+
 export enum MembersPrivacyStatusStatus {
   Private = 'PRIVATE',
   Public = 'PUBLIC',
@@ -14375,7 +14431,9 @@ export type Mutation = {
    * service won't have any supported options and variants any longer. Instead,
    * the standard Wix Bookings service price calculation is used.
    */
-  bookingsServiceOptionsAndVariantsV1DeleteServiceOptionsAndVariants?: Maybe<Scalars['Void']['output']>;
+  bookingsServiceOptionsAndVariantsV1DeleteServiceOptionsAndVariants?: Maybe<
+    Scalars['Void']['output']
+  >;
   /** Retrieves a service's options and variants by `service_id`. */
   bookingsServiceOptionsAndVariantsV1GetServiceOptionsAndVariantsByServiceId?: Maybe<BookingsCatalogV1GetServiceOptionsAndVariantsByServiceIdResponse>;
   /**
@@ -14516,6 +14574,7 @@ export type Mutation = {
   crmExtendedFieldsV4DeleteExtendedField?: Maybe<Scalars['Void']['output']>;
   /**
    * Retrieves a custom field with a given name, or creates one if it doesn't exist.
+   * The number of custom fields is limited to 100.
    *
    * Successful calls to this endpoint always return a field,
    * which can be passed to subsequent requests.
@@ -15527,1346 +15586,1078 @@ export type Mutation = {
   storesProductsV1WriteProxyUpdateProductPlatformized?: Maybe<CatalogWriteProxyV1UpdateProductPlatformizedResponse>;
 };
 
-
 export type MutationAuthManagementOAuthAppsV1CreateOAuthAppArgs = {
   input?: InputMaybe<HeadlessV1CreateOAuthAppRequestInput>;
 };
-
 
 export type MutationAuthManagementOAuthAppsV1DeleteOAuthAppArgs = {
   input?: InputMaybe<HeadlessV1DeleteOAuthAppRequestInput>;
 };
 
-
 export type MutationAuthManagementOAuthAppsV1GenerateOAuthAppSecretArgs = {
   input?: InputMaybe<HeadlessV1GenerateOAuthAppSecretRequestInput>;
 };
-
 
 export type MutationAuthManagementOAuthAppsV1UpdateOAuthAppArgs = {
   input?: InputMaybe<HeadlessV1UpdateOAuthAppRequestInput>;
 };
 
-
 export type MutationBlogCategoriesV3CreateCategoryArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3CreateCategoryRequestInput>;
 };
-
 
 export type MutationBlogCategoriesV3DeleteCategoryArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3DeleteCategoryRequestInput>;
 };
 
-
 export type MutationBlogCategoriesV3GetCategoryBySlugArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3GetCategoryBySlugRequestInput>;
 };
-
 
 export type MutationBlogCategoriesV3ListCategoriesArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3ListCategoriesRequestInput>;
 };
 
-
 export type MutationBlogCategoriesV3UpdateCategoryArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3UpdateCategoryRequestInput>;
 };
-
 
 export type MutationBlogPostsV3GetPostBySlugArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3GetPostBySlugRequestInput>;
 };
 
-
 export type MutationBlogPostsV3GetPostMetricsArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3GetPostMetricsRequestInput>;
 };
-
 
 export type MutationBlogPostsV3GetTotalPostsArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogGetTotalPostsRequestInput>;
 };
 
-
 export type MutationBlogPostsV3ListPostsArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogV3ListPostsRequestInput>;
 };
-
 
 export type MutationBlogPostsV3QueryPostCountStatsArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogQueryPostCountStatsRequestInput>;
 };
 
-
 export type MutationBlogTagsV3CreateTagArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogCreateTagRequestInput>;
 };
-
 
 export type MutationBlogTagsV3DeleteTagArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogDeleteTagRequestInput>;
 };
 
-
 export type MutationBlogTagsV3GetTagByLabelArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogGetTagByLabelRequestInput>;
 };
-
 
 export type MutationBlogTagsV3GetTagBySlugArgs = {
   input?: InputMaybe<NpmCommunitiesPlatformizedBlogGetTagBySlugRequestInput>;
 };
 
-
 export type MutationBookingsAttendanceV2SetAttendanceArgs = {
   input?: InputMaybe<BookingsAttendanceV2SetAttendanceRequestInput>;
 };
-
 
 export type MutationBookingsServiceOptionsAndVariantsV1CloneServiceOptionsAndVariantsArgs = {
   input?: InputMaybe<BookingsCatalogV1CloneServiceOptionsAndVariantsRequestInput>;
 };
 
-
 export type MutationBookingsServiceOptionsAndVariantsV1CreateServiceOptionsAndVariantsArgs = {
   input?: InputMaybe<BookingsCatalogV1CreateServiceOptionsAndVariantsRequestInput>;
 };
-
 
 export type MutationBookingsServiceOptionsAndVariantsV1DeleteServiceOptionsAndVariantsArgs = {
   input?: InputMaybe<BookingsCatalogV1DeleteServiceOptionsAndVariantsRequestInput>;
 };
 
-
-export type MutationBookingsServiceOptionsAndVariantsV1GetServiceOptionsAndVariantsByServiceIdArgs = {
-  input?: InputMaybe<BookingsCatalogV1GetServiceOptionsAndVariantsByServiceIdRequestInput>;
-};
-
+export type MutationBookingsServiceOptionsAndVariantsV1GetServiceOptionsAndVariantsByServiceIdArgs =
+  {
+    input?: InputMaybe<BookingsCatalogV1GetServiceOptionsAndVariantsByServiceIdRequestInput>;
+  };
 
 export type MutationBookingsServiceOptionsAndVariantsV1UpdateServiceOptionsAndVariantsArgs = {
   input?: InputMaybe<BookingsCatalogV1UpdateServiceOptionsAndVariantsRequestInput>;
 };
 
-
 export type MutationBookingsServicesV2CreateServiceArgs = {
   input?: InputMaybe<BookingsServicesV2CreateServiceRequestInput>;
 };
-
 
 export type MutationBookingsServicesV2DeleteServiceArgs = {
   input?: InputMaybe<BookingsServicesV2DeleteServiceRequestInput>;
 };
 
-
 export type MutationBookingsServicesV2DisablePricingPlansForServiceArgs = {
   input?: InputMaybe<BookingsServicesV2DisablePricingPlansForServiceRequestInput>;
 };
-
 
 export type MutationBookingsServicesV2EnablePricingPlansForServiceArgs = {
   input?: InputMaybe<BookingsServicesV2EnablePricingPlansForServiceRequestInput>;
 };
 
-
 export type MutationBookingsServicesV2UpdateServiceArgs = {
   input?: InputMaybe<BookingsServicesV2UpdateServiceRequestInput>;
 };
-
 
 export type MutationBookingsSessionsV1CreateSessionArgs = {
   input?: InputMaybe<BookingsSchedulesVeloV2CreateSessionRequestInput>;
 };
 
-
 export type MutationBookingsSessionsV1DeleteSessionArgs = {
   input?: InputMaybe<BookingsSchedulesVeloV2DeleteSessionRequestInput>;
 };
-
 
 export type MutationBookingsSessionsV1ListSessionsArgs = {
   input?: InputMaybe<BookingsCalendarV2ListSessionsRequestInput>;
 };
 
-
 export type MutationBookingsSessionsV1UpdateSessionArgs = {
   input?: InputMaybe<BookingsSchedulesVeloV2UpdateSessionRequestInput>;
 };
-
 
 export type MutationBusinessToolsLocationsV1ArchiveLocationArgs = {
   input?: InputMaybe<LocationsArchiveLocationRequestInput>;
 };
 
-
 export type MutationBusinessToolsLocationsV1CreateLocationArgs = {
   input?: InputMaybe<LocationsCreateLocationRequestInput>;
 };
-
 
 export type MutationBusinessToolsLocationsV1ListLocationsArgs = {
   input?: InputMaybe<LocationsListLocationsRequestInput>;
 };
 
-
 export type MutationBusinessToolsLocationsV1SetDefaultLocationArgs = {
   input?: InputMaybe<LocationsSetDefaultLocationRequestInput>;
 };
-
 
 export type MutationBusinessToolsLocationsV1UpdateLocationArgs = {
   input?: InputMaybe<LocationsUpdateLocationRequestInput>;
 };
 
-
 export type MutationCrmExtendedFieldsV4DeleteExtendedFieldArgs = {
   input?: InputMaybe<ContactsFieldsV4DeleteExtendedFieldRequestInput>;
 };
-
 
 export type MutationCrmExtendedFieldsV4FindOrCreateExtendedFieldArgs = {
   input?: InputMaybe<ContactsFieldsV4FindOrCreateExtendedFieldRequestInput>;
 };
 
-
 export type MutationCrmExtendedFieldsV4ListExtendedFieldsArgs = {
   input?: InputMaybe<ContactsFieldsV4ListExtendedFieldsRequestInput>;
 };
-
 
 export type MutationCrmExtendedFieldsV4UpdateExtendedFieldArgs = {
   input?: InputMaybe<ContactsFieldsV4UpdateExtendedFieldRequestInput>;
 };
 
-
 export type MutationCrmLabelsV4DeleteLabelArgs = {
   input?: InputMaybe<ContactsLabelsV4DeleteLabelRequestInput>;
 };
-
 
 export type MutationCrmLabelsV4FindOrCreateLabelArgs = {
   input?: InputMaybe<ContactsLabelsV4FindOrCreateLabelRequestInput>;
 };
 
-
 export type MutationCrmLabelsV4ListLabelsArgs = {
   input?: InputMaybe<ContactsLabelsV4ListLabelsRequestInput>;
 };
-
 
 export type MutationCrmLabelsV4UpdateLabelArgs = {
   input?: InputMaybe<ContactsLabelsV4UpdateLabelRequestInput>;
 };
 
-
 export type MutationDataItemsV2AggregateDataItemsArgs = {
   input?: InputMaybe<CloudDataDataAggregateDataItemsRequestInput>;
 };
-
 
 export type MutationDataItemsV2BulkInsertDataItemReferencesArgs = {
   input?: InputMaybe<CloudDataDataBulkInsertDataItemReferencesRequestInput>;
 };
 
-
 export type MutationDataItemsV2BulkInsertDataItemsArgs = {
   input?: InputMaybe<CloudDataDataBulkInsertDataItemsRequestInput>;
 };
-
 
 export type MutationDataItemsV2BulkRemoveDataItemReferencesArgs = {
   input?: InputMaybe<CloudDataDataBulkRemoveDataItemReferencesRequestInput>;
 };
 
-
 export type MutationDataItemsV2BulkRemoveDataItemsArgs = {
   input?: InputMaybe<CloudDataDataBulkRemoveDataItemsRequestInput>;
 };
-
 
 export type MutationDataItemsV2BulkSaveDataItemsArgs = {
   input?: InputMaybe<CloudDataDataBulkSaveDataItemsRequestInput>;
 };
 
-
 export type MutationDataItemsV2BulkUpdateDataItemsArgs = {
   input?: InputMaybe<CloudDataDataBulkUpdateDataItemsRequestInput>;
 };
-
 
 export type MutationDataItemsV2CountDataItemsArgs = {
   input?: InputMaybe<CloudDataDataCountDataItemsRequestInput>;
 };
 
-
 export type MutationDataItemsV2InsertDataItemArgs = {
   input?: InputMaybe<CloudDataDataInsertDataItemRequestInput>;
 };
-
 
 export type MutationDataItemsV2InsertDataItemReferenceArgs = {
   input?: InputMaybe<CloudDataDataInsertDataItemReferenceRequestInput>;
 };
 
-
 export type MutationDataItemsV2IsReferencedDataItemArgs = {
   input?: InputMaybe<CloudDataDataIsReferencedDataItemRequestInput>;
 };
-
 
 export type MutationDataItemsV2QueryDistinctValuesArgs = {
   input?: InputMaybe<CloudDataDataQueryDistinctValuesRequestInput>;
 };
 
-
 export type MutationDataItemsV2QueryReferencedDataItemsArgs = {
   input?: InputMaybe<CloudDataDataQueryReferencedDataItemsRequestInput>;
 };
-
 
 export type MutationDataItemsV2RemoveDataItemArgs = {
   input?: InputMaybe<CloudDataDataRemoveDataItemRequestInput>;
 };
 
-
 export type MutationDataItemsV2RemoveDataItemReferenceArgs = {
   input?: InputMaybe<CloudDataDataRemoveDataItemReferenceRequestInput>;
 };
-
 
 export type MutationDataItemsV2ReplaceDataItemReferencesArgs = {
   input?: InputMaybe<CloudDataDataReplaceDataItemReferencesRequestInput>;
 };
 
-
 export type MutationDataItemsV2SaveDataItemArgs = {
   input?: InputMaybe<CloudDataDataSaveDataItemRequestInput>;
 };
-
 
 export type MutationDataItemsV2TruncateDataItemsArgs = {
   input?: InputMaybe<CloudDataDataTruncateDataItemsRequestInput>;
 };
 
-
 export type MutationDataItemsV2UpdateDataItemArgs = {
   input?: InputMaybe<CloudDataDataUpdateDataItemRequestInput>;
 };
-
 
 export type MutationEcomCartV1AddToCartArgs = {
   input?: InputMaybe<EcomCartV1AddToCartRequestInput>;
 };
 
-
 export type MutationEcomCartV1AddToCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1AddToCurrentCartRequestInput>;
 };
-
 
 export type MutationEcomCartV1CreateCartArgs = {
   input?: InputMaybe<EcomCartV1CreateCartRequestInput>;
 };
 
-
 export type MutationEcomCartV1CreateCheckoutArgs = {
   input?: InputMaybe<EcomCartV1CreateCheckoutRequestInput>;
 };
-
 
 export type MutationEcomCartV1CreateCheckoutFromCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1CreateCheckoutFromCurrentCartRequestInput>;
 };
 
-
 export type MutationEcomCartV1CurrentCartGetCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCartV1DeleteCartArgs = {
   input?: InputMaybe<EcomCartV1DeleteCartRequestInput>;
 };
 
-
 export type MutationEcomCartV1DeleteCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCartV1EstimateCurrentCartTotalsArgs = {
   input?: InputMaybe<EcomCartV1EstimateCurrentCartTotalsRequestInput>;
 };
 
-
 export type MutationEcomCartV1EstimateTotalsArgs = {
   input?: InputMaybe<EcomCartV1EstimateTotalsRequestInput>;
 };
-
 
 export type MutationEcomCartV1RemoveCouponArgs = {
   input?: InputMaybe<EcomCartV1RemoveCouponRequestInput>;
 };
 
-
 export type MutationEcomCartV1RemoveCouponFromCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCartV1RemoveLineItemsArgs = {
   input?: InputMaybe<EcomCartV1RemoveLineItemsRequestInput>;
 };
 
-
 export type MutationEcomCartV1RemoveLineItemsFromCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1RemoveLineItemsFromCurrentCartRequestInput>;
 };
-
 
 export type MutationEcomCartV1UpdateCartArgs = {
   input?: InputMaybe<EcomCartV1UpdateCartRequestInput>;
 };
 
-
 export type MutationEcomCartV1UpdateCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1UpdateCartRequestInput>;
 };
-
 
 export type MutationEcomCartV1UpdateCurrentCartLineItemQuantityArgs = {
   input?: InputMaybe<EcomCartV1UpdateCurrentCartLineItemQuantityRequestInput>;
 };
 
-
 export type MutationEcomCartV1UpdateLineItemsQuantityArgs = {
   input?: InputMaybe<EcomCartV1UpdateLineItemsQuantityRequestInput>;
 };
-
 
 export type MutationEcomCheckoutV1AddToCheckoutArgs = {
   input?: InputMaybe<EcomCheckoutV1AddToCheckoutRequestInput>;
 };
 
-
 export type MutationEcomCheckoutV1CreateCheckoutArgs = {
   input?: InputMaybe<EcomCheckoutV1CreateCheckoutRequestInput>;
 };
-
 
 export type MutationEcomCheckoutV1GetCheckoutUrlArgs = {
   input?: InputMaybe<EcomCheckoutV1GetCheckoutUrlRequestInput>;
 };
 
-
 export type MutationEcomCheckoutV1MarkCheckoutAsCompletedArgs = {
   input?: InputMaybe<EcomCheckoutV1MarkCheckoutAsCompletedRequestInput>;
 };
-
 
 export type MutationEcomCheckoutV1RemoveCouponArgs = {
   input?: InputMaybe<EcomCheckoutV1RemoveCouponRequestInput>;
 };
 
-
 export type MutationEcomCheckoutV1RemoveGiftCardArgs = {
   input?: InputMaybe<EcomCheckoutV1RemoveGiftCardRequestInput>;
 };
-
 
 export type MutationEcomCheckoutV1RemoveLineItemsArgs = {
   input?: InputMaybe<EcomCheckoutV1RemoveLineItemsRequestInput>;
 };
 
-
 export type MutationEcomCheckoutV1RemoveOverrideCheckoutUrlArgs = {
   input?: InputMaybe<EcomCheckoutV1RemoveOverrideCheckoutUrlRequestInput>;
 };
-
 
 export type MutationEcomCheckoutV1UpdateCheckoutArgs = {
   input?: InputMaybe<EcomCheckoutV1UpdateCheckoutRequestInput>;
 };
 
-
 export type MutationEcomCheckoutV1UpdateLineItemsQuantityArgs = {
   input?: InputMaybe<EcomCheckoutV1UpdateLineItemsQuantityRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1AddToCartArgs = {
   input?: InputMaybe<EcomCartV1AddToCartRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1AddToCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1AddToCurrentCartRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1CreateCartArgs = {
   input?: InputMaybe<EcomCartV1CreateCartRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1CreateCheckoutArgs = {
   input?: InputMaybe<EcomCartV1CreateCheckoutRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1CreateCheckoutFromCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1CreateCheckoutFromCurrentCartRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1CurrentCartGetCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCurrentCartV1DeleteCartArgs = {
   input?: InputMaybe<EcomCartV1DeleteCartRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1DeleteCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCurrentCartV1EstimateCurrentCartTotalsArgs = {
   input?: InputMaybe<EcomCartV1EstimateCurrentCartTotalsRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1EstimateTotalsArgs = {
   input?: InputMaybe<EcomCartV1EstimateTotalsRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1RemoveCouponArgs = {
   input?: InputMaybe<EcomCartV1RemoveCouponRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1RemoveCouponFromCurrentCartArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEcomCurrentCartV1RemoveLineItemsArgs = {
   input?: InputMaybe<EcomCartV1RemoveLineItemsRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1RemoveLineItemsFromCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1RemoveLineItemsFromCurrentCartRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1UpdateCartArgs = {
   input?: InputMaybe<EcomCartV1UpdateCartRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1UpdateCurrentCartArgs = {
   input?: InputMaybe<EcomCartV1UpdateCartRequestInput>;
 };
-
 
 export type MutationEcomCurrentCartV1UpdateCurrentCartLineItemQuantityArgs = {
   input?: InputMaybe<EcomCartV1UpdateCurrentCartLineItemQuantityRequestInput>;
 };
 
-
 export type MutationEcomCurrentCartV1UpdateLineItemsQuantityArgs = {
   input?: InputMaybe<EcomCartV1UpdateLineItemsQuantityRequestInput>;
 };
-
 
 export type MutationEcomDiscountRulesV1CreateDiscountRuleArgs = {
   input?: InputMaybe<EcomDiscountsCreateDiscountRuleRequestInput>;
 };
 
-
 export type MutationEcomDiscountRulesV1DeleteDiscountRuleArgs = {
   input?: InputMaybe<EcomDiscountsDeleteDiscountRuleRequestInput>;
 };
-
 
 export type MutationEcomDiscountRulesV1UpdateDiscountRuleArgs = {
   input?: InputMaybe<EcomDiscountsUpdateDiscountRuleRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1AddActivityArgs = {
   input?: InputMaybe<EcomOrdersV1AddActivityRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1AggregateOrdersArgs = {
   input?: InputMaybe<EcomOrdersV1AggregateOrdersRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1CancelOrderArgs = {
   input?: InputMaybe<EcomOrdersV1CancelOrderRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1ChargeMembershipsArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1ChargeMembershipsRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1CommitDeltasArgs = {
   input?: InputMaybe<EcomOrdersV1CommitDeltasRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1CreateOrderArgs = {
   input?: InputMaybe<EcomOrdersV1CreateOrderRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1DeleteActivityArgs = {
   input?: InputMaybe<EcomOrdersV1DeleteActivityRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1GetPaymentCollectabilityStatusArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1GetPaymentCollectabilityStatusRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1GetRefundabilityStatusArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1GetRefundabilityStatusRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1InternalQueryOrdersArgs = {
   input?: InputMaybe<EcomOrdersV1InternalQueryOrdersRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1PaymentCollectionBulkMarkOrdersAsPaidArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1BulkMarkOrdersAsPaidRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1PaymentCollectionCreatePaymentGatewayOrderArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1CreatePaymentGatewayOrderRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1PaymentCollectionMarkOrderAsPaidArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1MarkOrderAsPaidRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1PreparePaymentCollectionArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1PreparePaymentCollectionRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1RecordManuallyCollectedPaymentArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1RecordManuallyCollectedPaymentRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1TriggerRefundArgs = {
   input?: InputMaybe<EcomOrdersPaymentsCollectorV1TriggerRefundRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1UpdateActivityArgs = {
   input?: InputMaybe<EcomOrdersV1UpdateActivityRequestInput>;
 };
-
 
 export type MutationEcomOrdersV1UpdateOrderArgs = {
   input?: InputMaybe<EcomOrdersV1UpdateOrderRequestInput>;
 };
 
-
 export type MutationEcomOrdersV1UpdateOrderLineItemArgs = {
   input?: InputMaybe<EcomOrdersV1UpdateOrderLineItemRequestInput>;
 };
-
 
 export type MutationEcomPaymentsV1AddPaymentsArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1AddPaymentsRequestInput>;
 };
 
-
 export type MutationEcomPaymentsV1AddRefundArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1AddRefundRequestInput>;
 };
-
 
 export type MutationEcomPaymentsV1BulkUpdatePaymentStatusesArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1BulkUpdatePaymentStatusesRequestInput>;
 };
 
-
 export type MutationEcomPaymentsV1ListTransactionsForMultipleOrdersArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1ListTransactionsForMultipleOrdersRequestInput>;
 };
-
 
 export type MutationEcomPaymentsV1ListTransactionsForSingleOrderArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1ListTransactionsForSingleOrderRequestInput>;
 };
 
-
 export type MutationEcomPaymentsV1UpdatePaymentStatusArgs = {
   input?: InputMaybe<EcomOrdersPaymentsV1UpdatePaymentStatusRequestInput>;
 };
-
 
 export type MutationEcomRecommendationsV1GetRecommendationArgs = {
   input?: InputMaybe<EcomRecommendationsV1GetRecommendationRequestInput>;
 };
 
-
 export type MutationEcomRecommendationsV1ListAvailableAlgorithmsArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationEventsPoliciesV2CreatePolicyArgs = {
   input?: InputMaybe<EventsV2CreatePolicyRequestInput>;
 };
 
-
 export type MutationEventsPoliciesV2DeletePolicyArgs = {
   input?: InputMaybe<EventsV2DeletePolicyRequestInput>;
 };
-
 
 export type MutationEventsPoliciesV2ReorderEventPoliciesArgs = {
   input?: InputMaybe<EventsV2ReorderEventPoliciesRequestInput>;
 };
 
-
 export type MutationEventsPoliciesV2UpdatePolicyArgs = {
   input?: InputMaybe<EventsV2UpdatePolicyRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1AddScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleAddScheduleItemRequestInput>;
 };
 
-
 export type MutationEventsScheduleBookmarksV1CreateBookmarkArgs = {
   input?: InputMaybe<EventsScheduleCreateBookmarkRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1DeleteBookmarkArgs = {
   input?: InputMaybe<EventsScheduleDeleteBookmarkRequestInput>;
 };
 
-
 export type MutationEventsScheduleBookmarksV1DeleteScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleDeleteScheduleItemRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1DiscardDraftArgs = {
   input?: InputMaybe<EventsScheduleDiscardDraftRequestInput>;
 };
 
-
 export type MutationEventsScheduleBookmarksV1GetScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleGetScheduleItemRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1ListBookmarksArgs = {
   input?: InputMaybe<EventsScheduleListBookmarksRequestInput>;
 };
 
-
 export type MutationEventsScheduleBookmarksV1ListScheduleItemsArgs = {
   input?: InputMaybe<EventsScheduleListScheduleItemsRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1PublishDraftArgs = {
   input?: InputMaybe<EventsSchedulePublishDraftRequestInput>;
 };
 
-
 export type MutationEventsScheduleBookmarksV1RescheduleDraftArgs = {
   input?: InputMaybe<EventsScheduleRescheduleDraftRequestInput>;
 };
-
 
 export type MutationEventsScheduleBookmarksV1UpdateScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleUpdateScheduleItemRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1AddScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleAddScheduleItemRequestInput>;
 };
-
 
 export type MutationEventsScheduleV1CreateBookmarkArgs = {
   input?: InputMaybe<EventsScheduleCreateBookmarkRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1DeleteBookmarkArgs = {
   input?: InputMaybe<EventsScheduleDeleteBookmarkRequestInput>;
 };
-
 
 export type MutationEventsScheduleV1DeleteScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleDeleteScheduleItemRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1DiscardDraftArgs = {
   input?: InputMaybe<EventsScheduleDiscardDraftRequestInput>;
 };
-
 
 export type MutationEventsScheduleV1GetScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleGetScheduleItemRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1ListBookmarksArgs = {
   input?: InputMaybe<EventsScheduleListBookmarksRequestInput>;
 };
-
 
 export type MutationEventsScheduleV1ListScheduleItemsArgs = {
   input?: InputMaybe<EventsScheduleListScheduleItemsRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1PublishDraftArgs = {
   input?: InputMaybe<EventsSchedulePublishDraftRequestInput>;
 };
-
 
 export type MutationEventsScheduleV1RescheduleDraftArgs = {
   input?: InputMaybe<EventsScheduleRescheduleDraftRequestInput>;
 };
 
-
 export type MutationEventsScheduleV1UpdateScheduleItemArgs = {
   input?: InputMaybe<EventsScheduleUpdateScheduleItemRequestInput>;
 };
-
 
 export type MutationMembersMembersV1CreateMemberArgs = {
   input?: InputMaybe<MembersCreateMemberRequestInput>;
 };
 
-
 export type MutationMembersMembersV1DeleteMemberArgs = {
   input?: InputMaybe<MembersDeleteMemberRequestInput>;
 };
-
 
 export type MutationMembersMembersV1DeleteMemberAddressesArgs = {
   input?: InputMaybe<MembersDeleteMemberAddressesRequestInput>;
 };
 
-
 export type MutationMembersMembersV1DeleteMemberEmailsArgs = {
   input?: InputMaybe<MembersDeleteMemberEmailsRequestInput>;
 };
-
 
 export type MutationMembersMembersV1DeleteMemberPhonesArgs = {
   input?: InputMaybe<MembersDeleteMemberPhonesRequestInput>;
 };
 
-
 export type MutationMembersMembersV1GetMyMemberArgs = {
   input?: InputMaybe<MembersGetMyMemberRequestInput>;
 };
-
 
 export type MutationMembersMembersV1JoinCommunityArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
 
-
 export type MutationMembersMembersV1LeaveCommunityArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationMembersMembersV1ListMembersArgs = {
   input?: InputMaybe<MembersListMembersRequestInput>;
 };
 
-
 export type MutationMembersMembersV1UpdateMemberArgs = {
   input?: InputMaybe<MembersUpdateMemberRequestInput>;
 };
-
 
 export type MutationMembersMembersV1UpdateMySlugArgs = {
   input?: InputMaybe<MembersUpdateMySlugRequestInput>;
 };
 
-
 export type MutationPricingPlansPlansV2ArchivePlanArgs = {
   input?: InputMaybe<MembershipV2PlansArchivePlanRequestInput>;
 };
-
 
 export type MutationPricingPlansPlansV2ArrangePlansArgs = {
   input?: InputMaybe<MembershipV2PlansArrangePlansRequestInput>;
 };
 
-
 export type MutationPricingPlansPlansV2ClearPrimaryArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationPricingPlansPlansV2CreatePlanArgs = {
   input?: InputMaybe<MembershipV2PlansCreatePlanRequestInput>;
 };
 
-
 export type MutationPricingPlansPlansV2GetPlanStatsArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
-
 
 export type MutationPricingPlansPlansV2ListPlansArgs = {
   input?: InputMaybe<MembershipV2PlansListPlansRequestInput>;
 };
 
-
 export type MutationPricingPlansPlansV2ListPublicPlansArgs = {
   input?: InputMaybe<MembershipV2PlansListPublicPlansRequestInput>;
 };
-
 
 export type MutationPricingPlansPlansV2MakePlanPrimaryArgs = {
   input?: InputMaybe<MembershipV2PlansMakePlanPrimaryRequestInput>;
 };
 
-
 export type MutationPricingPlansPlansV2SetPlanVisibilityArgs = {
   input?: InputMaybe<MembershipV2PlansSetPlanVisibilityRequestInput>;
 };
-
 
 export type MutationPricingPlansPlansV2UpdatePlanArgs = {
   input?: InputMaybe<MembershipV2PlansUpdatePlanRequestInput>;
 };
 
-
 export type MutationRedirectsRedirectsV1CreateRedirectSessionArgs = {
   input?: InputMaybe<HeadlessV1CreateRedirectSessionRequestInput>;
 };
-
 
 export type MutationRestaurantsMenuItemsV1BulkCreateItemsArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1BulkCreateItemsRequestInput>;
 };
 
-
 export type MutationRestaurantsMenuItemsV1BulkDeleteItemsArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1BulkDeleteItemsRequestInput>;
 };
-
 
 export type MutationRestaurantsMenuItemsV1BulkUpdateItemArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1BulkUpdateItemRequestInput>;
 };
 
-
 export type MutationRestaurantsMenuItemsV1ConsumeItemDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
-
 
 export type MutationRestaurantsMenuItemsV1ConsumeItemLabelDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
 
-
 export type MutationRestaurantsMenuItemsV1CreateItemArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1CreateItemRequestInput>;
 };
-
 
 export type MutationRestaurantsMenuItemsV1DeleteItemArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1DeleteItemRequestInput>;
 };
 
-
 export type MutationRestaurantsMenuItemsV1ListItemsArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1ListItemsRequestInput>;
 };
-
 
 export type MutationRestaurantsMenuItemsV1UpdateItemArgs = {
   input?: InputMaybe<RestaurantsMenusItemV1UpdateItemRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusItemLabelsV1ConsumeLabelDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
-
 
 export type MutationRestaurantsMenusItemLabelsV1CreateLabelArgs = {
   input?: InputMaybe<RestaurantsMenusItemLabelsV1CreateLabelRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusItemLabelsV1DeleteLabelArgs = {
   input?: InputMaybe<RestaurantsMenusItemLabelsV1DeleteLabelRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusItemLabelsV1ListLabelsArgs = {
   input?: InputMaybe<Scalars['Void']['input']>;
 };
 
-
 export type MutationRestaurantsMenusItemLabelsV1UpdateLabelArgs = {
   input?: InputMaybe<RestaurantsMenusItemLabelsV1UpdateLabelRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusItemModifierV1BulkCreateModifiersArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1BulkCreateModifiersRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusItemModifierV1BulkUpdateModifiersArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1BulkUpdateModifiersRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusItemModifierV1ConsumeModifiersDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
 
-
 export type MutationRestaurantsMenusItemModifierV1CreateModifierArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1CreateModifierRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusItemModifierV1DeleteModifierArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1DeleteModifierRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusItemModifierV1ListModifiersArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1ListModifiersRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusItemModifierV1UpdateModifierArgs = {
   input?: InputMaybe<RestaurantsMenusItemModifierV1UpdateModifierRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1BulkCreateMenusArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1BulkCreateMenusRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1BulkCreateModifierGroupsArgs = {
   input?: InputMaybe<RestaurantsMenusV1BulkCreateModifierGroupsRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1BulkUpdateMenuArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1BulkUpdateMenuRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1BulkUpdateModifierGroupsArgs = {
   input?: InputMaybe<RestaurantsMenusV1BulkUpdateModifierGroupsRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1ConsumeDeleteOrphanSectionsArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1DeleteOrphanSectionsInput>;
 };
-
 
 export type MutationRestaurantsMenusV1ConsumeMenuDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
 
-
 export type MutationRestaurantsMenusV1ConsumeModifierGroupsDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
-
 
 export type MutationRestaurantsMenusV1ConsumeSectionDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
 
-
 export type MutationRestaurantsMenusV1CreateMenuArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1CreateMenuRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1CreateModifierGroupArgs = {
   input?: InputMaybe<RestaurantsMenusV1CreateModifierGroupRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1DeleteMenuArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1DeleteMenuRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1DeleteModifierGroupArgs = {
   input?: InputMaybe<RestaurantsMenusV1DeleteModifierGroupRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1ListMenusArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1ListMenusRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1ListModifierGroupsArgs = {
   input?: InputMaybe<RestaurantsMenusV1ListModifierGroupRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1UpdateExtendedFieldsArgs = {
   input?: InputMaybe<CommonDataDataextensionsUpdateExtendedFieldsRequestInput>;
 };
-
 
 export type MutationRestaurantsMenusV1UpdateMenuArgs = {
   input?: InputMaybe<RestaurantsMenusMenuV1UpdateMenuRequestInput>;
 };
 
-
 export type MutationRestaurantsMenusV1UpdateModifierGroupArgs = {
   input?: InputMaybe<RestaurantsMenusV1UpdateModifierGroupRequestInput>;
 };
-
 
 export type MutationRestaurantsSectionsV1BulkCreateSectionsArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1BulkCreateSectionsRequestInput>;
 };
 
-
 export type MutationRestaurantsSectionsV1BulkDeleteSectionsArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1BulkDeleteSectionsRequestInput>;
 };
-
 
 export type MutationRestaurantsSectionsV1BulkUpdateSectionArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1BulkUpdateSectionRequestInput>;
 };
 
-
 export type MutationRestaurantsSectionsV1ConsumeDeleteOrphanItemsArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1DeleteOrphanItemsInput>;
 };
-
 
 export type MutationRestaurantsSectionsV1ConsumeItemDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
 
-
 export type MutationRestaurantsSectionsV1ConsumeSectionDomainEventsArgs = {
   input?: InputMaybe<CommonDomaineventsDomainEventInput>;
 };
-
 
 export type MutationRestaurantsSectionsV1CreateSectionArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1CreateSectionRequestInput>;
 };
 
-
 export type MutationRestaurantsSectionsV1DeleteSectionArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1DeleteSectionRequestInput>;
 };
-
 
 export type MutationRestaurantsSectionsV1ListSectionsArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1ListSectionsRequestInput>;
 };
 
-
 export type MutationRestaurantsSectionsV1UpdateSectionArgs = {
   input?: InputMaybe<RestaurantsMenusSectionV1UpdateSectionRequestInput>;
 };
-
 
 export type MutationStoresCollectionsV1GetCollectionBySlugArgs = {
   input?: InputMaybe<CatalogV2GetCollectionBySlugRequestInput>;
 };
 
-
 export type MutationStoresProductsV1AddProductMediaArgs = {
   input?: InputMaybe<CatalogV1AddProductMediaRequestInput>;
 };
-
 
 export type MutationStoresProductsV1AddProductMediaToChoicesArgs = {
   input?: InputMaybe<CatalogV1AddProductMediaToChoicesRequestInput>;
 };
 
-
 export type MutationStoresProductsV1AddProductsToCollectionArgs = {
   input?: InputMaybe<CatalogV1AddProductsToCollectionRequestInput>;
 };
-
 
 export type MutationStoresProductsV1BulkAdjustProductPropertiesArgs = {
   input?: InputMaybe<CatalogV1BulkAdjustProductPropertiesRequestInput>;
 };
 
-
 export type MutationStoresProductsV1BulkUpdateProductsArgs = {
   input?: InputMaybe<CatalogV1BulkUpdateProductsRequestInput>;
 };
-
 
 export type MutationStoresProductsV1CreateCollectionArgs = {
   input?: InputMaybe<CatalogV1CreateCollectionRequestInput>;
 };
 
-
 export type MutationStoresProductsV1CreateProductArgs = {
   input?: InputMaybe<CatalogV1CreateProductRequestInput>;
 };
-
 
 export type MutationStoresProductsV1CreateProductPlatformizedArgs = {
   input?: InputMaybe<CatalogV1CreateProductPlatformizedRequestInput>;
 };
 
-
 export type MutationStoresProductsV1DeleteCollectionArgs = {
   input?: InputMaybe<CatalogV1DeleteCollectionRequestInput>;
 };
-
 
 export type MutationStoresProductsV1DeleteProductArgs = {
   input?: InputMaybe<CatalogV1DeleteProductRequestInput>;
 };
 
-
 export type MutationStoresProductsV1DeleteProductOptionsArgs = {
   input?: InputMaybe<CatalogV1DeleteProductOptionsRequestInput>;
 };
-
 
 export type MutationStoresProductsV1DeleteProductPlatformizedArgs = {
   input?: InputMaybe<CatalogV1DeleteProductPlatformizedRequestInput>;
 };
 
-
 export type MutationStoresProductsV1GetCollectionBySlugArgs = {
   input?: InputMaybe<CatalogV1GetCollectionBySlugRequestInput>;
 };
-
 
 export type MutationStoresProductsV1GetProductArgs = {
   input?: InputMaybe<CatalogV1GetProductRequestInput>;
 };
 
-
 export type MutationStoresProductsV1GetStoreVariantArgs = {
   input?: InputMaybe<CatalogV1GetStoreVariantRequestInput>;
 };
-
 
 export type MutationStoresProductsV1ProductOptionsAvailabilityArgs = {
   input?: InputMaybe<CatalogV1ProductOptionsAvailabilityRequestInput>;
 };
 
-
 export type MutationStoresProductsV1QueryProductVariantsArgs = {
   input?: InputMaybe<CatalogV1QueryProductVariantsRequestInput>;
 };
-
 
 export type MutationStoresProductsV1QueryStoreVariantsArgs = {
   input?: InputMaybe<CatalogV1QueryStoreVariantsRequestInput>;
 };
 
-
 export type MutationStoresProductsV1RemoveBrandArgs = {
   input?: InputMaybe<CatalogV1RemoveProductBrandRequestInput>;
 };
-
 
 export type MutationStoresProductsV1RemoveProductMediaArgs = {
   input?: InputMaybe<CatalogV1RemoveProductMediaRequestInput>;
 };
 
-
 export type MutationStoresProductsV1RemoveProductMediaFromChoicesArgs = {
   input?: InputMaybe<CatalogV1RemoveProductMediaFromChoicesRequestInput>;
 };
-
 
 export type MutationStoresProductsV1RemoveProductsFromCollectionArgs = {
   input?: InputMaybe<CatalogV1RemoveProductsFromCollectionRequestInput>;
 };
 
-
 export type MutationStoresProductsV1RemoveRibbonArgs = {
   input?: InputMaybe<CatalogV1RemoveProductRibbonRequestInput>;
 };
-
 
 export type MutationStoresProductsV1ResetAllVariantDataArgs = {
   input?: InputMaybe<CatalogV1ResetAllVariantDataRequestInput>;
 };
 
-
 export type MutationStoresProductsV1UpdateCollectionArgs = {
   input?: InputMaybe<CatalogV1UpdateCollectionRequestInput>;
 };
-
 
 export type MutationStoresProductsV1UpdateProductArgs = {
   input?: InputMaybe<CatalogV1UpdateProductRequestInput>;
 };
 
-
 export type MutationStoresProductsV1UpdateProductPlatformizedArgs = {
   input?: InputMaybe<CatalogV1UpdateProductPlatformizedRequestInput>;
 };
-
 
 export type MutationStoresProductsV1UpdateVariantsArgs = {
   input?: InputMaybe<CatalogV1UpdateVariantsRequestInput>;
 };
 
-
 export type MutationStoresProductsV1WriteProxyCreateProductPlatformizedArgs = {
   input?: InputMaybe<CatalogWriteProxyV1CreateProductPlatformizedRequestInput>;
 };
 
-
 export type MutationStoresProductsV1WriteProxyDeleteProductPlatformizedArgs = {
   input?: InputMaybe<CatalogWriteProxyV1DeleteProductPlatformizedRequestInput>;
 };
-
 
 export type MutationStoresProductsV1WriteProxyUpdateProductPlatformizedArgs = {
   input?: InputMaybe<CatalogWriteProxyV1UpdateProductPlatformizedRequestInput>;
@@ -17622,6 +17413,8 @@ export enum NpmCommunitiesPlatformizedBlogV3PostFieldField {
   RichContentString = 'RICH_CONTENT_STRING',
   /** Includes SEO data */
   Seo = 'SEO',
+  /** Includes post translations */
+  Translations = 'TRANSLATIONS',
   Unknown = 'UNKNOWN',
   /** Includes Post url when present */
   Url = 'URL'
@@ -18190,286 +17983,229 @@ export type Query = {
   storesProductsV1Products?: Maybe<CatalogV1QueryProductsPlatformizedResponse>;
 };
 
-
 export type QueryAuthManagementOAuthAppsV1OAuthAppArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryAuthManagementOAuthAppsV1OAuthAppsArgs = {
   queryInput?: InputMaybe<HeadlessV1QueryOAuthAppsRequestInput>;
 };
 
-
 export type QueryBlogCategoriesV3CategoriesArgs = {
   queryInput?: InputMaybe<NpmCommunitiesPlatformizedBlogV3QueryCategoriesRequestInput>;
 };
-
 
 export type QueryBlogCategoriesV3CategoryArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryBlogPostsV3PostArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBlogPostsV3PostsArgs = {
   queryInput?: InputMaybe<NpmCommunitiesPlatformizedBlogV3QueryPostsRequestInput>;
 };
 
-
 export type QueryBlogTagsV3TagArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBlogTagsV3TagsArgs = {
   queryInput?: InputMaybe<NpmCommunitiesPlatformizedBlogQueryTagsRequestInput>;
 };
 
-
 export type QueryBookingsAttendanceV2AttendanceArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBookingsAttendanceV2AttendancesArgs = {
   queryInput?: InputMaybe<BookingsAttendanceV2QueryAttendanceRequestInput>;
 };
 
-
 export type QueryBookingsServiceOptionsAndVariantsV1ServiceOptionsAndVariantsArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBookingsServiceOptionsAndVariantsV1ServiceOptionsAndVariantsListArgs = {
   queryInput?: InputMaybe<BookingsCatalogV1QueryServiceOptionsAndVariantsRequestInput>;
 };
 
-
 export type QueryBookingsServicesV2ServiceArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBookingsServicesV2ServicesArgs = {
   queryInput?: InputMaybe<BookingsServicesV2QueryServicesRequestInput>;
 };
 
-
 export type QueryBookingsSessionsV1SessionArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBookingsSessionsV1SessionsArgs = {
   queryInput?: InputMaybe<BookingsCalendarV2QuerySessionsRequestInput>;
 };
 
-
 export type QueryBusinessToolsLocationsV1LocationArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryBusinessToolsLocationsV1LocationsArgs = {
   queryInput?: InputMaybe<LocationsQueryLocationsRequestInput>;
 };
 
-
 export type QueryCrmExtendedFieldsV4ExtendedFieldArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryCrmExtendedFieldsV4FieldsArgs = {
   queryInput?: InputMaybe<ContactsFieldsV4QueryExtendedFieldsRequestInput>;
 };
 
-
 export type QueryCrmLabelsV4ContactLabelArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryCrmLabelsV4LabelsArgs = {
   queryInput?: InputMaybe<ContactsLabelsV4QueryLabelsRequestInput>;
 };
 
-
 export type QueryDataItemsV2DataItemArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryDataItemsV2DataItemsArgs = {
   queryInput?: InputMaybe<CloudDataDataQueryDataItemsRequestInput>;
 };
 
-
 export type QueryEcomCartV1CartArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryEcomCheckoutV1CheckoutArgs = {
-  id: Scalars['ID']['input'];
+  queryInput?: InputMaybe<EcomCheckoutV1CheckoutRequestInput>;
 };
-
 
 export type QueryEcomCurrentCartV1CartArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryEcomDiscountRulesV1DiscountRuleArgs = {
-  id: Scalars['ID']['input'];
+  queryInput?: InputMaybe<EcomDiscountRulesV1DiscountRuleRequestInput>;
 };
-
 
 export type QueryEcomDiscountRulesV1DiscountRulesArgs = {
   queryInput?: InputMaybe<EcomDiscountsQueryDiscountRulesRequestInput>;
 };
 
-
 export type QueryEcomOrdersV1OrderArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryEcomOrdersV1OrdersArgs = {
   queryInput?: InputMaybe<EcomOrdersV1QueryOrderRequestInput>;
 };
 
-
 export type QueryEventsPoliciesV2PoliciesArgs = {
   queryInput?: InputMaybe<EventsV2QueryPoliciesRequestInput>;
 };
-
 
 export type QueryEventsPoliciesV2PolicyArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryEventsScheduleBookmarksV1ItemsArgs = {
   queryInput?: InputMaybe<EventsScheduleQueryScheduleItemsRequestInput>;
 };
-
 
 export type QueryEventsScheduleBookmarksV1ScheduleItemArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryEventsScheduleV1ItemsArgs = {
   queryInput?: InputMaybe<EventsScheduleQueryScheduleItemsRequestInput>;
 };
-
 
 export type QueryEventsScheduleV1ScheduleItemArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryMembersMembersV1MemberArgs = {
-  id: Scalars['ID']['input'];
+  queryInput?: InputMaybe<MembersMembersV1MemberRequestInput>;
 };
-
 
 export type QueryMembersMembersV1MembersArgs = {
   queryInput?: InputMaybe<MembersQueryMembersRequestInput>;
 };
 
-
 export type QueryPricingPlansPlansV2PlanArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryPricingPlansPlansV2PlansArgs = {
   queryInput?: InputMaybe<MembershipV2PlansQueryPublicPlansRequestInput>;
 };
 
-
 export type QueryRestaurantsMenuItemsV1ItemArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryRestaurantsMenuItemsV1ItemsArgs = {
   queryInput?: InputMaybe<RestaurantsMenusItemV1QueryItemsRequestInput>;
 };
 
-
 export type QueryRestaurantsMenusItemLabelsV1LabelArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryRestaurantsMenusItemLabelsV1LabelsArgs = {
   queryInput?: InputMaybe<RestaurantsMenusItemLabelsV1QueryLabelsRequestInput>;
 };
 
-
 export type QueryRestaurantsMenusItemModifierV1ModifierArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryRestaurantsMenusItemModifierV1ModifiersArgs = {
   queryInput?: InputMaybe<RestaurantsMenusItemModifierV1QueryModifiersRequestInput>;
 };
 
-
 export type QueryRestaurantsMenusV1ItemsArgs = {
   queryInput?: InputMaybe<RestaurantsMenusV1QueryModifierGroupsRequestInput>;
 };
-
 
 export type QueryRestaurantsMenusV1MenuArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryRestaurantsMenusV1MenusArgs = {
   queryInput?: InputMaybe<RestaurantsMenusMenuV1QueryMenusRequestInput>;
 };
-
 
 export type QueryRestaurantsMenusV1ModifierGroupArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryRestaurantsSectionsV1SectionArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryRestaurantsSectionsV1SectionsArgs = {
   queryInput?: InputMaybe<RestaurantsMenusSectionV1QuerySectionsRequestInput>;
 };
 
-
 export type QueryStoresCollectionsV1CollectionArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryStoresCollectionsV1CollectionsArgs = {
   queryInput?: InputMaybe<CatalogV2QueryCollectionsRequestInput>;
 };
 
-
 export type QueryStoresProductsV1ProductArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryStoresProductsV1ProductsArgs = {
   queryInput?: InputMaybe<CatalogV1QueryProductsPlatformizedRequestInput>;
@@ -18929,7 +18665,6 @@ export type RestaurantsMenusItemV1Item = {
   visible?: Maybe<Scalars['Boolean']['output']>;
 };
 
-
 export type RestaurantsMenusItemV1ItemSectionsVirtualReferenceArgs = {
   query?: InputMaybe<RestaurantsMenusSectionV1QuerySectionsRequestInput>;
 };
@@ -19017,7 +18752,9 @@ export type RestaurantsMenusItemV1ModifierGroupInput = {
   /** Modifier Group Id */
   id?: InputMaybe<Scalars['String']['input']>;
   /** Modifier additional prices. */
-  modifierAdditionalCost?: InputMaybe<Array<InputMaybe<RestaurantsMenusItemV1ModifierAdditionalCostInput>>>;
+  modifierAdditionalCost?: InputMaybe<
+    Array<InputMaybe<RestaurantsMenusItemV1ModifierAdditionalCostInput>>
+  >;
 };
 
 export type RestaurantsMenusItemV1OrderSettings = {
@@ -19281,7 +19018,6 @@ export type RestaurantsMenusMenuV1Menu = {
   visible?: Maybe<Scalars['Boolean']['output']>;
 };
 
-
 export type RestaurantsMenusMenuV1MenuSectionsArgs = {
   query?: InputMaybe<RestaurantsMenusSectionV1QuerySectionsRequestInput>;
 };
@@ -19433,7 +19169,9 @@ export type RestaurantsMenusSectionV1BulkUpdateSectionRequestInput = {
   /** set to `true` if you wish to receive back the created sections in the response */
   returnEntity?: InputMaybe<Scalars['Boolean']['input']>;
   /** Sections to be updated. */
-  sections?: InputMaybe<Array<InputMaybe<RestaurantsMenusSectionV1BulkUpdateSectionRequestMaskedSectionInput>>>;
+  sections?: InputMaybe<
+    Array<InputMaybe<RestaurantsMenusSectionV1BulkUpdateSectionRequestMaskedSectionInput>>
+  >;
 };
 
 export type RestaurantsMenusSectionV1BulkUpdateSectionRequestMaskedSectionInput = {
@@ -19446,7 +19184,9 @@ export type RestaurantsMenusSectionV1BulkUpdateSectionRequestMaskedSectionInput 
 export type RestaurantsMenusSectionV1BulkUpdateSectionResponse = {
   __typename?: 'RestaurantsMenusSectionV1BulkUpdateSectionResponse';
   bulkActionMetadata?: Maybe<CommonBulkActionMetadata>;
-  results?: Maybe<Array<Maybe<RestaurantsMenusSectionV1BulkUpdateSectionResponseBulkSectionResult>>>;
+  results?: Maybe<
+    Array<Maybe<RestaurantsMenusSectionV1BulkUpdateSectionResponseBulkSectionResult>>
+  >;
 };
 
 export type RestaurantsMenusSectionV1BulkUpdateSectionResponseBulkSectionResult = {
@@ -19524,11 +19264,9 @@ export type RestaurantsMenusSectionV1Section = {
   updatedDate?: Maybe<Scalars['String']['output']>;
 };
 
-
 export type RestaurantsMenusSectionV1SectionItemsArgs = {
   query?: InputMaybe<RestaurantsMenusItemV1QueryItemsRequestInput>;
 };
-
 
 export type RestaurantsMenusSectionV1SectionMenusVirtualReferenceArgs = {
   query?: InputMaybe<RestaurantsMenusMenuV1QueryMenusRequestInput>;
@@ -19536,7 +19274,9 @@ export type RestaurantsMenusSectionV1SectionMenusVirtualReferenceArgs = {
 
 export type RestaurantsMenusSectionV1SectionInput = {
   /** Section additional images */
-  additionalImages?: InputMaybe<Array<InputMaybe<RestaurantsMenusSectionV1UpstreamCommonImageInput>>>;
+  additionalImages?: InputMaybe<
+    Array<InputMaybe<RestaurantsMenusSectionV1UpstreamCommonImageInput>>
+  >;
   /** Represents the time this Section was created */
   createdDate?: InputMaybe<Scalars['String']['input']>;
   /** Section description */
@@ -21294,152 +21034,371 @@ export enum ValidationErrorRuleType {
   Validation = 'VALIDATION'
 }
 
-export type CartFragment = { __typename?: 'EcomCartV1Cart', id?: string | null, currency?: string | null, lineItems?: Array<{ __typename?: 'EcomCartV1LineItem', id?: string | null, quantity?: number | null, productName?: { __typename?: 'EcommerceCatalogSpiV1ProductName', original?: string | null } | null, descriptionLines?: Array<{ __typename?: 'EcommerceCatalogSpiV1DescriptionLine', plainText?: { __typename?: 'EcommerceCatalogSpiV1PlainTextValue', original?: string | null } | null, colorInfo?: { __typename?: 'EcommerceCatalogSpiV1Color', original?: string | null } | null } | null> | null, price?: { __typename?: 'EcommercePlatformCommonMultiCurrencyPrice', amount?: string | null } | null, image?: { __typename?: 'CommonImage', url?: string | null, width?: number | null, height?: number | null, altText?: string | null } | null, url?: { __typename?: 'CommonPageUrlV2', relativePath?: string | null } | null } | null> | null } & { ' $fragmentName'?: 'CartFragment' };
+export type CartFragment = {
+  __typename?: 'EcomCartV1Cart';
+  id?: string | null;
+  currency?: string | null;
+  lineItems?: Array<{
+    __typename?: 'EcomCartV1LineItem';
+    id?: string | null;
+    quantity?: number | null;
+    productName?: {
+      __typename?: 'EcommerceCatalogSpiV1ProductName';
+      original?: string | null;
+    } | null;
+    descriptionLines?: Array<{
+      __typename?: 'EcommerceCatalogSpiV1DescriptionLine';
+      plainText?: {
+        __typename?: 'EcommerceCatalogSpiV1PlainTextValue';
+        original?: string | null;
+      } | null;
+      colorInfo?: { __typename?: 'EcommerceCatalogSpiV1Color'; original?: string | null } | null;
+    } | null> | null;
+    price?: {
+      __typename?: 'EcommercePlatformCommonMultiCurrencyPrice';
+      amount?: string | null;
+    } | null;
+    image?: {
+      __typename?: 'CommonImage';
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      altText?: string | null;
+    } | null;
+    url?: { __typename?: 'CommonPageUrlV2'; relativePath?: string | null } | null;
+  } | null> | null;
+} & { ' $fragmentName'?: 'CartFragment' };
 
-export type CollectionFragment = { __typename?: 'CatalogV1Collection', id?: string | null, name?: string | null, slug?: string | null, description?: string | null } & { ' $fragmentName'?: 'CollectionFragment' };
+export type CollectionFragment = {
+  __typename?: 'CatalogV1Collection';
+  id?: string | null;
+  name?: string | null;
+  slug?: string | null;
+  description?: string | null;
+} & { ' $fragmentName'?: 'CollectionFragment' };
 
-export type ProductFragment = { __typename?: 'CatalogV1Product', id?: string | null, name?: string | null, description?: string | null, slug?: string | null, manageVariants?: boolean | null, lastUpdated?: string | null, stock?: { __typename?: 'CatalogV1Stock', inventoryStatus?: CatalogV1StockInventoryStatus | null } | null, media?: { __typename?: 'CatalogV1Media', mainMedia?: { __typename?: 'CatalogV1MediaItem', image?: { __typename?: 'CatalogV1MediaItemUrlAndSize', url?: string | null, altText?: string | null, width?: number | null, height?: number | null } | null } | null, items?: Array<{ __typename?: 'CatalogV1MediaItem', image?: { __typename?: 'CatalogV1MediaItemUrlAndSize', url?: string | null, altText?: string | null, width?: number | null, height?: number | null } | null } | null> | null } | null, price?: { __typename?: 'CatalogV1PriceData', price?: number | null, currency?: string | null } | null, variants?: Array<{ __typename?: 'CatalogV1Variant', id?: string | null, choices?: any | null, variant?: { __typename?: 'CatalogV1VariantDataWithNoStock', priceData?: { __typename?: 'CatalogV1PriceData', price?: number | null, currency?: string | null } | null } | null, stock?: { __typename?: 'CatalogV1VariantStock', trackQuantity?: boolean | null, quantity?: number | null } | null } | null> | null, productOptions?: Array<{ __typename?: 'CatalogV1ProductOption', name?: string | null, optionType?: CatalogV1OptionType | null, choices?: Array<{ __typename?: 'CatalogV1Choice', value?: string | null, description?: string | null } | null> | null } | null> | null } & { ' $fragmentName'?: 'ProductFragment' };
+export type ProductFragment = {
+  __typename?: 'CatalogV1Product';
+  id?: string | null;
+  name?: string | null;
+  description?: string | null;
+  slug?: string | null;
+  manageVariants?: boolean | null;
+  lastUpdated?: string | null;
+  stock?: {
+    __typename?: 'CatalogV1Stock';
+    inventoryStatus?: CatalogV1StockInventoryStatus | null;
+  } | null;
+  media?: {
+    __typename?: 'CatalogV1Media';
+    mainMedia?: {
+      __typename?: 'CatalogV1MediaItem';
+      image?: {
+        __typename?: 'CatalogV1MediaItemUrlAndSize';
+        url?: string | null;
+        altText?: string | null;
+        width?: number | null;
+        height?: number | null;
+      } | null;
+    } | null;
+    items?: Array<{
+      __typename?: 'CatalogV1MediaItem';
+      image?: {
+        __typename?: 'CatalogV1MediaItemUrlAndSize';
+        url?: string | null;
+        altText?: string | null;
+        width?: number | null;
+        height?: number | null;
+      } | null;
+    } | null> | null;
+  } | null;
+  price?: {
+    __typename?: 'CatalogV1PriceData';
+    price?: number | null;
+    currency?: string | null;
+  } | null;
+  variants?: Array<{
+    __typename?: 'CatalogV1Variant';
+    id?: string | null;
+    choices?: any | null;
+    variant?: {
+      __typename?: 'CatalogV1VariantDataWithNoStock';
+      priceData?: {
+        __typename?: 'CatalogV1PriceData';
+        price?: number | null;
+        currency?: string | null;
+      } | null;
+    } | null;
+    stock?: {
+      __typename?: 'CatalogV1VariantStock';
+      trackQuantity?: boolean | null;
+      quantity?: number | null;
+    } | null;
+  } | null> | null;
+  productOptions?: Array<{
+    __typename?: 'CatalogV1ProductOption';
+    name?: string | null;
+    optionType?: CatalogV1OptionType | null;
+    choices?: Array<{
+      __typename?: 'CatalogV1Choice';
+      value?: string | null;
+      description?: string | null;
+    } | null> | null;
+  } | null> | null;
+} & { ' $fragmentName'?: 'ProductFragment' };
 
 export type AddToCartMutationVariables = Exact<{
   lineItems: Array<EcomCartV1LineItemInput> | EcomCartV1LineItemInput;
 }>;
 
-
-export type AddToCartMutation = { __typename?: 'Mutation', ecomCurrentCartV1AddToCurrentCart?: { __typename?: 'EcomCartV1AddToCartResponse', cart?: (
-      { __typename?: 'EcomCartV1Cart' }
-      & { ' $fragmentRefs'?: { 'CartFragment': CartFragment } }
-    ) | null } | null };
+export type AddToCartMutation = {
+  __typename?: 'Mutation';
+  ecomCurrentCartV1AddToCurrentCart?: {
+    __typename?: 'EcomCartV1AddToCartResponse';
+    cart?:
+      | ({ __typename?: 'EcomCartV1Cart' } & { ' $fragmentRefs'?: { CartFragment: CartFragment } })
+      | null;
+  } | null;
+};
 
 export type RemoveLineItemsFromCurrentCartMutationVariables = Exact<{
   lineIds: Array<Scalars['String']['input']> | Scalars['String']['input'];
 }>;
 
-
-export type RemoveLineItemsFromCurrentCartMutation = { __typename?: 'Mutation', ecomCurrentCartV1RemoveLineItemsFromCurrentCart?: { __typename?: 'EcomCartV1RemoveLineItemsResponse', cart?: (
-      { __typename?: 'EcomCartV1Cart' }
-      & { ' $fragmentRefs'?: { 'CartFragment': CartFragment } }
-    ) | null } | null };
+export type RemoveLineItemsFromCurrentCartMutation = {
+  __typename?: 'Mutation';
+  ecomCurrentCartV1RemoveLineItemsFromCurrentCart?: {
+    __typename?: 'EcomCartV1RemoveLineItemsResponse';
+    cart?:
+      | ({ __typename?: 'EcomCartV1Cart' } & { ' $fragmentRefs'?: { CartFragment: CartFragment } })
+      | null;
+  } | null;
+};
 
 export type UpdateCurrentCartLineItemQuantityMutationVariables = Exact<{
   lineItems: Array<EcomCartV1LineItemQuantityUpdateInput> | EcomCartV1LineItemQuantityUpdateInput;
 }>;
 
+export type UpdateCurrentCartLineItemQuantityMutation = {
+  __typename?: 'Mutation';
+  ecomCurrentCartV1UpdateCurrentCartLineItemQuantity?: {
+    __typename?: 'EcomCartV1UpdateLineItemsQuantityResponse';
+    cart?:
+      | ({ __typename?: 'EcomCartV1Cart' } & { ' $fragmentRefs'?: { CartFragment: CartFragment } })
+      | null;
+  } | null;
+};
 
-export type UpdateCurrentCartLineItemQuantityMutation = { __typename?: 'Mutation', ecomCurrentCartV1UpdateCurrentCartLineItemQuantity?: { __typename?: 'EcomCartV1UpdateLineItemsQuantityResponse', cart?: (
-      { __typename?: 'EcomCartV1Cart' }
-      & { ' $fragmentRefs'?: { 'CartFragment': CartFragment } }
-    ) | null } | null };
+export type GetCurrentCartMutationVariables = Exact<{ [key: string]: never }>;
 
-export type GetCurrentCartMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCurrentCartMutation = { __typename?: 'Mutation', ecomCartV1CurrentCartGetCurrentCart?: { __typename?: 'EcomCartV1GetCurrentCartResponse', cart?: (
-      { __typename?: 'EcomCartV1Cart' }
-      & { ' $fragmentRefs'?: { 'CartFragment': CartFragment } }
-    ) | null } | null };
+export type GetCurrentCartMutation = {
+  __typename?: 'Mutation';
+  ecomCartV1CurrentCartGetCurrentCart?: {
+    __typename?: 'EcomCartV1GetCurrentCartResponse';
+    cart?:
+      | ({ __typename?: 'EcomCartV1Cart' } & { ' $fragmentRefs'?: { CartFragment: CartFragment } })
+      | null;
+  } | null;
+};
 
 export type CollectionBySlugMutationVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
-
-export type CollectionBySlugMutation = { __typename?: 'Mutation', storesProductsV1GetCollectionBySlug?: { __typename?: 'CatalogV1GetCollectionBySlugResponse', collection?: (
-      { __typename?: 'CatalogV1Collection' }
-      & { ' $fragmentRefs'?: { 'CollectionFragment': CollectionFragment } }
-    ) | null } | null };
+export type CollectionBySlugMutation = {
+  __typename?: 'Mutation';
+  storesProductsV1GetCollectionBySlug?: {
+    __typename?: 'CatalogV1GetCollectionBySlugResponse';
+    collection?:
+      | ({ __typename?: 'CatalogV1Collection' } & {
+          ' $fragmentRefs'?: { CollectionFragment: CollectionFragment };
+        })
+      | null;
+  } | null;
+};
 
 export type GetcollectionProductsMutationVariables = Exact<{
   slug: Scalars['String']['input'];
   sort: Array<InputMaybe<CommonSortingInput>> | InputMaybe<CommonSortingInput>;
 }>;
 
+export type GetcollectionProductsMutation = {
+  __typename?: 'Mutation';
+  storesProductsV1GetCollectionBySlug?: {
+    __typename?: 'CatalogV1GetCollectionBySlugResponse';
+    collection?:
+      | ({
+          __typename?: 'CatalogV1Collection';
+          productsVirtualReference?: {
+            __typename?: 'CatalogV1QueryProductsPlatformizedResponse';
+            items?: Array<
+              | ({ __typename?: 'CatalogV1Product' } & {
+                  ' $fragmentRefs'?: { ProductFragment: ProductFragment };
+                })
+              | null
+            > | null;
+          } | null;
+        } & { ' $fragmentRefs'?: { CollectionFragment: CollectionFragment } })
+      | null;
+  } | null;
+};
 
-export type GetcollectionProductsMutation = { __typename?: 'Mutation', storesProductsV1GetCollectionBySlug?: { __typename?: 'CatalogV1GetCollectionBySlugResponse', collection?: (
-      { __typename?: 'CatalogV1Collection', productsVirtualReference?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
-          { __typename?: 'CatalogV1Product' }
-          & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
-        ) | null> | null } | null }
-      & { ' $fragmentRefs'?: { 'CollectionFragment': CollectionFragment } }
-    ) | null } | null };
+export type CollectionsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CollectionsQuery = { __typename?: 'Query', storesCollectionsV1Collections?: { __typename?: 'CatalogV2QueryCollectionsResponse', items?: Array<(
-      { __typename?: 'CatalogV1Collection' }
-      & { ' $fragmentRefs'?: { 'CollectionFragment': CollectionFragment } }
-    ) | null> | null } | null };
+export type CollectionsQuery = {
+  __typename?: 'Query';
+  storesCollectionsV1Collections?: {
+    __typename?: 'CatalogV2QueryCollectionsResponse';
+    items?: Array<
+      | ({ __typename?: 'CatalogV1Collection' } & {
+          ' $fragmentRefs'?: { CollectionFragment: CollectionFragment };
+        })
+      | null
+    > | null;
+  } | null;
+};
 
 export type MenuBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
-
-export type MenuBySlugQuery = { __typename?: 'Query', dataItemsV2DataItems?: { __typename?: 'CloudDataDataQueryDataItemsResponse', items?: Array<{ __typename?: 'CloudDataDataDataItem', id?: string | null, data?: any | null } | null> | null } | null };
+export type MenuBySlugQuery = {
+  __typename?: 'Query';
+  dataItemsV2DataItems?: {
+    __typename?: 'CloudDataDataQueryDataItemsResponse';
+    items?: Array<{
+      __typename?: 'CloudDataDataDataItem';
+      id?: string | null;
+      data?: any | null;
+    } | null> | null;
+  } | null;
+};
 
 export type PageBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
+export type PageBySlugQuery = {
+  __typename?: 'Query';
+  dataItemsV2DataItems?: {
+    __typename?: 'CloudDataDataQueryDataItemsResponse';
+    items?: Array<{
+      __typename?: 'CloudDataDataDataItem';
+      id?: string | null;
+      data?: any | null;
+    } | null> | null;
+  } | null;
+};
 
-export type PageBySlugQuery = { __typename?: 'Query', dataItemsV2DataItems?: { __typename?: 'CloudDataDataQueryDataItemsResponse', items?: Array<{ __typename?: 'CloudDataDataDataItem', id?: string | null, data?: any | null } | null> | null } | null };
+export type PagesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PagesQuery = { __typename?: 'Query', dataItemsV2DataItems?: { __typename?: 'CloudDataDataQueryDataItemsResponse', items?: Array<{ __typename?: 'CloudDataDataDataItem', id?: string | null, data?: any | null } | null> | null } | null };
+export type PagesQuery = {
+  __typename?: 'Query';
+  dataItemsV2DataItems?: {
+    __typename?: 'CloudDataDataQueryDataItemsResponse';
+    items?: Array<{
+      __typename?: 'CloudDataDataDataItem';
+      id?: string | null;
+      data?: any | null;
+    } | null> | null;
+  } | null;
+};
 
 export type ProductByHandleQueryVariables = Exact<{
   handle: Scalars['String']['input'];
 }>;
 
-
-export type ProductByHandleQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
-      { __typename?: 'CatalogV1Product' }
-      & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
-    ) | null> | null } | null };
+export type ProductByHandleQuery = {
+  __typename?: 'Query';
+  storesProductsV1Products?: {
+    __typename?: 'CatalogV1QueryProductsPlatformizedResponse';
+    items?: Array<
+      | ({ __typename?: 'CatalogV1Product' } & {
+          ' $fragmentRefs'?: { ProductFragment: ProductFragment };
+        })
+      | null
+    > | null;
+  } | null;
+};
 
 export type GetRecommendationMutationVariables = Exact<{
   algorithms: Array<EcomRecommendationsV1AlgorithmInput> | EcomRecommendationsV1AlgorithmInput;
-  items: Array<EcommerceCatalogSpiV1CatalogReferenceInput> | EcommerceCatalogSpiV1CatalogReferenceInput;
+  items:
+    | Array<EcommerceCatalogSpiV1CatalogReferenceInput>
+    | EcommerceCatalogSpiV1CatalogReferenceInput;
 }>;
 
-
-export type GetRecommendationMutation = { __typename?: 'Mutation', ecomRecommendationsV1GetRecommendation?: { __typename?: 'EcomRecommendationsV1GetRecommendationResponse', recommendation?: { __typename?: 'EcomRecommendationsV1Recommendation', items?: Array<{ __typename?: 'EcommerceCatalogSpiV1CatalogReference', catalogItemId?: string | null } | null> | null } | null } | null };
+export type GetRecommendationMutation = {
+  __typename?: 'Mutation';
+  ecomRecommendationsV1GetRecommendation?: {
+    __typename?: 'EcomRecommendationsV1GetRecommendationResponse';
+    recommendation?: {
+      __typename?: 'EcomRecommendationsV1Recommendation';
+      items?: Array<{
+        __typename?: 'EcommerceCatalogSpiV1CatalogReference';
+        catalogItemId?: string | null;
+      } | null> | null;
+    } | null;
+  } | null;
+};
 
 export type RecommendedProductsQueryVariables = Exact<{
   filter?: InputMaybe<Scalars['JSON']['input']>;
 }>;
 
-
-export type RecommendedProductsQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
-      { __typename?: 'CatalogV1Product' }
-      & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
-    ) | null> | null } | null };
+export type RecommendedProductsQuery = {
+  __typename?: 'Query';
+  storesProductsV1Products?: {
+    __typename?: 'CatalogV1QueryProductsPlatformizedResponse';
+    items?: Array<
+      | ({ __typename?: 'CatalogV1Product' } & {
+          ' $fragmentRefs'?: { ProductFragment: ProductFragment };
+        })
+      | null
+    > | null;
+  } | null;
+};
 
 export type ProductsQueryVariables = Exact<{
   filter: Scalars['JSON']['input'];
   sort: Array<InputMaybe<CommonSortingInput>> | InputMaybe<CommonSortingInput>;
 }>;
 
+export type ProductsQuery = {
+  __typename?: 'Query';
+  storesProductsV1Products?: {
+    __typename?: 'CatalogV1QueryProductsPlatformizedResponse';
+    items?: Array<
+      | ({ __typename?: 'CatalogV1Product' } & {
+          ' $fragmentRefs'?: { ProductFragment: ProductFragment };
+        })
+      | null
+    > | null;
+  } | null;
+};
 
-export type ProductsQuery = { __typename?: 'Query', storesProductsV1Products?: { __typename?: 'CatalogV1QueryProductsPlatformizedResponse', items?: Array<(
-      { __typename?: 'CatalogV1Product' }
-      & { ' $fragmentRefs'?: { 'ProductFragment': ProductFragment } }
-    ) | null> | null } | null };
+export type CreateCheckoutFromCurrentCartMutationVariables = Exact<{ [key: string]: never }>;
 
-export type CreateCheckoutFromCurrentCartMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CreateCheckoutFromCurrentCartMutation = { __typename?: 'Mutation', ecomCurrentCartV1CreateCheckoutFromCurrentCart?: { __typename?: 'EcomCartV1CreateCheckoutResponse', checkoutId?: string | null } | null };
+export type CreateCheckoutFromCurrentCartMutation = {
+  __typename?: 'Mutation';
+  ecomCurrentCartV1CreateCheckoutFromCurrentCart?: {
+    __typename?: 'EcomCartV1CreateCheckoutResponse';
+    checkoutId?: string | null;
+  } | null;
+};
 
 export type CreateRedirectSessionMutationVariables = Exact<{
   checkoutId: Scalars['String']['input'];
   postFlowUrl: Scalars['String']['input'];
 }>;
 
-
-export type CreateRedirectSessionMutation = { __typename?: 'Mutation', redirectsRedirectsV1CreateRedirectSession?: { __typename?: 'HeadlessV1CreateRedirectSessionResponse', redirectSession?: { __typename?: 'HeadlessV1RedirectSession', fullUrl?: string | null } | null } | null };
+export type CreateRedirectSessionMutation = {
+  __typename?: 'Mutation';
+  redirectsRedirectsV1CreateRedirectSession?: {
+    __typename?: 'HeadlessV1CreateRedirectSessionResponse';
+    redirectSession?: { __typename?: 'HeadlessV1RedirectSession'; fullUrl?: string | null } | null;
+  } | null;
+};
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -21447,7 +21406,10 @@ export class TypedDocumentString<TResult, TVariables>
 {
   __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
 
-  constructor(private value: string, public __meta__?: Record<string, any>) {
+  constructor(
+    private value: string,
+    public __meta__?: Record<string, any>
+  ) {
     super(value);
   }
 
@@ -21455,7 +21417,8 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const CartFragmentDoc = new TypedDocumentString(`
+export const CartFragmentDoc = new TypedDocumentString(
+  `
     fragment Cart on EcomCartV1Cart {
   id
   lineItems {
@@ -21487,16 +21450,22 @@ export const CartFragmentDoc = new TypedDocumentString(`
   }
   currency
 }
-    `, {"fragmentName":"Cart"}) as unknown as TypedDocumentString<CartFragment, unknown>;
-export const CollectionFragmentDoc = new TypedDocumentString(`
+    `,
+  { fragmentName: 'Cart' }
+) as unknown as TypedDocumentString<CartFragment, unknown>;
+export const CollectionFragmentDoc = new TypedDocumentString(
+  `
     fragment Collection on CatalogV1Collection {
   id
   name
   slug
   description
 }
-    `, {"fragmentName":"Collection"}) as unknown as TypedDocumentString<CollectionFragment, unknown>;
-export const ProductFragmentDoc = new TypedDocumentString(`
+    `,
+  { fragmentName: 'Collection' }
+) as unknown as TypedDocumentString<CollectionFragment, unknown>;
+export const ProductFragmentDoc = new TypedDocumentString(
+  `
     fragment Product on CatalogV1Product {
   id
   name
@@ -21552,7 +21521,9 @@ export const ProductFragmentDoc = new TypedDocumentString(`
   }
   lastUpdated
 }
-    `, {"fragmentName":"Product"}) as unknown as TypedDocumentString<ProductFragment, unknown>;
+    `,
+  { fragmentName: 'Product' }
+) as unknown as TypedDocumentString<ProductFragment, unknown>;
 export const AddToCartDocument = new TypedDocumentString(`
     mutation AddToCart($lineItems: [EcomCartV1LineItemInput!]!) {
   ecomCurrentCartV1AddToCurrentCart(input: {lineItems: $lineItems}) {
@@ -21630,7 +21601,10 @@ export const RemoveLineItemsFromCurrentCartDocument = new TypedDocumentString(`
     }
   }
   currency
-}`) as unknown as TypedDocumentString<RemoveLineItemsFromCurrentCartMutation, RemoveLineItemsFromCurrentCartMutationVariables>;
+}`) as unknown as TypedDocumentString<
+  RemoveLineItemsFromCurrentCartMutation,
+  RemoveLineItemsFromCurrentCartMutationVariables
+>;
 export const UpdateCurrentCartLineItemQuantityDocument = new TypedDocumentString(`
     mutation UpdateCurrentCartLineItemQuantity($lineItems: [EcomCartV1LineItemQuantityUpdateInput!]!) {
   ecomCurrentCartV1UpdateCurrentCartLineItemQuantity(
@@ -21671,7 +21645,10 @@ export const UpdateCurrentCartLineItemQuantityDocument = new TypedDocumentString
     }
   }
   currency
-}`) as unknown as TypedDocumentString<UpdateCurrentCartLineItemQuantityMutation, UpdateCurrentCartLineItemQuantityMutationVariables>;
+}`) as unknown as TypedDocumentString<
+  UpdateCurrentCartLineItemQuantityMutation,
+  UpdateCurrentCartLineItemQuantityMutationVariables
+>;
 export const GetCurrentCartDocument = new TypedDocumentString(`
     mutation GetCurrentCart {
   ecomCartV1CurrentCartGetCurrentCart {
@@ -21798,7 +21775,10 @@ fragment Product on CatalogV1Product {
     }
   }
   lastUpdated
-}`) as unknown as TypedDocumentString<GetcollectionProductsMutation, GetcollectionProductsMutationVariables>;
+}`) as unknown as TypedDocumentString<
+  GetcollectionProductsMutation,
+  GetcollectionProductsMutationVariables
+>;
 export const CollectionsDocument = new TypedDocumentString(`
     query Collections {
   storesCollectionsV1Collections {
@@ -21924,7 +21904,10 @@ export const GetRecommendationDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetRecommendationMutation, GetRecommendationMutationVariables>;
+    `) as unknown as TypedDocumentString<
+  GetRecommendationMutation,
+  GetRecommendationMutationVariables
+>;
 export const RecommendedProductsDocument = new TypedDocumentString(`
     query RecommendedProducts($filter: JSON) {
   storesProductsV1Products(queryInput: {query: {filter: $filter}}) {
@@ -22059,7 +22042,10 @@ export const CreateCheckoutFromCurrentCartDocument = new TypedDocumentString(`
     checkoutId
   }
 }
-    `) as unknown as TypedDocumentString<CreateCheckoutFromCurrentCartMutation, CreateCheckoutFromCurrentCartMutationVariables>;
+    `) as unknown as TypedDocumentString<
+  CreateCheckoutFromCurrentCartMutation,
+  CreateCheckoutFromCurrentCartMutationVariables
+>;
 export const CreateRedirectSessionDocument = new TypedDocumentString(`
     mutation CreateRedirectSession($checkoutId: String!, $postFlowUrl: String!) {
   redirectsRedirectsV1CreateRedirectSession(
@@ -22070,4 +22056,7 @@ export const CreateRedirectSessionDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<CreateRedirectSessionMutation, CreateRedirectSessionMutationVariables>;
+    `) as unknown as TypedDocumentString<
+  CreateRedirectSessionMutation,
+  CreateRedirectSessionMutationVariables
+>;
