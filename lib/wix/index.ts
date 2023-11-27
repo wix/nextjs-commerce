@@ -10,40 +10,42 @@ const cartesian = <T>(data: T[][]) =>
   data.reduce((a, b) => a.flatMap((d) => b.map((e) => [...d, e])), [[]] as T[][]);
 
 const cartFragment = graphql(`
-    fragment Cart on EcomCartV1Cart {
+  fragment Cart on EcomCartV1Cart {
+    id
+    lineItems {
       id
-      lineItems {
-        id
-        productName {
+      productName {
+        original
+      }
+      descriptionLines {
+        plainText {
           original
         }
-        descriptionLines {
-          plainText {
-            original
-          }
-          colorInfo {
-            original
-          }
-        }
-        quantity
-        price {
-          amount
-        }
-        image {
-          url
-          width
-          height
-          altText
-        }
-        url {
-          relativePath
+        colorInfo {
+          original
         }
       }
-      currency
+      quantity
+      price {
+        amount
+      }
+      image {
+        url
+        width
+        height
+        altText
+      }
+      url {
+        relativePath
+      }
     }
-  `);
+    currency
+  }
+`);
 
-type WixStoresCart = NonNullable<FragmentType<typeof cartFragment>[' $fragmentRefs']>['CartFragment'];
+type WixStoresCart = NonNullable<
+  FragmentType<typeof cartFragment>[' $fragmentRefs']
+>['CartFragment'];
 
 const reshapeCart = (cart: WixStoresCart): Cart => {
   return {
@@ -83,7 +85,10 @@ const reshapeCart = (cart: WixStoresCart): Cart => {
         },
         merchandise: {
           id: item!.id!,
-          title: item!.descriptionLines?.map(x => x!.colorInfo?.original ?? x!.plainText?.original).join(' / ') ?? '',
+          title:
+            item!.descriptionLines
+              ?.map((x) => x!.colorInfo?.original ?? x!.plainText?.original)
+              .join(' / ') ?? '',
           selectedOptions: [],
           product: {
             handle: item!.url?.relativePath?.split('/').pop() ?? '',
@@ -93,7 +98,7 @@ const reshapeCart = (cart: WixStoresCart): Cart => {
               width: item!.image!.width,
               height: item!.image!.height
             },
-            title: item!.productName?.original!,
+            title: item!.productName?.original!
           } as any as Product,
           url: `/product/${item!.url?.relativePath?.split('/').pop() ?? ''}`
         }
@@ -106,15 +111,17 @@ const reshapeCart = (cart: WixStoresCart): Cart => {
 };
 
 const collectionFragment = graphql(`
-    fragment Collection on CatalogV1Collection {
-      id
-      name
-      slug
-      description
-    }
-  `);
+  fragment Collection on CatalogV1Collection {
+    id
+    name
+    slug
+    description
+  }
+`);
 
-  type WixStoresCollection = NonNullable<FragmentType<typeof collectionFragment>[' $fragmentRefs']>['CollectionFragment'];
+type WixStoresCollection = NonNullable<
+  FragmentType<typeof collectionFragment>[' $fragmentRefs']
+>['CollectionFragment'];
 
 const reshapeCollection = (collection: WixStoresCollection) =>
   ({
@@ -133,64 +140,66 @@ const reshapeCollections = (collections: CollectionFragment[]) => {
 };
 
 const productFragment = graphql(`
-    fragment Product on CatalogV1Product {
-      id
-      name
-      description
-      stock {
-        inventoryStatus
-      }
-      slug
-      media {
-        mainMedia {
-          image {
-            url
-            altText
-            width
-            height
-          }
-        }
-        items {
-          image {
-            url
-            altText
-            width
-            height
-          }
-        }
-      }
-      price {
-        price
-        currency
-      }
-      manageVariants
-      variants {
-        id
-        choices
-        variant {
-          priceData {
-            price
-            currency
-          }
-        }
-        stock {
-          trackQuantity
-          quantity
-        }
-      }
-      productOptions {
-        name
-        optionType
-        choices {
-          value
-          description
-        }
-      }
-      lastUpdated
+  fragment Product on CatalogV1Product {
+    id
+    name
+    description
+    stock {
+      inventoryStatus
     }
-  `);
+    slug
+    media {
+      mainMedia {
+        image {
+          url
+          altText
+          width
+          height
+        }
+      }
+      items {
+        image {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+    price {
+      price
+      currency
+    }
+    manageVariants
+    variants {
+      id
+      choices
+      variant {
+        priceData {
+          price
+          currency
+        }
+      }
+      stock {
+        trackQuantity
+        quantity
+      }
+    }
+    productOptions {
+      name
+      optionType
+      choices {
+        value
+        description
+      }
+    }
+    lastUpdated
+  }
+`);
 
-type WixStoresProduct = NonNullable<FragmentType<typeof productFragment>[' $fragmentRefs']>['ProductFragment'];
+type WixStoresProduct = NonNullable<
+  FragmentType<typeof productFragment>[' $fragmentRefs']
+>['ProductFragment'];
 
 const reshapeProduct = (item: WixStoresProduct) => {
   return {
@@ -243,7 +252,9 @@ const reshapeProduct = (item: WixStoresProduct) => {
             amount: String(variant!.variant?.priceData?.price),
             currencyCode: variant!.variant?.priceData?.currency
           },
-          availableForSale: variant!.stock?.trackQuantity ? (variant!.stock?.quantity ?? 0 > 0) : true,
+          availableForSale: variant!.stock?.trackQuantity
+            ? variant!.stock?.quantity ?? 0 > 0
+            : true,
           selectedOptions: Object.entries(variant!.choices ?? {}).map(([name, value]) => ({
             name,
             value
@@ -298,34 +309,39 @@ export async function addToCart(
     quantity
   }));
 
-  const {data} = await getWixClient().graphql(graphql(`
-    mutation AddToCart($lineItems: [EcomCartV1LineItemInput!]!) {
-      ecomCurrentCartV1AddToCurrentCart(input: { lineItems: $lineItems }) {
-        cart {
-          ...Cart
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      mutation AddToCart($lineItems: [EcomCartV1LineItemInput!]!) {
+        ecomCurrentCartV1AddToCurrentCart(input: { lineItems: $lineItems }) {
+          cart {
+            ...Cart
+          }
         }
       }
+    `),
+    {
+      lineItems
     }
-  `), {
-    lineItems
-  });
+  );
 
   return reshapeCart(data.ecomCurrentCartV1AddToCurrentCart?.cart!);
-
 }
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {
-  const {data} = await getWixClient().graphql(graphql(`
-    mutation RemoveLineItemsFromCurrentCart($lineIds: [String!]!) {
-      ecomCurrentCartV1RemoveLineItemsFromCurrentCart(input: { lineItemIds: $lineIds }) {
-        cart {
-          ...Cart
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      mutation RemoveLineItemsFromCurrentCart($lineIds: [String!]!) {
+        ecomCurrentCartV1RemoveLineItemsFromCurrentCart(input: { lineItemIds: $lineIds }) {
+          cart {
+            ...Cart
+          }
         }
       }
+    `),
+    {
+      lineIds
     }
-  `), {
-    lineIds
-  });
+  );
 
   return reshapeCart(data.ecomCurrentCartV1RemoveLineItemsFromCurrentCart?.cart!);
 }
@@ -333,36 +349,46 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 export async function updateCart(
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const {data} = await getWixClient().graphql(graphql(`
-    mutation UpdateCurrentCartLineItemQuantity($lineItems: [EcomCartV1LineItemQuantityUpdateInput!]!) {
-      ecomCurrentCartV1UpdateCurrentCartLineItemQuantity(input: { lineItems: $lineItems }) {
-        cart {
-          ...Cart
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      mutation UpdateCurrentCartLineItemQuantity(
+        $lineItems: [EcomCartV1LineItemQuantityUpdateInput!]!
+      ) {
+        ecomCurrentCartV1UpdateCurrentCartLineItemQuantity(input: { lineItems: $lineItems }) {
+          cart {
+            ...Cart
+          }
         }
       }
+    `),
+    {
+      lineItems: lines.map(({ id, quantity }) => ({
+        id: id,
+        quantity
+      }))
     }
-  `), {
-    lineItems: lines.map(({ id, quantity }) => ({
-      id: id,
-      quantity
-    }))
-  });
+  );
 
   return reshapeCart(data.ecomCurrentCartV1UpdateCurrentCartLineItemQuantity?.cart!);
 }
 
 export async function getCart(): Promise<Cart | undefined> {
-  const {data, errors} = await getWixClient().graphql(graphql(`
-    mutation GetCurrentCart {
-      ecomCartV1CurrentCartGetCurrentCart {
-        cart {
-          ...Cart
+  const { data, errors } = await getWixClient().graphql(
+    graphql(`
+      mutation GetCurrentCart {
+        ecomCartV1CurrentCartGetCurrentCart {
+          cart {
+            ...Cart
+          }
         }
       }
-    }
-  `), {});
+    `),
+    {}
+  );
 
-  if ((errors?.[0]?.extensions?.applicationError as { code: string })?.code === 'OWNED_CART_NOT_FOUND') {
+  if (
+    (errors?.[0]?.extensions?.applicationError as { code: string })?.code === 'OWNED_CART_NOT_FOUND'
+  ) {
     return undefined;
   }
 
@@ -370,7 +396,8 @@ export async function getCart(): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const { data } = await getWixClient().graphql(graphql(`
+  const { data } = await getWixClient().graphql(
+    graphql(`
       mutation CollectionBySlug($slug: String!) {
         storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {
           collection {
@@ -378,11 +405,15 @@ export async function getCollection(handle: string): Promise<Collection | undefi
           }
         }
       }
-      `), {
+    `),
+    {
       slug: handle
-    });
+    }
+  );
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  return reshapeCollection(useFragment(collectionFragment, data.storesProductsV1GetCollectionBySlug?.collection!));
+  return reshapeCollection(
+    useFragment(collectionFragment, data.storesProductsV1GetCollectionBySlug?.collection!)
+  );
 }
 
 export async function getCollectionProducts({
@@ -394,12 +425,13 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-    const { data } = await getWixClient().graphql(graphql(`
+  const { data } = await getWixClient().graphql(
+    graphql(`
       mutation GetcollectionProducts($slug: String!, $sort: [CommonSortingInput]!) {
         storesProductsV1GetCollectionBySlug(input: { slug: $slug }) {
           collection {
             ...Collection
-            productsVirtualReference(query: { query: {sort: $sort} }) {
+            productsVirtualReference(query: { query: { sort: $sort } }) {
               items {
                 ...Product
               }
@@ -407,23 +439,27 @@ export async function getCollectionProducts({
           }
         }
       }
-    `), {
+    `),
+    {
       slug: collection,
-      sort: [{
-        fieldName: sortKey || 'name',
-        order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
-      }]
-    });
-    
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const resolvedCollection = data.storesProductsV1GetCollectionBySlug?.collection!;
-
-    if (!resolvedCollection) {
-      console.log(`No collection found for \`${collection}\``);
-      return [];
+      sort: [
+        {
+          fieldName: sortKey || 'name',
+          order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
+        }
+      ]
     }
+  );
 
-    return resolvedCollection.productsVirtualReference?.items?.map(x => reshapeProduct(x!)) ?? [];
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const resolvedCollection = data.storesProductsV1GetCollectionBySlug?.collection!;
+
+  if (!resolvedCollection) {
+    console.log(`No collection found for \`${collection}\``);
+    return [];
+  }
+
+  return resolvedCollection.productsVirtualReference?.items?.map((x) => reshapeProduct(x!)) ?? [];
 }
 
 export async function getCollections(): Promise<Collection[]> {
@@ -437,7 +473,9 @@ export async function getCollections(): Promise<Collection[]> {
     }
   `);
   const { data } = await getWixClient().graphql(collectionsQuery);
-  const items = removeNulls(data.storesCollectionsV1Collections?.items!).map(x=> useFragment(collectionFragment, x!));
+  const items = removeNulls(data.storesCollectionsV1Collections?.items!).map((x) =>
+    useFragment(collectionFragment, x!)
+  );
 
   const wixCollections = [
     {
@@ -460,27 +498,32 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const { data } = await getWixClient().graphql(graphql(`
-    query MenuBySlug($slug: String!) {
-      dataItemsV2DataItems(queryInput: { 
-        dataCollectionId: "Menus", 
-        includeReferencedItems: ["pages"],
-        query: { filter: { slug: $slug } } 
-      }) {
-        items {
-          id
-          data
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      query MenuBySlug($slug: String!) {
+        dataItemsV2DataItems(
+          queryInput: {
+            dataCollectionId: "Menus"
+            includeReferencedItems: ["pages"]
+            query: { filter: { slug: $slug } }
+          }
+        ) {
+          items {
+            id
+            data
+          }
         }
       }
+    `),
+    {
+      slug: handle
     }
-  `), {
-    slug: handle
-  });
-  
+  );
+
   const menu = data.dataItemsV2DataItems?.items?.[0];
 
   if (!menu) {
-    return []
+    return [];
   }
 
   return (
@@ -492,21 +535,23 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 }
 
 export async function getPage(handle: string): Promise<Page | undefined> {
-  const { data } = await getWixClient().graphql(graphql(`
-    query PageBySlug($slug: String!) {
-      dataItemsV2DataItems(queryInput: { 
-        dataCollectionId: "Pages", 
-        query: { filter: { slug: $slug } } 
-      }) {
-        items {
-          id
-          data
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      query PageBySlug($slug: String!) {
+        dataItemsV2DataItems(
+          queryInput: { dataCollectionId: "Pages", query: { filter: { slug: $slug } } }
+        ) {
+          items {
+            id
+            data
+          }
         }
       }
+    `),
+    {
+      slug: handle
     }
-  `), {
-    slug: handle
-  });
+  );
 
   const page = data.dataItemsV2DataItems?.items?.[0];
 
@@ -530,18 +575,18 @@ export async function getPage(handle: string): Promise<Page | undefined> {
 }
 
 export async function getPages(): Promise<Page[]> {
-  const { data } = await getWixClient().graphql(graphql(`
-    query Pages {
-      dataItemsV2DataItems(queryInput: { 
-        dataCollectionId: "Pages", 
-      }) {
-        items {
-          id
-          data
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      query Pages {
+        dataItemsV2DataItems(queryInput: { dataCollectionId: "Pages" }) {
+          items {
+            id
+            data
+          }
         }
       }
-    }
-  `));
+    `)
+  );
 
   const pages = data.dataItemsV2DataItems?.items ?? [];
 
@@ -563,7 +608,9 @@ export async function getPages(): Promise<Page[]> {
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const productQuery = graphql(`
     query ProductByHandle($handle: String!) {
-      storesProductsV1Products(queryInput: { query: { filter: { slug: $handle }, paging: { limit: 1 }}}) {
+      storesProductsV1Products(
+        queryInput: { query: { filter: { slug: $handle }, paging: { limit: 1 } } }
+      ) {
         items {
           ...Product
         }
@@ -586,38 +633,46 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  const { data: recommendationData } = await getWixClient().graphql(graphql(`
-    mutation GetRecommendation($algorithms: [EcomRecommendationsV1AlgorithmInput!]!, $items: [EcommerceCatalogSpiV1CatalogReferenceInput!]!) {
-      ecomRecommendationsV1GetRecommendation(input: { algorithms: $algorithms, items: $items, minimumRecommendedItems: 3 }) {
-        recommendation {
-          items {
-            catalogItemId
+  const { data: recommendationData } = await getWixClient().graphql(
+    graphql(`
+      mutation GetRecommendation(
+        $algorithms: [EcomRecommendationsV1AlgorithmInput!]!
+        $items: [EcommerceCatalogSpiV1CatalogReferenceInput!]!
+      ) {
+        ecomRecommendationsV1GetRecommendation(
+          input: { algorithms: $algorithms, items: $items, minimumRecommendedItems: 3 }
+        ) {
+          recommendation {
+            items {
+              catalogItemId
+            }
           }
         }
       }
+    `),
+    {
+      items: [
+        {
+          catalogItemId: productId,
+          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
+        }
+      ],
+      algorithms: [
+        {
+          id: '5dd69f67-9ab9-478e-ba7c-10c6c6e7285f',
+          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
+        },
+        {
+          id: 'ba491fd2-b172-4552-9ea6-7202e01d1d3c',
+          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
+        },
+        {
+          id: '68ebce04-b96a-4c52-9329-08fc9d8c1253',
+          appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
+        }
+      ]
     }
-  `), {
-    items: [
-      {
-        catalogItemId: productId,
-        appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
-      }
-    ],
-    algorithms: [
-      {
-        id: '5dd69f67-9ab9-478e-ba7c-10c6c6e7285f',
-        appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
-      },
-      {
-        id: 'ba491fd2-b172-4552-9ea6-7202e01d1d3c',
-        appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
-      },
-      {
-        id: '68ebce04-b96a-4c52-9329-08fc9d8c1253',
-        appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e'
-      }
-    ],
-  });
+  );
 
   const recommendation = recommendationData.ecomRecommendationsV1GetRecommendation?.recommendation;
 
@@ -627,7 +682,7 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 
   const recommendedProductsQuery = graphql(`
     query RecommendedProducts($filter: JSON) {
-      storesProductsV1Products(queryInput: { query: { filter: $filter }}) {
+      storesProductsV1Products(queryInput: { query: { filter: $filter } }) {
         items {
           ...Product
         }
@@ -643,7 +698,7 @@ export async function getProductRecommendations(productId: string): Promise<Prod
     }
   });
 
-  return data.storesProductsV1Products?.items?.map(x => reshapeProduct(x!)) ?? [];
+  return data.storesProductsV1Products?.items?.map((x) => reshapeProduct(x!)) ?? [];
 }
 
 export async function getProducts({
@@ -657,7 +712,7 @@ export async function getProducts({
 }): Promise<Product[]> {
   const productsQuery = graphql(`
     query Products($filter: JSON!, $sort: [CommonSortingInput]!) {
-      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort }}) {
+      storesProductsV1Products(queryInput: { query: { filter: $filter, sort: $sort } }) {
         items {
           ...Product
         }
@@ -671,13 +726,15 @@ export async function getProducts({
         $startsWith: query || ''
       }
     },
-    sort: [{
-      fieldName: sortKey || 'name',
-      order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
-    }]
+    sort: [
+      {
+        fieldName: sortKey || 'name',
+        order: reverse ? CommonSortOrder.Desc : CommonSortOrder.Asc
+      }
+    ]
   });
 
-  return data.storesProductsV1Products?.items?.map(x => reshapeProduct(x!)) ?? [];
+  return data.storesProductsV1Products?.items?.map((x) => reshapeProduct(x!)) ?? [];
 }
 
 export const getWixClient = () => {
@@ -696,39 +753,51 @@ export const getWixClient = () => {
     }),
     // @ts-expect-error
     headers: {
-      'x-wix-route-graphql-public-server': 'dp-0fdcbe4f1b133d4680e260e8bea7b98b647a31108a9cff072147a047'
+      'x-wix-route-graphql-public-server':
+        'dp-0fdcbe4f1b133d4680e260e8bea7b98b647a31108a9cff072147a047'
     }
   });
   return wixClient;
 };
 
 export async function createCheckoutUrl(postFlowUrl: string) {
-  const {data} = await getWixClient().graphql(graphql(`
-    mutation CreateCheckoutFromCurrentCart {
-      ecomCurrentCartV1CreateCheckoutFromCurrentCart(input: { channelType: OTHER_PLATFORM }) {
-        checkoutId
+  const { data } = await getWixClient().graphql(
+    graphql(`
+      mutation CreateCheckoutFromCurrentCart {
+        ecomCurrentCartV1CreateCheckoutFromCurrentCart(input: { channelType: OTHER_PLATFORM }) {
+          checkoutId
+        }
       }
-    }
-  `), {});
+    `),
+    {}
+  );
 
   const currentCheckout = data.ecomCurrentCartV1CreateCheckoutFromCurrentCart!;
 
-  const { data: redirectSessionData } = await getWixClient().graphql(graphql(`
-    mutation CreateRedirectSession($checkoutId: String!, $postFlowUrl: String!) {
-      redirectsRedirectsV1CreateRedirectSession(input: { ecomCheckout: { checkoutId: $checkoutId }, callbacks: { postFlowUrl: $postFlowUrl } }) {
-        redirectSession {
-          fullUrl
+  const { data: redirectSessionData } = await getWixClient().graphql(
+    graphql(`
+      mutation CreateRedirectSession($checkoutId: String!, $postFlowUrl: String!) {
+        redirectsRedirectsV1CreateRedirectSession(
+          input: {
+            ecomCheckout: { checkoutId: $checkoutId }
+            callbacks: { postFlowUrl: $postFlowUrl }
+          }
+        ) {
+          redirectSession {
+            fullUrl
+          }
         }
       }
+    `),
+    {
+      checkoutId: currentCheckout.checkoutId!,
+      postFlowUrl
     }
-  `), {
-    checkoutId: currentCheckout.checkoutId!,
-    postFlowUrl
-  });
+  );
 
   return redirectSessionData.redirectsRedirectsV1CreateRedirectSession?.redirectSession?.fullUrl!;
 }
 
 const removeNulls = <T>(arr: (T | null | undefined)[]) => {
-  return arr.filter((x) => x !== null && typeof x !== "undefined") as T[];
-}
+  return arr.filter((x) => x !== null && typeof x !== 'undefined') as T[];
+};

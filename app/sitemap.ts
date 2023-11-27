@@ -1,3 +1,4 @@
+import { validateEnvironmentVariables } from 'lib/utils';
 import { getCollections, getPages, getProducts } from 'lib/wix';
 import { MetadataRoute } from 'next';
 
@@ -11,6 +12,8 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   : 'http://localhost:3000';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  validateEnvironmentVariables();
+
   const routesMap = [''].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString()

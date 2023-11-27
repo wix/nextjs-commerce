@@ -2,39 +2,51 @@
 
 import { addToCart, removeFromCart, updateCart } from 'lib/wix';
 import { ProductVariant } from 'lib/wix/types';
+import { revalidatePath } from 'next/cache';
 
 export const addItem = async (
-  productId: string,
-  variant?: ProductVariant
-): Promise<String | undefined> => {
-  if (!productId) {
-    return 'Missing product variant ID';
+  _prevState: unknown,
+  item: {
+    productId: string;
+    variant?: ProductVariant;
+  }
+) => {
+  if (!item.productId) {
+    return 'Missing product ID';
   }
 
   try {
-    await addToCart([{ productId, variant, quantity: 1 }]);
+    await addToCart([{ productId: item.productId, variant: item.variant, quantity: 1 }]);
+    revalidatePath('/', 'layout');
   } catch (e) {
     return 'Error adding item to cart';
   }
 };
 
-export const removeItem = async (lineId: string): Promise<String | undefined> => {
+export const removeItem = async (
+  _prevState: unknown,
+  lineId: string
+): Promise<String | undefined> => {
   try {
     await removeFromCart([lineId]);
+    revalidatePath('/', 'layout');
   } catch (e) {
     return 'Error removing item from cart';
   }
 };
 
-export const updateItemQuantity = async ({
-  lineId,
-  variantId,
-  quantity
-}: {
-  lineId: string;
-  variantId: string;
-  quantity: number;
-}): Promise<String | undefined> => {
+export const updateItemQuantity = async (
+  _prevState: unknown,
+  {
+    lineId,
+    variantId,
+    quantity
+  }: {
+    lineId: string;
+    variantId: string;
+    quantity: number;
+  }
+): Promise<String | undefined> => {
   try {
     await updateCart([
       {
@@ -43,6 +55,7 @@ export const updateItemQuantity = async ({
         quantity
       }
     ]);
+    revalidatePath('/', 'layout');
   } catch (e) {
     return 'Error updating item quantity';
   }
