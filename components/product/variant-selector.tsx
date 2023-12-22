@@ -1,106 +1,33 @@
-'use client';
-
+import { ProductOptionChoice } from '@wix/head/stores/product/components/client';
+import { ProductVariantSelector } from '@wix/head/stores/product/components/server';
+import { ProductIdentifier } from '@wix/head/stores/product/server';
 import clsx from 'clsx';
-import { createUrl } from 'lib/utils';
-import { ProductOption, ProductVariant } from 'lib/wix/types';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-type Combination = {
-  id: string;
-  availableForSale: boolean;
-  [key: string]: string | boolean; // ie. { color: 'Red', size: 'Large', ... }
-};
-
-export function VariantSelector({
-  options,
-  variants
-}: {
-  options: ProductOption[];
-  variants: ProductVariant[];
-}) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const hasNoOptionsOrJustOneOption =
-    !options.length || (options.length === 1 && options[0]?.values.length === 1);
-
-  if (hasNoOptionsOrJustOneOption) {
-    return null;
-  }
-
-  const combinations: Combination[] = variants.map((variant) => ({
-    id: variant.id,
-    availableForSale: variant.availableForSale,
-    // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
-    ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
-      {}
-    )
-  }));
-
-  return options.map((option) => (
-    <dl className="mb-8" key={option.id}>
-      <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
-      <dd className="flex flex-wrap gap-3">
-        {option.values.map((value) => {
-          const optionNameLowerCase = option.name.toLowerCase();
-
-          // Base option params on current params so we can preserve any other param state in the url.
-          const optionSearchParams = new URLSearchParams(searchParams.toString());
-
-          // Update the option params using the current option to reflect how the url *would* change,
-          // if the option was clicked.
-          optionSearchParams.set(optionNameLowerCase, value);
-          const optionUrl = createUrl(pathname, optionSearchParams);
-
-          // In order to determine if an option is available for sale, we need to:
-          //
-          // 1. Filter out all other param state
-          // 2. Filter out invalid options
-          // 3. Check if the option combination is available for sale
-          //
-          // This is the "magic" that will cross check possible variant combinations and preemptively
-          // disable combinations that are not available. For example, if the color gray is only available in size medium,
-          // then all other sizes should be disabled.
-          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
-            options.find(
-              (option) => option.name.toLowerCase() === key && option.values.includes(value)
-            )
-          );
-          const isAvailableForSale = combinations.find((combination) =>
-            filtered.every(
-              ([key, value]) => combination[key] === value && combination.availableForSale
-            )
-          );
-
-          // The option is active if it's in the url params.
-          const isActive = searchParams.get(optionNameLowerCase) === value;
-
-          return (
-            <button
-              key={value}
-              aria-disabled={!isAvailableForSale}
-              disabled={!isAvailableForSale}
-              onClick={() => {
-                router.replace(optionUrl, { scroll: false });
-              }}
-              title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
-              className={clsx(
-                'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
-                {
-                  'cursor-default ring-2 ring-blue-600': isActive,
-                  'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-blue-600 ':
-                    !isActive && isAvailableForSale,
-                  'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
-                    !isAvailableForSale
-                }
-              )}
-            >
-              {value}
-            </button>
-          );
-        })}
-      </dd>
-    </dl>
-  ));
+export function VariantSelector({ identifier }: { identifier: ProductIdentifier }) {
+  return (
+    <ProductVariantSelector identifier={identifier}>
+      {(options) =>
+        options.map((option) => (
+          <dl className="mb-8" key={option.name}>
+            <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
+            <dd className="flex flex-wrap gap-3">
+              {(option.choices ?? []).map((_, index) => (
+                <ProductOptionChoice
+                  key={index}
+                  choiceIndex={index}
+                  option={option}
+                  className={clsx(
+                    'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+                    'data-[is-active=true]:cursor-default data-[is-active=true]:ring-2 data-[is-active=true]:ring-blue-600',
+                    'data-[is-active=false]:data-[is-available=true]:ring-1 data-[is-active=false]:data-[is-available=true]:ring-transparent data-[is-active=false]:data-[is-available=true]:transition data-[is-active=false]:data-[is-available=true]:duration-300 data-[is-active=false]:data-[is-available=true]:ease-in-out data-[is-active=false]:data-[is-available=true]:hover:scale-110 data-[is-active=false]:data-[is-available=true]:hover:ring-blue-600 ',
+                    'data-[is-available=false]:relative data-[is-available=false]:z-10 data-[is-available=false]:cursor-not-allowed data-[is-available=false]:overflow-hidden data-[is-available=false]:bg-neutral-100 data-[is-available=false]:text-neutral-500 data-[is-available=false]:ring-1 data-[is-available=false]:ring-neutral-300 data-[is-available=false]:before:absolute data-[is-available=false]:before:inset-x-0 data-[is-available=false]:before:-z-10 data-[is-available=false]:before:h-px data-[is-available=false]:before:-rotate-45 data-[is-available=false]:before:bg-neutral-300 data-[is-available=false]:before:transition-transform data-[is-available=false]:dark:bg-neutral-900 data-[is-available=false]:dark:text-neutral-400 data-[is-available=false]:dark:ring-neutral-700 data-[is-available=false]:before:dark:bg-neutral-700'
+                  )}
+                />
+              ))}
+            </dd>
+          </dl>
+        ))
+      }
+    </ProductVariantSelector>
+  );
 }

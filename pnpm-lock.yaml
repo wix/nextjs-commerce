@@ -13,6 +13,9 @@ dependencies:
   '@wix/ecom':
     specifier: ^1.0.316
     version: 1.0.316
+  '@wix/head':
+    specifier: https://cdn.dev.wixpress.com/@wix/head/c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a.tar.gz
+    version: '@cdn.dev.wixpress.com/@wix/head/c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a.tar.gz(next@14.0.4)(react@18.2.0)'
   '@wix/redirects':
     specifier: ^1.0.23
     version: 1.0.23
@@ -29,8 +32,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0
   next:
-    specifier: 14.0.0
-    version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: 14.0.4
+    version: 14.0.4(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -130,6 +133,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+
+  /@babel/runtime@7.23.6:
+    resolution: {integrity: sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.52.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}
@@ -238,8 +248,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@next/env@14.0.0:
-    resolution: {integrity: sha512-cIKhxkfVELB6hFjYsbtEeTus2mwrTC+JissfZYM0n+8Fv+g8ucUfOlm3VEDtwtwydZ0Nuauv3bl0qF82nnCAqA==}
+  /@next/env@14.0.4:
+    resolution: {integrity: sha512-irQnbMLbUNQpP1wcE5NstJtbuA/69kRfzBrpAD7Gsn8zm/CY6YQYc3HQBz8QPxwISG26tIm5afvvVbu508oBeQ==}
     dev: false
 
   /@next/eslint-plugin-next@14.0.0:
@@ -252,8 +262,8 @@ packages:
     resolution: {integrity: sha512-urmUq05uCVJsBqAAJEV+xK5OTTodrSxdiG+351SOSjlWctywdBM6qX+K9pIe3K48RxjfnxlBbXjGyOJAji+pfw==}
     dev: false
 
-  /@next/swc-darwin-arm64@14.0.0:
-    resolution: {integrity: sha512-HQKi159jCz4SRsPesVCiNN6tPSAFUkOuSkpJsqYTIlbHLKr1mD6be/J0TvWV6fwJekj81bZV9V/Tgx3C2HO9lA==}
+  /@next/swc-darwin-arm64@14.0.4:
+    resolution: {integrity: sha512-mF05E/5uPthWzyYDyptcwHptucf/jj09i2SXBPwNzbgBNc+XnwzrL0U6BmPjQeOL+FiB+iG1gwBeq7mlDjSRPg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
@@ -261,8 +271,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-darwin-x64@14.0.0:
-    resolution: {integrity: sha512-4YyQLMSaCgX/kgC1jjF3s3xSoBnwHuDhnF6WA1DWNEYRsbOOPWjcYhv8TKhRe2ApdOam+VfQSffC4ZD+X4u1Cg==}
+  /@next/swc-darwin-x64@14.0.4:
+    resolution: {integrity: sha512-IZQ3C7Bx0k2rYtrZZxKKiusMTM9WWcK5ajyhOZkYYTCc8xytmwSzR1skU7qLgVT/EY9xtXDG0WhY6fyujnI3rw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
@@ -270,8 +280,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-linux-arm64-gnu@14.0.0:
-    resolution: {integrity: sha512-io7fMkJ28Glj7SH8yvnlD6naIhRDnDxeE55CmpQkj3+uaA2Hko6WGY2pT5SzpQLTnGGnviK85cy8EJ2qsETj/g==}
+  /@next/swc-linux-arm64-gnu@14.0.4:
+    resolution: {integrity: sha512-VwwZKrBQo/MGb1VOrxJ6LrKvbpo7UbROuyMRvQKTFKhNaXjUmKTu7wxVkIuCARAfiI8JpaWAnKR+D6tzpCcM4w==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -279,8 +289,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-linux-arm64-musl@14.0.0:
-    resolution: {integrity: sha512-nC2h0l1Jt8LEzyQeSs/BKpXAMe0mnHIMykYALWaeddTqCv5UEN8nGO3BG8JAqW/Y8iutqJsaMe2A9itS0d/r8w==}
+  /@next/swc-linux-arm64-musl@14.0.4:
+    resolution: {integrity: sha512-8QftwPEW37XxXoAwsn+nXlodKWHfpMaSvt81W43Wh8dv0gkheD+30ezWMcFGHLI71KiWmHK5PSQbTQGUiidvLQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -288,8 +298,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-linux-x64-gnu@14.0.0:
-    resolution: {integrity: sha512-Wf+WjXibJQ7hHXOdNOmSMW5bxeJHVf46Pwb3eLSD2L76NrytQlif9NH7JpHuFlYKCQGfKfgSYYre5rIfmnSwQw==}
+  /@next/swc-linux-x64-gnu@14.0.4:
+    resolution: {integrity: sha512-/s/Pme3VKfZAfISlYVq2hzFS8AcAIOTnoKupc/j4WlvF6GQ0VouS2Q2KEgPuO1eMBwakWPB1aYFIA4VNVh667A==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -297,8 +307,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-linux-x64-musl@14.0.0:
-    resolution: {integrity: sha512-WTZb2G7B+CTsdigcJVkRxfcAIQj7Lf0ipPNRJ3vlSadU8f0CFGv/ST+sJwF5eSwIe6dxKoX0DG6OljDBaad+rg==}
+  /@next/swc-linux-x64-musl@14.0.4:
+    resolution: {integrity: sha512-m8z/6Fyal4L9Bnlxde5g2Mfa1Z7dasMQyhEhskDATpqr+Y0mjOBZcXQ7G5U+vgL22cI4T7MfvgtrM2jdopqWaw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -306,8 +316,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-win32-arm64-msvc@14.0.0:
-    resolution: {integrity: sha512-7R8/x6oQODmNpnWVW00rlWX90sIlwluJwcvMT6GXNIBOvEf01t3fBg0AGURNKdTJg2xNuP7TyLchCL7Lh2DTiw==}
+  /@next/swc-win32-arm64-msvc@14.0.4:
+    resolution: {integrity: sha512-7Wv4PRiWIAWbm5XrGz3D8HUkCVDMMz9igffZG4NB1p4u1KoItwx9qjATHz88kwCEal/HXmbShucaslXCQXUM5w==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
@@ -315,8 +325,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-win32-ia32-msvc@14.0.0:
-    resolution: {integrity: sha512-RLK1nELvhCnxaWPF07jGU4x3tjbyx2319q43loZELqF0+iJtKutZ+Lk8SVmf/KiJkYBc7Cragadz7hb3uQvz4g==}
+  /@next/swc-win32-ia32-msvc@14.0.4:
+    resolution: {integrity: sha512-zLeNEAPULsl0phfGb4kdzF/cAVIfaC7hY+kt0/d+y9mzcZHsMS3hAS829WbJ31DkSlVKQeHEjZHIdhN+Pg7Gyg==}
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
@@ -324,8 +334,8 @@ packages:
     dev: false
     optional: true
 
-  /@next/swc-win32-x64-msvc@14.0.0:
-    resolution: {integrity: sha512-g6hLf1SUko+hnnaywQQZzzb3BRecQsoKkF3o/C+F+dOA4w/noVAJngUVkfwF0+2/8FzNznM7ofM6TGZO9svn7w==}
+  /@next/swc-win32-x64-msvc@14.0.4:
+    resolution: {integrity: sha512-yEh2+R8qDlDCjxVpzOTEpBLQTEFAcP2A8fUFLaWNap9GitYKkKv1//y2S6XY6zsR4rCOPRpU7plYDR+az2n30A==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -507,6 +517,14 @@ packages:
       '@wix/sdk-types': 1.5.1
     dev: false
 
+  /@wix/ecom@1.0.421:
+    resolution: {integrity: sha512-xVS+Kq0to2PGHuRLkzgIqeziRL4Yk7IgxOu9bLGJ6IwaMiy/iVXNgMk6T/l8U9mmmT7bH0jZoUkU79xMdiRQsw==}
+    dependencies:
+      '@wix/metro-runtime': 1.1548.0
+      '@wix/motion-edm-autogen-query-wrapper': 1.0.40
+      '@wix/sdk-types': 1.5.3
+    dev: false
+
   /@wix/filter-builder@1.0.38:
     resolution: {integrity: sha512-KRpS+k9KZOxBxwnp7viGMW/0Ww+DXDejPnN+VbvhaA4zhOnM+NCqx5p3OdBEw1OWJupZ6le1W2yNMGCtLtmPeQ==}
     dependencies:
@@ -527,6 +545,13 @@ packages:
     resolution: {integrity: sha512-eCGI04HPDw88pavpr+2zR3tbIgJC1n+bF8UyuNNj1wOCx8u92OTeRZLkJaQpVzm4/gKLBzKu7Tx5DOds4xDNvQ==}
     dependencies:
       '@babel/runtime': 7.23.2
+      tslib: 2.6.2
+    dev: false
+
+  /@wix/image-kit@1.44.0:
+    resolution: {integrity: sha512-dYvdecpwoKq1LtWQ2a1s78vzoMGM3DcC+x9GsdkTUoITdl1hAqHLiPkok8ZnP5Rd0VLWB4ePtQaGW/hZ+sg8IA==}
+    dependencies:
+      '@babel/runtime': 7.23.6
       tslib: 2.6.2
     dev: false
 
@@ -617,6 +642,23 @@ packages:
       '@wix/sdk-types': 1.5.1
     dev: false
 
+  /@wix/redirects@1.0.31:
+    resolution: {integrity: sha512-swBAHoghIfuI+IeQnKyURZ67GhmjEIx1P9rm7s2hAlwqk9JwVJ5l3sDW7XkCzvH6o5EFru8m5NA7auzC1i41+w==}
+    dependencies:
+      '@wix/metro-runtime': 1.1548.0
+      '@wix/motion-edm-autogen-query-wrapper': 1.0.40
+      '@wix/sdk-types': 1.5.3
+    dev: false
+
+  /@wix/sdk-react@0.3.8(react@18.2.0):
+    resolution: {integrity: sha512-WOIuFn4UmxQOmo2/wHkhynnzkkrfFVs0z3RXWLNQGDB5Z2GgksFkhPE921NqZabdwYhoAqVbeLvm5sY49dW0Cg==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@wix/sdk': 1.5.9
+      react: 18.2.0
+    dev: false
+
   /@wix/sdk-types@1.2.8:
     resolution: {integrity: sha512-IhmNuKeBSmUOYwMKge28cU6Xz1ikkVqwIBJE9QZMFpto4IBNN8NM6/7OX0lgjXiCJ6cbntLwJGf9OGiirDQTWw==}
     dependencies:
@@ -625,6 +667,10 @@ packages:
 
   /@wix/sdk-types@1.5.1:
     resolution: {integrity: sha512-Q4nxSMa2xtutD7EYFtl09g7lJYxSoX93wJ0q6VKt4M/wbCibPxtyybFuJSFBAdVF8pSac/ufmtaBSmzzasuLzg==}
+    dev: false
+
+  /@wix/sdk-types@1.5.3:
+    resolution: {integrity: sha512-oElaNbXKU16c4h5uCVGp6+NMb7JfmAW/x/GcXymvxY2vOMRWHPbUypnlQ+mAEtk/cXwpLgbRFKBUFL/M30qfxA==}
     dev: false
 
   /@wix/sdk@1.2.8:
@@ -638,6 +684,29 @@ packages:
       pkce-challenge: 3.1.0
       querystring: 0.2.1
       type-fest: 3.13.1
+    dev: false
+
+  /@wix/sdk@1.5.9:
+    resolution: {integrity: sha512-Tt+/PVIwJRN2yt+JWGkXN9Jh1rRaNPpj5my70N4yq7FzJtb1aRfaVBRHlK0IO/PSI7dE+f1L2PI0nHYPBSJezA==}
+    dependencies:
+      '@babel/runtime': 7.23.6
+      '@wix/identity': 1.0.63
+      '@wix/image-kit': 1.44.0
+      '@wix/redirects': 1.0.31
+      '@wix/sdk-types': 1.5.3
+      pkce-challenge: 3.1.0
+      querystring: 0.2.1
+      type-fest: 4.8.3
+    optionalDependencies:
+      graphql: 16.8.1
+    dev: false
+
+  /@wix/stores@1.0.108:
+    resolution: {integrity: sha512-dvnSoNTzCQuaooHSEIZUjHKKI9gAJDa26M0rU2cfx68tWJhM62jO2+VSsux1l28blCNtwmsMK0yJ4toI8u780w==}
+    dependencies:
+      '@wix/metro-runtime': 1.1548.0
+      '@wix/motion-edm-autogen-query-wrapper': 1.0.40
+      '@wix/sdk-types': 1.5.3
     dev: false
 
   /@wix/stores@1.0.89:
@@ -1842,6 +1911,13 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
+  /graphql@16.8.1:
+    resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
+    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /has-bigints@1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
     dev: true
@@ -2404,8 +2480,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next@14.0.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-J0jHKBJpB9zd4+c153sair0sz44mbaCHxggs8ryVXSFBuBqJ8XdE9/ozoV85xGh2VnSjahwntBZZgsihL9QznA==}
+  /next@14.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-qbwypnM7327SadwFtxXnQdGiKpkuhaRLE2uq62/nRul9cj9KhQ5LhHmlziTNqUidZotw/Q1I9OjirBROdUJNgA==}
     engines: {node: '>=18.17.0'}
     hasBin: true
     peerDependencies:
@@ -2419,25 +2495,26 @@ packages:
       sass:
         optional: true
     dependencies:
-      '@next/env': 14.0.0
+      '@next/env': 14.0.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
       caniuse-lite: 1.0.30001563
+      graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       styled-jsx: 5.1.1(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
-      '@next/swc-darwin-arm64': 14.0.0
-      '@next/swc-darwin-x64': 14.0.0
-      '@next/swc-linux-arm64-gnu': 14.0.0
-      '@next/swc-linux-arm64-musl': 14.0.0
-      '@next/swc-linux-x64-gnu': 14.0.0
-      '@next/swc-linux-x64-musl': 14.0.0
-      '@next/swc-win32-arm64-msvc': 14.0.0
-      '@next/swc-win32-ia32-msvc': 14.0.0
-      '@next/swc-win32-x64-msvc': 14.0.0
+      '@next/swc-darwin-arm64': 14.0.4
+      '@next/swc-darwin-x64': 14.0.4
+      '@next/swc-linux-arm64-gnu': 14.0.4
+      '@next/swc-linux-arm64-musl': 14.0.4
+      '@next/swc-linux-x64-gnu': 14.0.4
+      '@next/swc-linux-x64-musl': 14.0.4
+      '@next/swc-win32-arm64-msvc': 14.0.4
+      '@next/swc-win32-ia32-msvc': 14.0.4
+      '@next/swc-win32-x64-msvc': 14.0.4
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -3401,6 +3478,11 @@ packages:
     engines: {node: '>=14.16'}
     dev: false
 
+  /type-fest@4.8.3:
+    resolution: {integrity: sha512-//BaTm14Q/gHBn09xlnKNqfI8t6bmdzx2DXYfPBNofN0WUybCEUDcbCWcTa0oF09lzLjZgPphXAsvRiMK0V6Bw==}
+    engines: {node: '>=16'}
+    dev: false
+
   /typed-array-buffer@1.0.0:
     resolution: {integrity: sha512-Y8KTSIglk9OZEr8zywiIHG/kmQ7KWyjseXs1CbSo8vC42w7hg2HgYTxSWwP0+is7bWDc1H+Fo026CpHFwm8tkw==}
     engines: {node: '>= 0.4'}
@@ -3491,6 +3573,10 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
     dev: true
+
+  /variant@3.0.0-dev.26:
+    resolution: {integrity: sha512-EFcGmZ944HFtv49MxT6AHzbITAzpDb12ivaJy7088a4MpAbmWN0jbCFTNAiD+lDjjFvybx6pelQ991kecHLh/g==}
+    dev: false
 
   /watchpack@2.4.0:
     resolution: {integrity: sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==}
@@ -3587,3 +3673,21 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  '@cdn.dev.wixpress.com/@wix/head/c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a.tar.gz(next@14.0.4)(react@18.2.0)':
+    resolution: {tarball: https://cdn.dev.wixpress.com/@wix/head/c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a.tar.gz}
+    id: '@cdn.dev.wixpress.com/@wix/head/c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a.tar.gz'
+    name: '@wix/head'
+    version: 0.0.0-c78cd394cfbae373c919b1d2b88f064169ce12786b3a94649d5a686a
+    peerDependencies:
+      next: ^14.0.4
+      react: ^18.2.0
+    dependencies:
+      '@wix/ecom': 1.0.421
+      '@wix/sdk-react': 0.3.8(react@18.2.0)
+      '@wix/stores': 1.0.108
+      clsx: 2.0.0
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      variant: 3.0.0-dev.26
+    dev: false
