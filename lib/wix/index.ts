@@ -3,7 +3,6 @@ import { currentCart, recommendations } from '@wix/ecom';
 import { redirects } from '@wix/redirects';
 import { OAuthStrategy, createClient, media } from '@wix/sdk';
 import { collections, products } from '@wix/stores';
-import { ApplicationError } from '@wix/stores/build/cjs/src/stores-catalog-v1-product.public';
 import { SortKey, WIX_REFRESH_TOKEN_COOKIE } from 'lib/constants';
 import { cookies } from 'next/headers';
 import { Cart, Collection, Menu, Page, Product, ProductVariant } from './types';
@@ -50,7 +49,10 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
         },
         merchandise: {
           id: item._id!,
-          title: item.descriptionLines?.map(x => x.colorInfo?.original ?? x.plainText?.original).join(' / ') ?? '',
+          title:
+            item.descriptionLines
+              ?.map((x) => x.colorInfo?.original ?? x.plainText?.original)
+              .join(' / ') ?? '',
           selectedOptions: [],
           product: {
             handle: item.url?.split('/').pop() ?? '',
@@ -60,7 +62,7 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
               width: media.getImageUrl(item.image!).width,
               height: media.getImageUrl(item.image!).height
             },
-            title: item.productName?.original!,
+            title: item.productName?.original!
           } as any as Product,
           url: `/product/${item.url?.split('/').pop() ?? ''}`
         }
@@ -139,7 +141,7 @@ const reshapeProduct = (item: products.Product) => {
             amount: String(variant.variant?.priceData?.price),
             currencyCode: variant.variant?.priceData?.currency
           },
-          availableForSale: variant.stock?.trackQuantity ? (variant.stock?.quantity ?? 0 > 0) : true,
+          availableForSale: variant.stock?.trackQuantity ? variant.stock?.quantity ?? 0 > 0 : true,
           selectedOptions: Object.entries(variant.choices ?? {}).map(([name, value]) => ({
             name,
             value
@@ -248,7 +250,7 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 
     return reshapeCollection(collection);
   } catch (e) {
-    if ((e as ApplicationError).code === '404') {
+    if ((e as any).code === '404') {
       return undefined;
     }
   }
