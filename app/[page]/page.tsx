@@ -4,8 +4,6 @@ import Prose from 'components/prose';
 import { getPage } from 'lib/wix';
 import { notFound } from 'next/navigation';
 
-export const runtime = 'edge';
-
 export async function generateMetadata({
   params
 }: {
@@ -27,6 +25,7 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { page: string } }) {
+  console.log('rendering page with params:', params);
   const page = await getPage(params.page);
 
   if (!page) return notFound();
@@ -45,3 +44,6 @@ export default async function Page({ params }: { params: { page: string } }) {
     </>
   );
 }
+
+export const revalidate = 60;
+export const dynamic = 'force-static';

@@ -325,7 +325,7 @@ export async function getCollections(): Promise<Collection[]> {
 export async function getMenu(handle: string): Promise<Menu[]> {
   const { queryDataItems } = getWixClient().use(items);
 
-  const { items: menus } = await queryDataItems({
+  const result = await queryDataItems({
     dataCollectionId: 'Menus',
     includeReferencedItems: ['pages']
   })
@@ -342,7 +342,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
       }
     });
 
-  const menu = menus[0];
+  const menu = result.items[0];
 
   return (
     menu?.data!.pages.map((page: { title: string; slug: string }) => ({
