@@ -226,7 +226,7 @@ export async function updateCart(
 }
 
 export async function getCart(): Promise<Cart | undefined> {
-  const { getCurrentCart } = getWixClient().use(currentCart);
+  const { getCurrentCart } = wixClient.use(currentCart);
   try {
     const cart = await getCurrentCart();
 
@@ -533,3 +533,5 @@ export async function createCheckoutUrl(postFlowUrl: string) {
 
   return redirectSession?.fullUrl!;
 }
+
+const wixClient = getWixClient();
