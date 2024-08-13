@@ -2,7 +2,6 @@ import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
 import { Product } from 'lib/wix/types';
-import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -17,10 +16,7 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      <Suspense fallback={null}>
-        <VariantSelector options={product.options} variants={product.variants} />
-      </Suspense>
-
+      <VariantSelector options={product.options} variants={product.variants} />
       {product.descriptionHtml ? (
         <Prose
           className="mb-6 text-sm leading-tight dark:text-white/[60%]"
@@ -28,13 +24,11 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
-      <Suspense fallback={null}>
-        <AddToCart
-          productId={product.id}
-          variants={product.variants}
-          availableForSale={product.availableForSale}
-        />
-      </Suspense>
+      <AddToCart
+        productId={product.id}
+        variants={product.variants}
+        availableForSale={product.availableForSale}
+      />
     </>
   );
 }

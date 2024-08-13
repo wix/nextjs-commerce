@@ -9,7 +9,7 @@ export type Edge<T> = {
 };
 
 export type Cart = {
-  id: string;
+  id?: string;
   checkoutUrl: string;
   cost: {
     subtotalAmount: Money;
@@ -18,6 +18,13 @@ export type Cart = {
   };
   lines: CartItem[];
   totalQuantity: number;
+};
+
+export type CartProduct = {
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage: Image;
 };
 
 export type CartItem = {
@@ -33,8 +40,7 @@ export type CartItem = {
       name: string;
       value: string;
     }[];
-    url: string;
-    product: Product;
+    product: CartProduct;
   };
 };
 

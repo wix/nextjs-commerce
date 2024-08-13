@@ -1,8 +1,10 @@
 'use server';
 
-import { addToCart, removeFromCart, updateCart } from 'lib/wix';
+import { addToCart, createCheckoutUrl, removeFromCart, updateCart } from 'lib/wix';
 import { ProductVariant } from 'lib/wix/types';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const addItem = async (
   _prevState: unknown,
@@ -51,6 +53,13 @@ export const updateItemQuantity = async (_prevState: unknown, {
     ]);
     revalidatePath('/', 'layout');
   } catch (e) {
+    console.error(e);
     return 'Error updating item quantity';
   }
 };
+
+export async function redirectToCheckout() {
+  const checkoutUrl = await createCheckoutUrl(new URL(headers().get('referer')!).origin);
+
+  redirect(checkoutUrl);
+}
