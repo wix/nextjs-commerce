@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     ? (JSON.parse(sessionCookie.value) as Tokens)
     : await wixClient.auth.generateVisitorTokens();
 
-  if (sessionTokens.accessToken.expiresAt - 14300 < Math.floor(Date.now() / 1000)) {
+  if (sessionTokens.accessToken.expiresAt < Math.floor(Date.now() / 1000)) {
     sessionTokens = await wixClient.auth.renewToken(sessionTokens.refreshToken);
   }
 
@@ -24,9 +24,7 @@ export async function middleware(request: NextRequest) {
   const res = NextResponse.next({
     request
   });
-  res.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens), {
-    maxAge: 60 * 60 * 24 * 30
-  });
+  res.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens));
 
   return res;
 }
