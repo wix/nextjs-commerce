@@ -17,14 +17,22 @@ export async function middleware(request: NextRequest) {
     : await wixClient.auth.generateVisitorTokens();
 
   if (sessionTokens.accessToken.expiresAt < Math.floor(Date.now() / 1000)) {
-    sessionTokens = await wixClient.auth.renewToken(sessionTokens.refreshToken);
+    try {
+      sessionTokens = await wixClient.auth.renewToken(sessionTokens.refreshToken);
+    } catch (e) {
+      // if we failed to renew the token with the existing refresh token, it's likely expired
+      // so we generate a new set of tokens for a visitor (this will log out members if they were logged in before)
+      sessionTokens = await wixClient.auth.generateVisitorTokens();
+    }
   }
 
   request.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens));
   const res = NextResponse.next({
     request
   });
-  res.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens));
+  res.cookies.set(WIX_SESSION_COOKIE, JSON.stringify(sessionTokens), {
+    maxAge: 60 * 60 * 24 * 12
+  });
 
   return res;
 }
