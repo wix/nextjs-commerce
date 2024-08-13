@@ -13,11 +13,11 @@
     "test": "pnpm prettier:check"
   },
   "dependencies": {
-    "@wix/data": "^1.0.97",
-    "@wix/ecom": "^1.0.532",
-    "@wix/redirects": "^1.0.42",
-    "@wix/sdk": "^1.7.14",
-    "@wix/stores": "^1.0.140",
+    "@wix/data": "^1.0.137",
+    "@wix/ecom": "^1.0.692",
+    "@wix/redirects": "^1.0.51",
+    "@wix/sdk": "^1.12.12",
+    "@wix/stores": "^1.0.179",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "clsx": "^2.1.1",

@@ -15,19 +15,19 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
       '@wix/data':
-        specifier: ^1.0.97
+        specifier: ^1.0.137
         version: 1.0.137
       '@wix/ecom':
-        specifier: ^1.0.532
+        specifier: ^1.0.692
         version: 1.0.692
       '@wix/redirects':
-        specifier: ^1.0.42
+        specifier: ^1.0.51
         version: 1.0.51
       '@wix/sdk':
-        specifier: ^1.7.14
+        specifier: ^1.12.12
         version: 1.12.12
       '@wix/stores':
-        specifier: ^1.0.140
+        specifier: ^1.0.179
         version: 1.0.179
       clsx:
         specifier: ^2.1.1
