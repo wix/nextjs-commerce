@@ -23,4 +23,4 @@ export const sorting: SortFilterItem[] = [
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
-export const WIX_REFRESH_TOKEN_COOKIE = 'wix-refresh-token';
+export const WIX_SESSION_COOKIE = 'wix-session';
