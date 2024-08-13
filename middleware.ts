@@ -1,7 +1,12 @@
-import { Tokens } from '@wix/sdk';
+import { createClient, OAuthStrategy, Tokens } from '@wix/sdk';
 import { WIX_SESSION_COOKIE } from 'lib/constants';
-import { wixClient } from 'lib/wix/client';
 import { NextRequest, NextResponse } from 'next/server';
+
+const wixClient = createClient({
+  auth: OAuthStrategy({
+    clientId: process.env.WIX_CLIENT_ID!
+  })
+});
 
 export async function middleware(request: NextRequest) {
   const cookies = request.cookies;
@@ -12,7 +17,6 @@ export async function middleware(request: NextRequest) {
     : await wixClient.auth.generateVisitorTokens();
 
   if (sessionTokens.accessToken.expiresAt - 14300 < Math.floor(Date.now() / 1000)) {
-    console.log('they expired', sessionTokens.accessToken.expiresAt, Math.floor(Date.now() / 1000));
     sessionTokens = await wixClient.auth.renewToken(sessionTokens.refreshToken);
   }
 
