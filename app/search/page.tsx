@@ -8,6 +8,8 @@ export const metadata = {
   description: 'Search for products in the store.'
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function SearchPage({
   searchParams
 }: {
