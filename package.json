@@ -13,16 +13,16 @@
     "test": "pnpm prettier:check"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "@wix/data": "^1.0.137",
     "@wix/ecom": "^1.0.692",
     "@wix/redirects": "^1.0.51",
     "@wix/sdk": "^1.12.12",
     "@wix/stores": "^1.0.179",
-    "@headlessui/react": "^2.1.2",
-    "@heroicons/react": "^2.1.5",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
-    "next": "15.0.0-canary.113",
+    "next": "15.0.0-canary.140",
     "react": "19.0.0-rc-3208e73e-20240730",
     "react-dom": "19.0.0-rc-3208e73e-20240730",
     "sonner": "^1.5.0"
