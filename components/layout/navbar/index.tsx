@@ -22,8 +22,8 @@ export async function Navbar() {
           <MobileMenu menu={fetchedMenu} />
         </Suspense>
       </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
+      <div className="flex w-full items-stretch">
+        <div className="flex">
           <Link
             href="/"
             prefetch={true}
@@ -35,14 +35,14 @@ export async function Navbar() {
             </div>
           </Link>
         </div>
-        <div className="relative">
+        <div className="relative ml-4 mr-4 flex flex-grow">
           <ul className="hidden gap-6 text-sm md:flex md:items-center">
             {menuToDisplay.map((item: Menu) => (
               <li key={item.title}>
                 <Link
                   href={item.path}
                   prefetch={true}
-                  className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                  className="text-justify align-middle text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
                 >
                   {item.title}
                 </Link>
@@ -53,7 +53,7 @@ export async function Navbar() {
                 <button className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300">
                   More
                 </button>
-                <ul className="absolute left-1/2 top-full z-50 mt-2 hidden w-48 -translate-x-1/2 transform bg-white shadow-lg group-hover:block dark:bg-gray-800">
+                <ul className="absolute left-1/2 top-full z-50 hidden w-48 -translate-x-1/2 transform bg-white shadow-lg group-hover:block dark:bg-gray-800">
                   {dropdownMenuItems.map((item: Menu) => (
                     <li key={item.title}>
                       <Link
@@ -70,12 +70,12 @@ export async function Navbar() {
             )}
           </ul>
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3 ">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
-        </div>
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex justify-between">
+          <div className="mr-4 hidden justify-center md:flex">
+            <Suspense fallback={<SearchSkeleton />}>
+              <Search />
+            </Suspense>
+          </div>
           <CartModal />
         </div>
       </div>
