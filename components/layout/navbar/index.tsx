@@ -17,7 +17,7 @@ export async function Navbar() {
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
+      <div className="block flex-none lg:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={fetchedMenu} />
         </Suspense>
@@ -30,13 +30,13 @@ export async function Navbar() {
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
             <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
+            {/* <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
               {SITE_NAME}
-            </div>
+            </div> */}
           </Link>
         </div>
         <div className="relative ml-4 mr-4 flex flex-grow">
-          <ul className="hidden gap-6 text-sm md:flex md:items-center">
+          <ul className="hidden gap-6 text-sm lg:flex md:items-center">
             {menuToDisplay.map((item: Menu) => (
               <li key={item.title}>
                 <Link
