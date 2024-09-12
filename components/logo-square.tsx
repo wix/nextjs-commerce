@@ -2,21 +2,18 @@ import clsx from 'clsx';
 import LogoIcon from './icons/logo';
 
 export default function LogoSquare({ size }: { size?: 'sm' | undefined }) {
-  console.log("size",size);
+  console.log('size', size);
   return (
     <div
-      className={clsx(
-        'flex flex-none items-center justify-center',
-        {
-          'h-[40px] rounded-xl': !size,
-          'h-[40px] rounded-lg': size === 'sm'
-        }
-      )}
+      className={clsx('flex flex-none items-center justify-center', {
+        'ml-6 rounded-xl': !size,
+        'h-[40px] rounded-lg': size === 'sm'
+      })}
     >
       <LogoIcon
         className={clsx({
-          'h-[60px] w-auto': !size,
-          'h-[40px] w-auto': size === 'sm'
+          'h-12 w-auto xl:h-16': !size,
+          'h-12 w-auto': size === 'sm'
         })}
       />
     </div>
