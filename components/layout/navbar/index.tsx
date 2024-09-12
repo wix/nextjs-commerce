@@ -42,7 +42,7 @@ export async function Navbar() {
                 <Link
                   href={item.path}
                   prefetch={true}
-                  className="text-justify align-middle text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                  className="text-justify align-middle text-neutral-500 underline-offset-4 hover:text-black hover:underline  "
                 >
                   {item.title}
                 </Link>
@@ -50,16 +50,16 @@ export async function Navbar() {
             ))}
             {dropdownMenuItems.length > 0 && (
               <li className="group relative">
-                <button className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300">
+                <button className="text-neutral-500 underline-offset-4 hover:text-black hover:underline  ">
                   More
                 </button>
-                <ul className="absolute left-1/2 top-full z-50 hidden w-48 -translate-x-1/2 transform bg-white shadow-lg group-hover:block dark:bg-gray-800">
+                <ul className="absolute left-1/2 top-full z-50 hidden w-48 -translate-x-1/2 transform bg-white shadow-lg group-hover:block ">
                   {dropdownMenuItems.map((item: Menu) => (
                     <li key={item.title}>
                       <Link
                         href={item.path}
                         prefetch={true}
-                        className="block px-4 py-2 text-sm text-neutral-500 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-gray-700"
+                        className="block px-4 py-2 text-sm text-neutral-500 hover:bg-gray-100  "
                       >
                         {item.title}
                       </Link>
