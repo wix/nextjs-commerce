@@ -16,13 +16,13 @@ export async function Navbar() {
   const dropdownMenuItems = fetchedMenu.slice(5);
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
+    <nav className="relative flex items-center justify-between p-4 lg:px-6 bg-white">
       <div className="block flex-none lg:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={fetchedMenu} />
         </Suspense>
       </div>
-      <div className="flex w-full items-stretch">
+      <div className="flex w-full items-centre">
         <div className="flex">
           <Link
             href="/"
@@ -70,7 +70,7 @@ export async function Navbar() {
             )}
           </ul>
         </div>
-        <div className="flex justify-between">
+        <div className="flex  items-center justify-between">
           <div className="mr-4 hidden justify-center md:flex">
             <Suspense fallback={<SearchSkeleton />}>
               <Search />
