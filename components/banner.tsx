@@ -19,15 +19,25 @@ function Banner() {
   }, []);
 
   return (
-    <div className="relative">
-      <Image
-        src={banners[currentImageIndex]}
-        alt="Banner Image"
-        className="z-30 w-full"
-        layout="responsive"
-        width={1000}
-        height={500}
-      />
+    <div className="flex justify-center" >
+    <div className="realtive overflow-hidden w-5/6">
+      <div
+        className="flex w-full items-center transition-transform duration-1000"
+        style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+      >
+        {banners.map((banner, index) => (
+          <div key={index} className="min-w-full">
+            <Image
+              src={banner}
+              alt={`Banner Image ${index + 1}`}
+              layout="responsive"
+              width={1000}
+              height={500}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
     </div>
   );
 }
