@@ -23,7 +23,7 @@ export default async function Footer() {
             {/* <span className="uppercase">{SITE_NAME}</span> */}
           </Link>
           <div>
-            <h1 className="text-center text-black underline">ABOUT US</h1>
+            <h1 id='about-us' className="text-center text-black underline">ABOUT US</h1>
             <p className="mt-3">
               The main objective of Indian-flowers.com to establish is to make all varieties of
               flowers that are available only in India, now in the USA. With many Indians longing
@@ -40,7 +40,7 @@ export default async function Footer() {
             </p>
           </div>
           <div>
-            <div className="justify-around md:flex mt-5">
+            <div id='contact-us' className="justify-around md:flex mt-5">
               <div>
                 <h1 className="underline text-black mt-5 mb-5">CONTACT US</h1>
                 <div>Online store. </div>

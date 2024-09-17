@@ -1,12 +1,7 @@
-import { createClient, OAuthStrategy, Tokens } from '@wix/sdk';
+import { Tokens } from '@wix/sdk';
+import { wixClient } from 'components/auth/wix-client.js';
 import { WIX_SESSION_COOKIE } from 'lib/constants';
 import { NextRequest, NextResponse } from 'next/server';
-
-const wixClient = createClient({
-  auth: OAuthStrategy({
-    clientId: process.env.WIX_CLIENT_ID!
-  })
-});
 
 export async function middleware(request: NextRequest) {
   const cookies = request.cookies;
