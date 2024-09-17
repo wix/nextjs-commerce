@@ -29,7 +29,7 @@ function Banner() {
           <div key={index} className="min-w-full">
             <Image
               src={banner}
-              alt={`Banner Image ${index + 1}`}
+              alt={`Banner Image ${index + 1}`} 
               layout="responsive"
               width={1000}
               height={500}
