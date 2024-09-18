@@ -37,7 +37,10 @@ function Banner() {
   };
 
   const handleBannerClick = () => {
-    window.open(banners[currentImageIndex].url, '_blank');
+    const currentBanner = banners[currentImageIndex];
+    if (currentBanner) {
+      window.open(currentBanner.url, '_blank');
+    }
   };
 
   return (
@@ -60,14 +63,14 @@ function Banner() {
       </div>
       <button
         aria-label="Previous Image"
-        className="bg-custom-green hover:bg-custom-green absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full p-3 shadow-lg transition-transform duration-200 ease-in-out hover:scale-110"
+        className="absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full bg-custom-green p-3 shadow-lg transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-custom-green"
         onClick={goToPrevImage}
       >
         <span className="text-lg">&lt;</span>
       </button>
       <button
         aria-label="Next Image"
-        className="bg-custom-green hover:bg-custom-green absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full p-3 shadow-lg transition-transform duration-200 ease-in-out hover:scale-110"
+        className="absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full bg-custom-green p-3 shadow-lg transition-transform duration-200 ease-in-out hover:scale-110 hover:bg-custom-green"
         onClick={goToNextImage}
       >
         <span className="text-lg">&gt;</span>
