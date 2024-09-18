@@ -43,7 +43,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <CartProvider cartPromise={cart}>
           <DeliveryBanner />
           <Navbar />
-          <main>{children}</main>
+          <div className="mx-auto flex w-11/12 flex-col">
+            <main>{children}</main>
+          </div>
         </CartProvider>
       </body>
     </html>

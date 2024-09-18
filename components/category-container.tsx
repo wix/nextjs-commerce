@@ -1,17 +1,17 @@
 import { getCollectionProducts } from 'lib/wix';
 import { Card } from './category-card';
 
-export async function Article() {
+export default async function CategoryContainer() {
   const products = await getCollectionProducts({ collection: 'hidden-homepage-carousel' });
 
   if (!products || products.length === 0) return null;
   const cardProducts = [...products];
 
   return (
-    <section className="mx-auto grid max-w-5xl grid-cols-1 gap-6 p-6 md:grid-cols-2 xl:grid-cols-3">
+    <section className="mx-auto grid w-full grid-cols-1 gap-6 p-6 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
       {cardProducts.map((product, index) => (
         <Card
-          key={`${product.handle}-${index}`}
+          key={`${product.handle}`}
           title={product.title}
           cardImage={product.featuredImage?.url}
           description={`Price: ${product.priceRange.maxVariantPrice.amount} ${product.priceRange.maxVariantPrice.currencyCode}`}

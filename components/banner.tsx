@@ -45,7 +45,7 @@ function Banner() {
 
   return (
     <div className="relative flex justify-center pt-2">
-      <div className="relative w-11/12 overflow-hidden rounded-md" onClick={handleBannerClick}>
+      <div className="relative w-full overflow-hidden rounded-md" onClick={handleBannerClick}>
         <div
           className="flex w-full items-center transition-transform duration-1000"
           style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
