@@ -1,4 +1,5 @@
 import Banner from 'components/banner';
+import { Article } from 'components/category-container';
 import Footer from 'components/layout/footer';
 
 export const metadata = {
@@ -11,9 +12,8 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <Banner/>
-      {/* <ThreeItemGrid /> */}
-      {/* <Carousel /> */}
+      <Banner />
+      <Article />
       <Footer />
     </>
   );

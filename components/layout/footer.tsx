@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
+import SubscribeNewsLetter from 'components/newsletter-form';
 import { getMenu } from 'lib/wix';
 import { Suspense } from 'react';
 
@@ -20,10 +21,11 @@ export default async function Footer() {
         <div>
           <Link className="flex items-center gap-2 text-black md:pt-1" href="/">
             <LogoSquare size="sm" />
-            {/* <span className="uppercase">{SITE_NAME}</span> */}
           </Link>
           <div>
-            <h1 id='about-us' className="text-center text-black underline">ABOUT US</h1>
+            <h1 id="about-us" className="text-center text-black underline">
+              ABOUT US
+            </h1>
             <p className="mt-3">
               The main objective of Indian-flowers.com to establish is to make all varieties of
               flowers that are available only in India, now in the USA. With many Indians longing
@@ -40,30 +42,20 @@ export default async function Footer() {
             </p>
           </div>
           <div>
-            <div id='contact-us' className="justify-around md:flex mt-5">
+            <div id="contact-us" className="mt-5 justify-around md:flex">
               <div>
-                <h1 className="underline text-black mt-5 mb-5">CONTACT US</h1>
+                <h1 className="mb-5 mt-5 text-black underline">CONTACT US</h1>
                 <div>Online store. </div>
                 <div>Address for Reference only.</div>
                 <div> 6893 Alverno Ln,Inver Grove heights</div>
                 <div>Minnesota-55077</div>
               </div>
               <div>
-                <h1 className="underline text-black mt-5 mb-5">OPENING HOURS</h1>
+                <h1 className="mb-5 mt-5 text-black underline">OPENING HOURS</h1>
                 <div>All days Online: 8am - 8pm </div>
                 <div>Call: +1 (201) 443-6606</div>
               </div>
-              <div>
-                <h1 className="underline text-black mt-5 mb-5">STAY UPDATED</h1>
-                <div>Sign up for our newsletter</div>
-                <input
-                  placeholder="Enter Your Email Here*"
-                  className="mt-1 mr-2 rounded-md border border-gray-300 p-2 shadow-sm focus:outline-none focus:ring-2"
-                ></input>
-                <button className="rounded-md bg-blue-500 px-4 py-2 font-semibold text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-blue-500">
-                  JOIN_NOW
-                </button>
-              </div>
+              <SubscribeNewsLetter />
             </div>
           </div>
         </div>
@@ -85,13 +77,18 @@ export default async function Footer() {
       <div className="border-t border-neutral-200 py-6 text-sm">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
           <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved
+            Copyright © 2020{' '}
+            <a className="hover:underline" href="https://indian-flowers.com/">
+              {' '}
+              Indian Flowers
+            </a>{' '}
+            All rights reserved.
           </p>
-          {/* <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
           <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p> */}
+            <a className="hover:underline" href="https://indian-flowers.com/privacy-policy/">
+              Privacy Policy
+            </a>
+          </p>
           <p className="md:ml-auto">
             <a className="text-black">Created by Lemorian.tech</a>
           </p>

@@ -5,8 +5,13 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        'custom-green': '#81B14B',
+        'custom-sandal': '#FAE1CC',
+        'custom-orange':'#F98130'
+      },
       backgroundImage: {
-        'flower-pattern': "url('assets/images/background-image.jpeg')"
+        'flower-pattern': "url('assets/images/background-image3.jpg')"
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)']
