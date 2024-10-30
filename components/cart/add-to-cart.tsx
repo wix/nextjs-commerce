@@ -5,8 +5,7 @@ import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import { useProduct } from 'components/product/product-context';
 import { ProductVariant } from 'lib/wix/types';
-import { useFormState } from 'react-dom';
-import { useCart } from './cart-context';
+import { useActionState } from 'react';
 
 function SubmitButton({
   availableForSale,
@@ -66,9 +65,8 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const { addCartItem } = useCart();
   const { state } = useProduct();
-  const [message, formAction] = useFormState(addItem, null);
+  const [message, formAction] = useActionState(addItem, null);
 
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const variant = variants.find((variant: ProductVariant) =>

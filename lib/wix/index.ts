@@ -179,7 +179,7 @@ const reshapeProduct = (item: products.Product) => {
 export async function addToCart(
   lines: { productId: string; variant?: ProductVariant; quantity: number }[]
 ): Promise<Cart> {
-  const { addToCurrentCart } = getWixClient().use(currentCart);
+  const { addToCurrentCart } = (await getWixClient()).use(currentCart);
   const { cart } = await addToCurrentCart({
     lineItems: lines.map(({ productId, variant, quantity }) => ({
       catalogReference: {
@@ -205,7 +205,7 @@ export async function addToCart(
 }
 
 export async function removeFromCart(lineIds: string[]): Promise<Cart> {
-  const { removeLineItemsFromCurrentCart } = getWixClient().use(currentCart);
+  const { removeLineItemsFromCurrentCart } = (await getWixClient()).use(currentCart);
 
   const { cart } = await removeLineItemsFromCurrentCart(lineIds);
 
@@ -215,7 +215,7 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 export async function updateCart(
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const { updateCurrentCartLineItemQuantity } = getWixClient().use(currentCart);
+  const { updateCurrentCartLineItemQuantity } = (await getWixClient()).use(currentCart);
 
   const { cart } = await updateCurrentCartLineItemQuantity(
     lines.map(({ id, quantity }) => ({
@@ -228,7 +228,7 @@ export async function updateCart(
 }
 
 export async function getCart(): Promise<Cart | undefined> {
-  const { getCurrentCart } = getWixClient().use(currentCart);
+  const { getCurrentCart } = (await getWixClient()).use(currentCart);
   try {
     const cart = await getCurrentCart();
 
@@ -241,7 +241,7 @@ export async function getCart(): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const { getCollectionBySlug } = getWixClient().use(collections);
+  const { getCollectionBySlug } = (await getWixClient()).use(collections);
 
   try {
     const { collection } = await getCollectionBySlug(handle);
@@ -267,7 +267,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const { getCollectionBySlug } = getWixClient().use(collections);
+  const { getCollectionBySlug } = (await getWixClient()).use(collections);
   let resolvedCollection;
   try {
     const { collection: wixCollection } = await getCollectionBySlug(collection);
@@ -283,15 +283,15 @@ export async function getCollectionProducts({
     return [];
   }
 
-  const { items } = await sortedProductsQuery(sortKey, reverse)
+  const { items } = await (await sortedProductsQuery(sortKey, reverse))
     .hasSome('collectionIds', [resolvedCollection._id])
     .find();
 
   return items.map(reshapeProduct);
 }
 
-function sortedProductsQuery(sortKey?: string, reverse?: boolean) {
-  const { queryProducts } = getWixClient().use(products);
+async function sortedProductsQuery(sortKey?: string, reverse?: boolean) {
+  const { queryProducts } = (await getWixClient()).use(products);
   const query = queryProducts();
   if (reverse) {
     return query.descending((sortKey! as SortKey) ?? 'name');
@@ -301,7 +301,7 @@ function sortedProductsQuery(sortKey?: string, reverse?: boolean) {
 }
 
 export async function getCollections(): Promise<Collection[]> {
-  const { queryCollections } = getWixClient().use(collections);
+  const { queryCollections } = (await getWixClient()).use(collections);
   const { items } = await queryCollections().find();
 
   const wixCollections = [
@@ -325,7 +325,7 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const { queryDataItems } = getWixClient().use(items);
+  const { queryDataItems } = (await getWixClient()).use(items);
 
   const { items: menus } = await queryDataItems({
     dataCollectionId: 'Menus',
@@ -355,7 +355,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 }
 
 export async function getPage(handle: string): Promise<Page | undefined> {
-  const { queryDataItems } = getWixClient().use(items);
+  const { queryDataItems } = (await getWixClient()).use(items);
 
   const { items: pages } = await queryDataItems({
     dataCollectionId: 'Pages'
@@ -395,7 +395,7 @@ export async function getPage(handle: string): Promise<Page | undefined> {
 }
 
 export async function getPages(): Promise<Page[]> {
-  const { queryDataItems } = getWixClient().use(items);
+  const { queryDataItems } = (await getWixClient()).use(items);
 
   const { items: pages } = await queryDataItems({
     dataCollectionId: 'Pages2'
@@ -428,7 +428,7 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  const { queryProducts } = getWixClient().use(products);
+  const { queryProducts } = (await getWixClient()).use(products);
   const { items } = await queryProducts().eq('slug', handle).limit(1).find();
   const product = items[0];
 
@@ -440,7 +440,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  const { getRecommendation } = getWixClient().use(recommendations);
+  const { getRecommendation } = (await getWixClient()).use(recommendations);
 
   const { recommendation } = await getRecommendation(
     [
@@ -472,7 +472,7 @@ export async function getProductRecommendations(productId: string): Promise<Prod
     return [];
   }
 
-  const { queryProducts } = getWixClient().use(products);
+  const { queryProducts } = (await getWixClient()).use(products);
   const { items } = await queryProducts()
     .in(
       '_id',
@@ -491,17 +491,17 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const { items } = await sortedProductsQuery(sortKey, reverse)
+  const { items } = await (await sortedProductsQuery(sortKey, reverse))
     .startsWith('name', query || '')
     .find();
 
   return items.map(reshapeProduct);
 }
 
-export const getWixClient = () => {
+export const getWixClient = async () => {
   let sessionTokens;
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     sessionTokens = JSON.parse(cookieStore.get(WIX_SESSION_COOKIE)?.value || '{}');
   } catch (e) {}
   const wixClient = createClient({
@@ -517,7 +517,7 @@ export async function createCheckoutUrl(postFlowUrl: string) {
   const {
     currentCart: { createCheckoutFromCurrentCart },
     redirects: { createRedirectSession }
-  } = getWixClient().use({ currentCart, redirects });
+  } = (await getWixClient()).use({ currentCart, redirects });
 
   const currentCheckout = await createCheckoutFromCurrentCart({
     channelType: currentCart.ChannelType.OTHER_PLATFORM

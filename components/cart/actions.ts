@@ -25,7 +25,10 @@ export const addItem = async (
   }
 };
 
-export const removeItem = async (_prevState: unknown, lineId: string): Promise<String | undefined> => {
+export const removeItem = async (
+  _prevState: unknown,
+  lineId: string
+): Promise<String | undefined> => {
   try {
     await removeFromCart([lineId]);
     revalidatePath('/', 'layout');
@@ -34,15 +37,18 @@ export const removeItem = async (_prevState: unknown, lineId: string): Promise<S
   }
 };
 
-export const updateItemQuantity = async (_prevState: unknown, {
-  lineId,
-  variantId,
-  quantity
-}: {
-  lineId: string;
-  variantId: string;
-  quantity: number;
-}): Promise<String | undefined> => {
+export const updateItemQuantity = async (
+  _prevState: unknown,
+  {
+    lineId,
+    variantId,
+    quantity
+  }: {
+    lineId: string;
+    variantId: string;
+    quantity: number;
+  }
+): Promise<String | undefined> => {
   try {
     await updateCart([
       {
@@ -59,7 +65,7 @@ export const updateItemQuantity = async (_prevState: unknown, {
 };
 
 export async function redirectToCheckout() {
-  const checkoutUrl = await createCheckoutUrl(new URL(headers().get('referer')!).origin);
+  const checkoutUrl = await createCheckoutUrl(new URL((await headers()).get('referer')!).origin);
 
   redirect(checkoutUrl);
 }
