@@ -184,7 +184,7 @@ export async function addToCart(
     lineItems: lines.map(({ productId, variant, quantity }) => ({
       catalogReference: {
         catalogItemId: productId,
-        appId: '1380b703-ce81-ff05-f115-39571d94dfcd',
+        appId: '215238eb-22a5-4c36-9e7b-e7c08025e04e',
         ...(variant && {
           options:
             variant.id === '00000000-0000-0000-0000-000000000000'
