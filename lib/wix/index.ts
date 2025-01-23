@@ -325,12 +325,10 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const { queryDataItems } = (await getWixClient()).use(items);
+  const { query } = (await getWixClient()).use(items);
 
-  const { items: menus } = await queryDataItems({
-    dataCollectionId: 'Menus',
-    includeReferencedItems: ['pages']
-  })
+  const { items: menus } = await query('Menus')
+    .include('pages')
     .eq('slug', handle)
     .find()
     .catch((e) => {
@@ -347,7 +345,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   const menu = menus[0];
 
   return (
-    menu?.data!.pages.map((page: { title: string; slug: string }) => ({
+    menu?.pages.map((page: { title: string; slug: string }) => ({
       title: page.title,
       path: '/' + page.slug
     })) || []
@@ -355,11 +353,9 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 }
 
 export async function getPage(handle: string): Promise<Page | undefined> {
-  const { queryDataItems } = (await getWixClient()).use(items);
+  const { query } = (await getWixClient()).use(items);
 
-  const { items: pages } = await queryDataItems({
-    dataCollectionId: 'Pages'
-  })
+  const { items: pages } = await query('Pages')
     .eq('slug', handle)
     .find()
     .catch((e) => {
@@ -381,25 +377,23 @@ export async function getPage(handle: string): Promise<Page | undefined> {
 
   return {
     id: page._id!,
-    title: page.data!.title,
-    handle: '/' + page.data!.slug,
-    body: page.data!.body,
+    title: page.title,
+    handle: '/' + page.slug,
+    body: page.body,
     bodySummary: '',
-    createdAt: page.data!._createdDate.$date,
+    createdAt: page._createdDate!.toDateString(),
     seo: {
-      title: page.data!.seoTitle,
-      description: page.data!.seoDescription
+      title: page.seoTitle,
+      description: page.seoDescription
     },
-    updatedAt: page.data!._updatedDate.$date
+    updatedAt: page._updatedDate!.toDateString()
   };
 }
 
 export async function getPages(): Promise<Page[]> {
-  const { queryDataItems } = (await getWixClient()).use(items);
+  const { query } = (await getWixClient()).use(items);
 
-  const { items: pages } = await queryDataItems({
-    dataCollectionId: 'Pages2'
-  })
+  const { items: pages } = await query('Pages')
     .find()
     .catch((e) => {
       if (e.details.applicationError.code === 'WDE0025') {
