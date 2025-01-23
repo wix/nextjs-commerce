@@ -25,7 +25,7 @@ Here you can find the [full documentation on getting started with Wix Headless](
 
 - Create a new Project ([Docs](https://dev.wix.com/docs/go-headless/getting-started/setup/general-setup/create-a-project))
   - Be sure to select the ecommerce business solution
-- Create an OAuth App for headless authentication ([Docs](https://dev.wix.com/docs/go-headless/getting-started/setup/authorization/create-an-o-auth-app-for-visitors-and-members))
+- Create an OAuth App for headless authentication ([Docs](https://dev.wix.com/docs/go-headless/getting-started/setup/authentication/create-an-oauth-app-for-visitors-and-members))
 - Copy the Client ID of your new OAuth App for use in your local environment
 
 ### Preparing your Wix Store content
