@@ -10,7 +10,9 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   return (
     <button
       type="submit"
-      aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
+      aria-label={
+        type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'
+      }
       className={clsx(
         'ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full p-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80',
         {
@@ -42,13 +44,13 @@ export function EditItemQuantityButton({
     variantId: item.merchandise.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
-  const actionWithVariant = formAction.bind(null, payload);
+  const updateItemQuantityAction = formAction.bind(null, payload);
 
   return (
     <form
       action={async () => {
         optimisticUpdate(item.merchandise.id, type);
-        await actionWithVariant();
+        updateItemQuantityAction();
       }}
     >
       <SubmitButton type={type} />

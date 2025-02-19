@@ -213,7 +213,7 @@ export async function removeFromCart(lineIds: string[]): Promise<Cart> {
 }
 
 export async function updateCart(
-  lines: { id: string; merchandiseId: string; quantity: number }[]
+  lines: { id: string; quantity: number }[]
 ): Promise<Cart> {
   const { updateCurrentCartLineItemQuantity } = (await getWixClient()).use(currentCart);
 
@@ -332,6 +332,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     .eq('slug', handle)
     .find()
     .catch((e) => {
+      console.error(e);
       if (e.details.applicationError.code === 'WDE0025') {
         console.error(
           'Menus collection was not found. Did you forget to create the Menus data collection?'

@@ -1,6 +1,6 @@
 'use server';
 
-import { addToCart, createCheckoutUrl, removeFromCart, updateCart } from 'lib/wix';
+import { addToCart, createCheckoutUrl, getCart, removeFromCart, updateCart } from 'lib/wix';
 import { ProductVariant } from 'lib/wix/types';
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
@@ -48,15 +48,31 @@ export const updateItemQuantity = async (
     variantId: string;
     quantity: number;
   }
-): Promise<String | undefined> => {
+) => {
   try {
-    await updateCart([
-      {
-        id: lineId,
-        merchandiseId: variantId,
-        quantity
+    const cart = await getCart();
+
+    if (!cart) {
+      return 'Error fetching cart';
+    }
+
+    const lineItem = cart.lines.find(
+      (line) => line.id === lineId
+    );
+
+    if (lineItem && lineItem.id) {
+      if (quantity === 0) {
+        await removeFromCart([lineItem.id]);
+      } else {
+        await updateCart([
+          {
+            id: lineItem.id,
+            quantity
+          }
+        ]);
       }
-    ]);
+    }
+
     revalidatePath('/', 'layout');
   } catch (e) {
     console.error(e);

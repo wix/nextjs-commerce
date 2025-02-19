@@ -25,7 +25,7 @@ export function ProductDescription({ product }: { product: Product }) {
       ) : null}
 
       <AddToCart
-        productId={product.id}
+        product={product}
         variants={product.variants}
         availableForSale={product.availableForSale}
       />
